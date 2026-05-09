@@ -2,6 +2,9 @@
 .agents/
 skills-lock.json
 
+# Impeccable tooling cache
+.impeccable/
+
 # OS
 .DS_Store
 Thumbs.db

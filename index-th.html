@@ -138,6 +138,10 @@
     margin-bottom: 64px;
     scroll-margin-top: 20px;
   }
+  main section[id] {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 1200px;
+  }
   h2 {
     font-size: 36px;
     font-weight: 700;
@@ -860,6 +864,16 @@
     margin: 6px 0;
     background: rgba(201, 169, 110, 0.08);
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 </style>
 </head>
 <body>
@@ -928,7 +942,7 @@
       if (o) o.classList.remove('show');
     }
   });
-  // Scroll-spy for TOC
+  // Scroll-spy for TOC — IntersectionObserver, no per-frame layout reads
   var sections = document.querySelectorAll('main section[id], main footer[id]');
   var tocLinks = document.querySelectorAll('nav.toc a[href^="#"]');
   var linkMap = {};
@@ -936,17 +950,25 @@
     var id = l.getAttribute('href').replace('#','');
     if (id) linkMap[id] = l;
   });
-  function spy() {
-    var activeId = null;
-    var pos = window.scrollY + 120;
-    sections.forEach(function(s){
-      if (s.offsetTop <= pos) activeId = s.id;
-    });
+  function setActive(id){
     tocLinks.forEach(function(l){ l.classList.remove('active'); });
-    if (activeId && linkMap[activeId]) linkMap[activeId].classList.add('active');
+    if (id && linkMap[id]) linkMap[id].classList.add('active');
   }
-  window.addEventListener('scroll', spy, { passive: true });
-  spy();
+  if ('IntersectionObserver' in window && sections.length) {
+    var visible = new Set();
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) visible.add(e.target.id);
+        else visible.delete(e.target.id);
+      });
+      var activeId = null;
+      for (var i = sections.length - 1; i >= 0; i--) {
+        if (visible.has(sections[i].id)) { activeId = sections[i].id; break; }
+      }
+      if (activeId) setActive(activeId);
+    }, { rootMargin: '-120px 0px -70% 0px', threshold: 0 });
+    sections.forEach(function(s){ io.observe(s); });
+  }
 })();
 </script>
 
