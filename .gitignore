@@ -1,0 +1,13 @@
+# Skills installed by `npx skills add ...`
+.agents/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*~
