@@ -11,8 +11,15 @@ Two self-contained HTML deep-dive reports:
 | [`index.html`](./index.html) | English | Full deep dive — 16 sections, ~18 min read |
 | [`index-th.html`](./index-th.html) | ภาษาไทย | เวอร์ชันไทย — 16 sections, ~18 นาที |
 | [`pitch-th.html`](./pitch-th.html) | ภาษาไทย | Pitch deck 10 สไลด์ · navigate ด้วย arrow keys · ~10 นาที |
+| [`brand.html`](./brand.html) | ภาษาไทย | Brand guidelines · logo variants · color palette · typography |
 
-Open either file in any modern browser. No build step, no dependencies.
+Brand assets:
+- [`logo.svg`](./logo.svg) — primary horizontal logo
+- [`logo-stacked.svg`](./logo-stacked.svg) — stacked version (square avatar)
+- [`logo-icon.svg`](./logo-icon.svg) — icon only
+- [`logo-mono.svg`](./logo-mono.svg) — single-color version
+
+Open any file in a modern browser. No build step, no dependencies.
 
 ## The pitch in one paragraph
 

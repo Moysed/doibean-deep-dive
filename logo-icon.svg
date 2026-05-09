@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="beanFill" x1="20%" y1="10%" x2="85%" y2="95%">
+      <stop offset="0%" stop-color="#E5C896"/>
+      <stop offset="60%" stop-color="#C9A96E"/>
+      <stop offset="100%" stop-color="#A88C58"/>
+    </linearGradient>
+    <radialGradient id="beanShine" cx="35%" cy="30%" r="55%">
+      <stop offset="0%" stop-color="#FFF6E0" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#FFF6E0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <g transform="rotate(-12 100 100)">
+    <!-- Coffee bean body -->
+    <ellipse cx="100" cy="100" rx="78" ry="56" fill="url(#beanFill)" stroke="#2C1810" stroke-width="4.5"/>
+
+    <!-- Subtle highlight -->
+    <ellipse cx="100" cy="100" rx="78" ry="56" fill="url(#beanShine)"/>
+
+    <!-- Mountain ridge replacing the bean crease (the "Doi" in DoiBean) -->
+    <path d="M 30 110
+             L 56 78
+             L 76 100
+             L 100 60
+             L 124 95
+             L 148 75
+             L 170 110"
+          stroke="#2C1810"
+          stroke-width="5"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
+
+    <!-- Tiny sun above the highest peak -->
+    <circle cx="100" cy="44" r="6" fill="#C66E4E"/>
+  </g>
+</svg>

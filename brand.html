@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DoiBean — Brand</title>
+<style>
+  :root {
+    --coffee-dark: #2C1810;
+    --coffee-mid: #5D3A1F;
+    --coffee-light: #8B6F47;
+    --cream: #FAF6F0;
+    --cream-dark: #F0E6D2;
+    --bean-green: #5C7A3F;
+    --terracotta: #C66E4E;
+    --gold: #C9A96E;
+    --gold-bright: #E5C896;
+    --slate: #2C2416;
+    --slate-mid: #5A4D3F;
+    --border: #D4C5A9;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Sukhumvit Set", "IBM Plex Sans Thai", "Noto Sans Thai", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--cream);
+    color: var(--slate);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 40px 120px;
+  }
+
+  /* Header */
+  .top {
+    border-bottom: 3px solid var(--coffee-dark);
+    padding-bottom: 32px;
+    margin-bottom: 60px;
+  }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--coffee-mid);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    color: var(--coffee-dark);
+    margin-bottom: 12px;
+    line-height: 1.1;
+  }
+  .top-desc {
+    font-size: 18px;
+    color: var(--slate-mid);
+    max-width: 700px;
+  }
+  .lang-switch {
+    position: fixed;
+    top: 20px;
+    right: 24px;
+    z-index: 100;
+    background: var(--coffee-dark);
+    color: var(--gold);
+    padding: 10px 18px;
+    border-radius: 24px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 12px rgba(44, 24, 16, 0.25);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .lang-switch:hover { background: var(--gold); color: var(--coffee-dark); }
+  .lang-switch::before { content: "←"; }
+
+  /* Section */
+  section { margin-bottom: 80px; }
+  h2 {
+    font-size: 28px;
+    color: var(--coffee-dark);
+    margin-bottom: 6px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  .sec-num {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+  .sec-desc {
+    font-size: 15px;
+    color: var(--slate-mid);
+    margin-bottom: 28px;
+    max-width: 700px;
+  }
+
+  /* Hero logo display */
+  .hero-logo {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 80px 40px;
+    text-align: center;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-logo::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-bright), var(--gold));
+  }
+  .hero-logo svg { max-width: 460px; height: auto; }
+
+  /* Variants grid */
+  .variants {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .variant {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .variant.dark { background: var(--coffee-dark); border-color: var(--coffee-mid); }
+  .variant.dark .variant-name { color: var(--gold); }
+  .variant.dark .variant-meta { color: var(--cream-dark); }
+  .variant.gold-bg { background: var(--gold); border-color: var(--gold-bright); }
+  .variant.gold-bg .variant-name { color: var(--coffee-dark); }
+  .variant.gold-bg .variant-meta { color: var(--coffee-mid); }
+  .variant-display {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    width: 100%;
+  }
+  .variant-display svg { max-width: 100%; max-height: 140px; }
+  .variant-display.icon-only svg { max-width: 100px; }
+  .variant-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--coffee-dark);
+    text-align: center;
+    letter-spacing: 0.3px;
+  }
+  .variant-meta {
+    font-size: 11px;
+    color: var(--coffee-mid);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+  }
+  .variant-download {
+    background: var(--coffee-dark);
+    color: var(--gold);
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.15s;
+  }
+  .variant-download:hover { background: var(--gold); color: var(--coffee-dark); }
+  .variant.dark .variant-download { background: var(--gold); color: var(--coffee-dark); }
+  .variant.dark .variant-download:hover { background: var(--cream); }
+
+  /* Color palette */
+  .palette {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+  }
+  .swatch {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .swatch-color {
+    height: 100px;
+  }
+  .swatch-info {
+    padding: 14px 16px;
+  }
+  .swatch-name {
+    font-weight: 700;
+    color: var(--coffee-dark);
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .swatch-hex {
+    font-family: "SF Mono", Monaco, monospace;
+    font-size: 12px;
+    color: var(--slate-mid);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .swatch-use {
+    font-size: 11px;
+    color: var(--slate-mid);
+    margin-top: 4px;
+  }
+
+  /* Typography spec */
+  .type-spec {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+  }
+  .type-row {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--cream-dark);
+  }
+  .type-row:last-child { border-bottom: none; }
+  .type-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--coffee-mid);
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .type-sample {
+    color: var(--coffee-dark);
+    margin-bottom: 6px;
+  }
+  .type-meta {
+    font-family: "SF Mono", Monaco, monospace;
+    font-size: 11px;
+    color: var(--slate-mid);
+    letter-spacing: 0.5px;
+  }
+  .type-h1 { font-size: 56px; font-weight: 800; letter-spacing: -2px; line-height: 1; }
+  .type-h2 { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; }
+  .type-body { font-size: 16px; font-weight: 400; }
+  .type-mono { font-family: "SF Mono", Monaco, monospace; font-size: 14px; }
+
+  /* Usage do/don't */
+  .usage {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .usage-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+  }
+  .usage-card.do { border-left: 5px solid var(--bean-green); }
+  .usage-card.dont { border-left: 5px solid var(--terracotta); }
+  .usage-tag {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .usage-card.do .usage-tag { color: var(--bean-green); }
+  .usage-card.dont .usage-tag { color: var(--terracotta); }
+  .usage-card ul { margin-left: 20px; font-size: 14px; color: var(--slate); }
+  .usage-card li { margin-bottom: 8px; line-height: 1.55; }
+
+  /* Concept story box */
+  .concept {
+    background: linear-gradient(135deg, var(--coffee-dark), var(--coffee-mid));
+    color: var(--cream);
+    padding: 40px 48px;
+    border-radius: 16px;
+    margin-bottom: 24px;
+  }
+  .concept h3 {
+    color: var(--gold);
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+  .concept p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--cream-dark);
+    max-width: 700px;
+  }
+  .concept p + p { margin-top: 12px; }
+  .concept strong { color: var(--gold); }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--border);
+    margin-top: 80px;
+    padding-top: 32px;
+    font-size: 13px;
+    color: var(--slate-mid);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  footer a {
+    color: var(--coffee-mid);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--coffee-light);
+  }
+  footer a:hover { color: var(--terracotta); }
+
+  @media print {
+    .lang-switch, .variant-download { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<a class="lang-switch" href="index-th.html" title="กลับ">รายงาน</a>
+
+<main>
+
+<header class="top">
+  <div class="eyebrow">DOIBEAN · BRAND IDENTITY</div>
+  <h1>เครื่องมือแบรนด์</h1>
+  <p class="top-desc">โลโก้ · สี · typography · แนวทางการใช้ · สำหรับทีมและพันธมิตร</p>
+</header>
+
+<!-- ============= CONCEPT ============= -->
+<section>
+  <p class="sec-num">SECTION 01</p>
+  <h2>แนวคิดโลโก้</h2>
+  <div class="concept">
+    <h3>เมล็ดกาแฟที่เป็นภูเขา</h3>
+    <p>โลโก้ DoiBean ผสมสองสิ่งเข้าด้วยกัน: <strong>เมล็ดกาแฟ</strong> (Bean) และ <strong>ภูเขา</strong> (Doi · ดอย ในภาษาเหนือแปลว่าภูเขา)</p>
+    <p>รอยกลางของเมล็ดกาแฟตามปกติเป็นเส้นโค้ง S — เราเปลี่ยนเป็น<strong>สันเขา 3 ยอด</strong>เพื่อให้เห็นทั้งสองสัญลักษณ์ในรูปเดียว · จุดสีส้มเหนือยอดสูงสุดคือ<strong>พระอาทิตย์</strong>ที่ขึ้นเหนือดอยช้าง</p>
+    <p>ทุกครั้งที่เห็นโลโก้ จะนึกถึงทั้ง<strong>ที่มา</strong> (ดอย) และ<strong>สิ่งที่ทำ</strong> (กาแฟ)</p>
+  </div>
+</section>
+
+<!-- ============= PRIMARY LOGO ============= -->
+<section>
+  <p class="sec-num">SECTION 02</p>
+  <h2>โลโก้หลัก</h2>
+  <p class="sec-desc">ใช้ในกรณีปกติ · พื้นหลังขาวหรือครีม · มีพื้นที่กว้างพอ</p>
+
+  <div class="hero-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 160">
+      <defs>
+        <linearGradient id="bg1" x1="20%" y1="10%" x2="85%" y2="95%">
+          <stop offset="0%" stop-color="#E5C896"/>
+          <stop offset="60%" stop-color="#C9A96E"/>
+          <stop offset="100%" stop-color="#A88C58"/>
+        </linearGradient>
+        <radialGradient id="bs1" cx="35%" cy="30%" r="55%">
+          <stop offset="0%" stop-color="#FFF6E0" stop-opacity="0.45"/>
+          <stop offset="100%" stop-color="#FFF6E0" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <g transform="translate(20, 20) scale(0.6)">
+        <g transform="rotate(-12 100 100)">
+          <ellipse cx="100" cy="100" rx="78" ry="56" fill="url(#bg1)" stroke="#2C1810" stroke-width="4.5"/>
+          <ellipse cx="100" cy="100" rx="78" ry="56" fill="url(#bs1)"/>
+          <path d="M 30 110 L 56 78 L 76 100 L 100 60 L 124 95 L 148 75 L 170 110"
+                stroke="#2C1810" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="100" cy="44" r="6" fill="#C66E4E"/>
+        </g>
+      </g>
+      <text x="160" y="105"
+            font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+            font-size="76" font-weight="800" letter-spacing="-2" fill="#2C1810">Doi<tspan fill="#C9A96E">Bean</tspan></text>
+    </svg>
+  </div>
+</section>
+
+<!-- ============= VARIANTS ============= -->
+<section>
+  <p class="sec-num">SECTION 03</p>
+  <h2>เวอร์ชันต่างๆ</h2>
+  <p class="sec-desc">เลือกใช้ตามบริบท · ทุกไฟล์เป็น SVG ขยายได้ไม่แตก</p>
+
+  <div class="variants">
+    <!-- Horizontal -->
+    <div class="variant">
+      <div class="variant-display">
+        <svg viewBox="0 0 520 160">
+          <defs>
+            <linearGradient id="bg2" x1="20%" y1="10%" x2="85%" y2="95%">
+              <stop offset="0%" stop-color="#E5C896"/>
+              <stop offset="60%" stop-color="#C9A96E"/>
+              <stop offset="100%" stop-color="#A88C58"/>
+            </linearGradient>
+          </defs>
+          <g transform="translate(20, 20) scale(0.6)">
+            <g transform="rotate(-12 100 100)">
+              <ellipse cx="100" cy="100" rx="78" ry="56" fill="url(#bg2)" stroke="#2C1810" stroke-width="4.5"/>
+              <path d="M 30 110 L 56 78 L 76 100 L 100 60 L 124 95 L 148 75 L 170 110"
+                    stroke="#2C1810" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="100" cy="44" r="6" fill="#C66E4E"/>
+            </g>
+          </g>
+          <text x="160" y="105" font-family="sans-serif" font-size="76" font-weight="800" letter-spacing="-2" fill="#2C1810">Doi<tspan fill="#C9A96E">Bean</tspan></text>
+        </svg>
+      </div>
+      <div>
+        <div class="variant-name">Primary Horizontal</div>
+        <div class="variant-meta">โลโก้หลัก · พื้นขาว/ครีม</div>
+      </div>
+      <a class="variant-download" href="logo.svg" download>↓ logo.svg</a>
+    </div>
+
+    <!-- Stacked -->
+    <div class="variant">
+      <div class="variant-display">
+        <svg viewBox="0 0 320 320">
+          <defs>
+            <linearGradient id="bg3" x1="20%" y1="10%" x2="85%" y2="95%">
+              <stop offset="0%" stop-color="#E5C896"/>
+              <stop offset="60%" stop-color="#C9A96E"/>
+              <stop offset="100%" stop-color="#A88C58"/>
+            </linearGradient>
+          </defs>
+          <g transform="translate(60, 30)">
+            <g transform="rotate(-12 100 100)">
+              <ellipse cx="100" cy="100" rx="78" ry="56" fill="url(#bg3)" stroke="#2C1810" stroke-width="4.5"/>
+              <path d="M 30 110 L 56 78 L 76 100 L 100 60 L 124 95 L 148 75 L 170 110"
+                    stroke="#2C1810" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="100" cy="44" r="6" fill="#C66E4E"/>
+            </g>
+          </g>
+          <text x="160" y="285" text-anchor="middle" font-family="sans-serif" font-size="56" font-weight="800" letter-spacing="-1.5" fill="#2C1810">Doi<tspan fill="#C9A96E">Bean</tspan></text>
+        </svg>
+      </div>
+      <div>
+        <div class="variant-name">Stacked</div>
+        <div class="variant-meta">รูปจัตุรัส · social avatar</div>
+      </div>
+      <a class="variant-download" href="logo-stacked.svg" download>↓ logo-stacked.svg</a>
+    </div>
+
+    <!-- Icon only -->
+    <div class="variant">
+      <div class="variant-display icon-only">
+        <svg viewBox="0 0 200 200">
+          <defs>
+            <linearGradient id="bg4" x1="20%" y1="10%" x2="85%" y2="95%">
+              <stop offset="0%" stop-color="#E5C896"/>
+              <stop offset="60%" stop-color="#C9A96E"/>
+              <stop offset="100%" stop-color="#A88C58"/>
+            </linearGradient>
+          </defs>
+          <g transform="rotate(-12 100 100)">
+            <ellipse cx="100" cy="100" rx="78" ry="56" fill="url(#bg4)" stroke="#2C1810" stroke-width="4.5"/>
+            <path d="M 30 110 L 56 78 L 76 100 L 100 60 L 124 95 L 148 75 L 170 110"
+                  stroke="#2C1810" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="100" cy="44" r="6" fill="#C66E4E"/>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <div class="variant-name">Icon Only</div>
+        <div class="variant-meta">app icon · favicon · stamp</div>
+      </div>
+      <a class="variant-download" href="logo-icon.svg" download>↓ logo-icon.svg</a>
+    </div>
+
+    <!-- Dark background -->
+    <div class="variant dark">
+      <div class="variant-display">
+        <svg viewBox="0 0 520 160">
+          <defs>
+            <linearGradient id="bg5" x1="20%" y1="10%" x2="85%" y2="95%">
+              <stop offset="0%" stop-color="#E5C896"/>
+              <stop offset="60%" stop-color="#C9A96E"/>
+              <stop offset="100%" stop-color="#A88C58"/>
+            </linearGradient>
+          </defs>
+          <g transform="translate(20, 20) scale(0.6)">
+            <g transform="rotate(-12 100 100)">
+              <ellipse cx="100" cy="100" rx="78" ry="56" fill="url(#bg5)" stroke="#2C1810" stroke-width="4.5"/>
+              <path d="M 30 110 L 56 78 L 76 100 L 100 60 L 124 95 L 148 75 L 170 110"
+                    stroke="#2C1810" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="100" cy="44" r="6" fill="#C66E4E"/>
+            </g>
+          </g>
+          <text x="160" y="105" font-family="sans-serif" font-size="76" font-weight="800" letter-spacing="-2" fill="#FAF6F0">Doi<tspan fill="#C9A96E">Bean</tspan></text>
+        </svg>
+      </div>
+      <div>
+        <div class="variant-name">บนพื้นดำ/coffee dark</div>
+        <div class="variant-meta">deck · keynote · poster</div>
+      </div>
+      <a class="variant-download" href="logo.svg" download>↓ ใช้ logo.svg + พื้น dark</a>
+    </div>
+
+    <!-- Mono -->
+    <div class="variant">
+      <div class="variant-display">
+        <svg viewBox="0 0 520 160">
+          <g transform="translate(20, 20) scale(0.6)">
+            <g transform="rotate(-12 100 100)">
+              <ellipse cx="100" cy="100" rx="78" ry="56" fill="none" stroke="#2C1810" stroke-width="6"/>
+              <path d="M 30 110 L 56 78 L 76 100 L 100 60 L 124 95 L 148 75 L 170 110"
+                    stroke="#2C1810" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="100" cy="44" r="7" fill="#2C1810"/>
+            </g>
+          </g>
+          <text x="160" y="105" font-family="sans-serif" font-size="76" font-weight="800" letter-spacing="-2" fill="#2C1810">DoiBean</text>
+        </svg>
+      </div>
+      <div>
+        <div class="variant-name">Monochrome</div>
+        <div class="variant-meta">stamp · ฉลาก · ขาวดำ · fax</div>
+      </div>
+      <a class="variant-download" href="logo-mono.svg" download>↓ logo-mono.svg</a>
+    </div>
+
+    <!-- Gold background -->
+    <div class="variant gold-bg">
+      <div class="variant-display">
+        <svg viewBox="0 0 520 160">
+          <g transform="translate(20, 20) scale(0.6)">
+            <g transform="rotate(-12 100 100)">
+              <ellipse cx="100" cy="100" rx="78" ry="56" fill="none" stroke="#2C1810" stroke-width="6"/>
+              <path d="M 30 110 L 56 78 L 76 100 L 100 60 L 124 95 L 148 75 L 170 110"
+                    stroke="#2C1810" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="100" cy="44" r="7" fill="#2C1810"/>
+            </g>
+          </g>
+          <text x="160" y="105" font-family="sans-serif" font-size="76" font-weight="800" letter-spacing="-2" fill="#2C1810">DoiBean</text>
+        </svg>
+      </div>
+      <div>
+        <div class="variant-name">บนพื้นทอง</div>
+        <div class="variant-meta">accent banner · sticker</div>
+      </div>
+      <a class="variant-download" href="logo-mono.svg" download>↓ ใช้ logo-mono.svg</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============= COLOR PALETTE ============= -->
+<section>
+  <p class="sec-num">SECTION 04</p>
+  <h2>จานสี</h2>
+  <p class="sec-desc">8 สี · ใช้คงเส้นคงวาทุกจุดติดต่อ</p>
+
+  <div class="palette">
+    <div class="swatch">
+      <div class="swatch-color" style="background: #2C1810;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Coffee Dark</div>
+        <div class="swatch-hex">#2C1810</div>
+        <div class="swatch-use">ตัวหนังสือหลัก · พื้นหลังหรู</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: #5D3A1F;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Coffee Mid</div>
+        <div class="swatch-hex">#5D3A1F</div>
+        <div class="swatch-use">accent · gradient คู่</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: #C9A96E;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Gold</div>
+        <div class="swatch-hex">#C9A96E</div>
+        <div class="swatch-use">brand accent · highlight</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: #E5C896;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Gold Bright</div>
+        <div class="swatch-hex">#E5C896</div>
+        <div class="swatch-use">gradient คู่กับ Gold</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: #FAF6F0;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Cream</div>
+        <div class="swatch-hex">#FAF6F0</div>
+        <div class="swatch-use">พื้นหลัง · soft white</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: #C66E4E;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Terracotta</div>
+        <div class="swatch-hex">#C66E4E</div>
+        <div class="swatch-use">เตือน · จุดเด่นแสดงข้อมูลด้านลบ</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: #5C7A3F;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Bean Green</div>
+        <div class="swatch-hex">#5C7A3F</div>
+        <div class="swatch-use">success · ข้อมูลเชิงบวก</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: #5A4D3F;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Slate Mid</div>
+        <div class="swatch-hex">#5A4D3F</div>
+        <div class="swatch-use">ตัวหนังสือรอง · meta</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= TYPOGRAPHY ============= -->
+<section>
+  <p class="sec-num">SECTION 05</p>
+  <h2>Typography</h2>
+  <p class="sec-desc">Stack ฟอนต์ที่รองรับทั้งไทยและอังกฤษ · ทุกเครื่องเปิดได้</p>
+
+  <div class="type-spec">
+    <div class="type-row">
+      <div class="type-label">Display · H1</div>
+      <div class="type-sample type-h1">DoiBean</div>
+      <div class="type-meta">76px / 800 / letter-spacing -2 / line-height 1</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Heading · H2</div>
+      <div class="type-sample type-h2">เครื่องมือเปลี่ยนชีวิตชาวสวน</div>
+      <div class="type-meta">32px / 700 / letter-spacing -0.5</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Body</div>
+      <div class="type-sample type-body">DoiBean คือ AI co-pilot สำหรับชาวสวนกาแฟไทย ดูแลทั้งวงจรตั้งแต่เลือกสายพันธุ์ปลูก จนถึง roaster ชิมแล้วซื้อ ทำให้รายได้เพิ่มขึ้น 18 เท่า</div>
+      <div class="type-meta">16px / 400 / line-height 1.6</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Mono · Code</div>
+      <div class="type-sample type-mono">SCA Score: 84.5 · Specialty Grade ✓</div>
+      <div class="type-meta">"SF Mono" / Monaco / Cascadia Mono</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Font Stack</div>
+      <div class="type-meta" style="color: var(--coffee-dark); font-size: 13px; line-height: 1.7;">
+        "Sukhumvit Set", "IBM Plex Sans Thai", "Noto Sans Thai",<br>
+        -apple-system, BlinkMacSystemFont, "Segoe UI",<br>
+        "Helvetica Neue", Arial, sans-serif
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= USAGE ============= -->
+<section>
+  <p class="sec-num">SECTION 06</p>
+  <h2>การใช้งาน</h2>
+  <p class="sec-desc">หลักการพื้นฐาน · เพื่อรักษาความสง่าและจดจำได้</p>
+
+  <div class="usage">
+    <div class="usage-card do">
+      <div class="usage-tag">✓ ทำได้</div>
+      <ul>
+        <li>เว้น clear space รอบโลโก้อย่างน้อย <strong>เท่ากับความสูงของตัว "B"</strong></li>
+        <li>ใช้บนพื้นหลังที่ contrast ชัด (ขาว, ครีม, coffee dark, ทอง)</li>
+        <li>ใช้ SVG เพื่อรักษาความคมชัดทุกขนาด</li>
+        <li>โลโก้ขนาดเล็กสุดที่อ่านได้: <strong>32px (icon)</strong> · <strong>120px (horizontal)</strong></li>
+        <li>มืดบนสว่าง · สว่างบนมืด · ทอง accent จุดเดียว</li>
+      </ul>
+    </div>
+    <div class="usage-card dont">
+      <div class="usage-tag">✗ อย่าทำ</div>
+      <ul>
+        <li><strong>อย่าบีบ ยืด หมุน</strong> โลโก้ — รักษาสัดส่วนเดิม</li>
+        <li><strong>อย่าเปลี่ยนสี</strong> ไปเป็นสีอื่นนอก palette</li>
+        <li><strong>อย่าใส่เงา ขอบเรือง</strong> หรือ effect บน wordmark</li>
+        <li><strong>อย่าวางบนพื้นยุ่ง</strong> หรือพื้นที่ contrast ต่ำ</li>
+        <li><strong>อย่าแยกไอคอนกับชื่อ</strong> ในระยะใกล้กัน — ใช้ stacked แทน</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <strong style="color: var(--coffee-dark);">DoiBean Brand v1.0</strong> · <a href="index.html">EN report</a> · <a href="index-th.html">รายงานไทย</a> · <a href="pitch-th.html">Pitch deck</a>
+  </div>
+  <div>
+    Live: <a href="https://moysed.github.io/doibean-deep-dive/">moysed.github.io/doibean-deep-dive</a>
+  </div>
+</footer>
+
+</main>
+</body>
+</html>
