@@ -1,5 +1,6 @@
 # Skills installed by `npx skills add ...`
 .agents/
+skills-lock.json
 
 # OS
 .DS_Store
