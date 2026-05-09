@@ -12,6 +12,7 @@ Two self-contained HTML deep-dive reports:
 | [`index-th.html`](./index-th.html) | ภาษาไทย | เวอร์ชันไทย — 16 sections, ~18 นาที |
 | [`pitch-th.html`](./pitch-th.html) | ภาษาไทย | Pitch deck 10 สไลด์ · navigate ด้วย arrow keys · ~10 นาที |
 | [`brand.html`](./brand.html) | ภาษาไทย | Brand guidelines · logo variants · color palette · typography |
+| [`chiangmai-research.html`](./chiangmai-research.html) | ภาษาไทย | CM pain points × 9 hackathon categories · real user voice · stats grounded in research |
 
 Brand assets:
 - [`logo.svg`](./logo.svg) — primary horizontal logo
