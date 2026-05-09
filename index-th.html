@@ -716,10 +716,233 @@
     content: "🌐";
     font-size: 14px;
   }
+
+  /* --- Site Nav (cross-page navigation) --- */
+  .site-nav-btn {
+    position: fixed;
+    top: 20px;
+    left: 24px;
+    z-index: 100;
+    background: var(--coffee-dark);
+    color: var(--gold);
+    padding: 10px 18px;
+    border-radius: 24px;
+    border: 1px solid rgba(201, 169, 110, 0.3);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  .site-nav-btn:hover {
+    background: var(--gold);
+    color: var(--coffee-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+  }
+  .site-nav-btn::before { content: "▦"; font-size: 14px; opacity: 0.85; }
+  .site-nav-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(44, 24, 16, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 200;
+    display: none;
+    padding: 80px 24px 24px;
+  }
+  .site-nav-overlay.show { display: block; }
+  .site-nav-panel {
+    background: white;
+    border-radius: 16px;
+    border: 2px solid var(--gold);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+    width: 380px;
+    max-width: calc(100% - 48px);
+    padding: 8px;
+    margin-left: 24px;
+  }
+  .site-nav-panel-title {
+    padding: 16px 20px 12px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--coffee-mid);
+    text-transform: uppercase;
+    font-weight: 800;
+    border-bottom: 1px solid var(--cream-dark);
+    margin-bottom: 4px;
+  }
+  .site-nav-link {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 12px;
+    padding: 12px 16px;
+    text-decoration: none;
+    border-radius: 10px;
+    align-items: center;
+    margin-top: 2px;
+    transition: background 0.15s;
+    position: relative;
+  }
+  .site-nav-link:hover { background: var(--cream); }
+  .site-nav-link.current { background: linear-gradient(90deg, #FFF8E7, white); }
+  .site-nav-link.current::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 12px;
+    bottom: 12px;
+    width: 3px;
+    background: var(--gold);
+    border-radius: 2px;
+  }
+  .site-nav-link-icon { font-size: 22px; text-align: center; }
+  .site-nav-link-name {
+    color: var(--coffee-dark);
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 2px;
+    font-family: inherit;
+  }
+  .site-nav-link-meta {
+    color: var(--slate-mid);
+    font-size: 12px;
+    font-family: inherit;
+  }
+  @media print { .site-nav-btn, .site-nav-overlay { display: none !important; } }
+
+  /* --- Cleaner TOC sidebar --- */
+  nav.toc {
+    padding: 28px 16px;
+    font-size: 12.5px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--coffee-light) transparent;
+  }
+  nav.toc::-webkit-scrollbar { width: 4px; }
+  nav.toc::-webkit-scrollbar-track { background: transparent; }
+  nav.toc::-webkit-scrollbar-thumb { background: var(--coffee-light); border-radius: 2px; }
+  nav.toc h2 {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    margin-bottom: 14px;
+    padding: 0 10px;
+  }
+  nav.toc li { margin: 1px 0; }
+  nav.toc a {
+    color: rgba(240, 230, 210, 0.72);
+    padding: 8px 12px 8px 10px;
+    border-radius: 6px;
+    line-height: 1.4;
+    border-left-width: 2px;
+  }
+  nav.toc a:hover {
+    background: rgba(255,255,255,0.04);
+    color: white;
+    border-left-color: transparent;
+  }
+  nav.toc a.active {
+    background: rgba(201, 169, 110, 0.12);
+    border-left-color: var(--gold);
+    color: white;
+  }
+  nav.toc a::before {
+    color: rgba(139, 111, 71, 0.7);
+    margin-right: 12px;
+    font-size: 10px;
+  }
+  nav.toc a:hover::before, nav.toc a.active::before { color: var(--gold); }
+  nav.toc a.tldr-link, nav.toc a.wrap-link {
+    margin: 6px 0;
+    background: rgba(201, 169, 110, 0.08);
+  }
 </style>
 </head>
 <body>
 <a class="lang-switch" href="index.html" title="English">EN</a>
+<button class="site-nav-btn" onclick="window.toggleSiteNav()" title="หน้าทั้งหมด">หน้า</button>
+
+<div class="site-nav-overlay" id="siteNavOverlay" onclick="if(event.target===this)window.toggleSiteNav()">
+  <div class="site-nav-panel">
+    <div class="site-nav-panel-title">หน้าในโครงการ DoiBean</div>
+    <a href="index.html" class="site-nav-link" data-page="index">
+      <span class="site-nav-link-icon">📊</span>
+      <div>
+        <div class="site-nav-link-name">Deep Dive Report</div>
+        <div class="site-nav-link-meta">English · 16 sections · ~18 min</div>
+      </div>
+    </a>
+    <a href="index-th.html" class="site-nav-link" data-page="index-th">
+      <span class="site-nav-link-icon">📊</span>
+      <div>
+        <div class="site-nav-link-name">รายงานเจาะลึก</div>
+        <div class="site-nav-link-meta">ภาษาไทย · 16 sections · ~18 นาที</div>
+      </div>
+    </a>
+    <a href="pitch-th.html" class="site-nav-link" data-page="pitch-th">
+      <span class="site-nav-link-icon">🎤</span>
+      <div>
+        <div class="site-nav-link-name">Pitch Deck</div>
+        <div class="site-nav-link-meta">10 สไลด์ · navigate ด้วย arrow keys</div>
+      </div>
+    </a>
+    <a href="brand.html" class="site-nav-link" data-page="brand">
+      <span class="site-nav-link-icon">🎨</span>
+      <div>
+        <div class="site-nav-link-name">Brand Guidelines</div>
+        <div class="site-nav-link-meta">โลโก้ · สี · typography · การใช้งาน</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<script>
+(function(){
+  function toggle() {
+    var o = document.getElementById('siteNavOverlay');
+    var willShow = !o.classList.contains('show');
+    o.classList.toggle('show');
+    if (willShow) {
+      var path = window.location.pathname.split('/').pop() || 'index.html';
+      var cur = path.replace('.html', '') || 'index';
+      o.querySelectorAll('.site-nav-link').forEach(function(a){
+        a.classList.toggle('current', a.dataset.page === cur);
+      });
+    }
+  }
+  window.toggleSiteNav = toggle;
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') {
+      var o = document.getElementById('siteNavOverlay');
+      if (o) o.classList.remove('show');
+    }
+  });
+  // Scroll-spy for TOC
+  var sections = document.querySelectorAll('main section[id], main footer[id]');
+  var tocLinks = document.querySelectorAll('nav.toc a[href^="#"]');
+  var linkMap = {};
+  tocLinks.forEach(function(l){
+    var id = l.getAttribute('href').replace('#','');
+    if (id) linkMap[id] = l;
+  });
+  function spy() {
+    var activeId = null;
+    var pos = window.scrollY + 120;
+    sections.forEach(function(s){
+      if (s.offsetTop <= pos) activeId = s.id;
+    });
+    tocLinks.forEach(function(l){ l.classList.remove('active'); });
+    if (activeId && linkMap[activeId]) linkMap[activeId].classList.add('active');
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  spy();
+})();
+</script>
+
 <div class="layout">
 
 <nav class="toc">
