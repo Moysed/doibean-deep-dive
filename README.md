@@ -10,6 +10,7 @@ Two self-contained HTML deep-dive reports:
 |------|----------|-------------|
 | [`index.html`](./index.html) | English | Full deep dive — 16 sections, ~18 min read |
 | [`index-th.html`](./index-th.html) | ภาษาไทย | เวอร์ชันไทย — 16 sections, ~18 นาที |
+| [`pitch-th.html`](./pitch-th.html) | ภาษาไทย | Pitch deck 10 สไลด์ · navigate ด้วย arrow keys · ~10 นาที |
 
 Open either file in any modern browser. No build step, no dependencies.
 
