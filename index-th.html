@@ -83,6 +83,47 @@
   .cover-foot dt{color:var(--espresso);font-weight:500;margin-bottom:6px}
   .cover-foot dd{font-family:var(--serif-th);font-size:15px;letter-spacing:0;text-transform:none;color:var(--espresso);font-weight:400;line-height:1.6}
 
+  /* evaluation sheet (cover) */
+  .eval{font-family:var(--mono);color:var(--espresso);max-width:880px;margin:0 auto 96px;padding:36px 44px 44px;background:var(--paper);border:1px solid var(--ink);position:relative}
+  .eval::before,.eval::after{content:"";position:absolute;width:14px;height:14px;border-color:var(--ink);border-style:solid}
+  .eval::before{top:10px;left:10px;border-width:2px 0 0 2px}
+  .eval::after{bottom:10px;right:10px;border-width:0 2px 2px 0}
+  .eval-head{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);font-weight:500;margin-bottom:20px}
+  .eval-head .eval-no{color:var(--brick)}
+  .eval-rule{border-top:3px double var(--ink);margin:18px 0}
+  .eval-rule.thin{border-top:1px solid var(--ink)}
+  .eval-rule.dashed{border-top:1px dashed var(--stone)}
+  .eval-spec{display:grid;grid-template-columns:120px 1fr;gap:6px 18px;font-size:13px;line-height:1.85}
+  .eval-spec dt{letter-spacing:.18em;text-transform:uppercase;color:var(--slate);font-weight:500;font-family:var(--mono)}
+  .eval-spec dd{color:var(--ink);font-family:var(--serif-th)}
+  .eval-spec dd b{font-weight:500}
+  .eval-section-label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);font-weight:500;margin-bottom:14px}
+  .eval-criteria{display:grid;gap:6px;margin:8px 0 16px}
+  .eval-row{display:grid;grid-template-columns:170px 130px 1fr;align-items:baseline;font-size:12px;gap:18px}
+  .eval-name{letter-spacing:.04em;color:var(--ink);font-family:var(--serif-th)}
+  .eval-bar{font-family:var(--mono);color:var(--brick);font-size:11px;white-space:nowrap;letter-spacing:0}
+  .eval-note{color:var(--slate);font-size:12px;font-family:var(--serif-th);line-height:1.4}
+  .eval-score{display:grid;grid-template-columns:1fr auto auto;gap:24px;align-items:baseline;padding-top:18px;margin-top:18px;border-top:1px dashed var(--stone)}
+  .eval-score-label{font-size:11px;letter-spacing:.28em;text-transform:uppercase;font-weight:500;color:var(--ink);font-family:var(--mono)}
+  .eval-score-value{font-family:var(--serif);font-size:clamp(48px,6vw,72px);font-weight:300;letter-spacing:-.02em;line-height:1;color:var(--brick)}
+  .eval-score-grade{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--moss);font-weight:500;text-align:right;font-family:var(--mono)}
+  .eval-meta{display:grid;grid-template-columns:1fr 1fr;gap:14px 32px;font-size:12px;margin:6px 0 18px}
+  .eval-meta dt{letter-spacing:.18em;text-transform:uppercase;color:var(--slate);font-weight:500;margin-bottom:3px;font-family:var(--mono)}
+  .eval-meta dd{color:var(--ink);line-height:1.6;font-family:var(--serif-th)}
+  .eval-meta div.full{grid-column:1/-1}
+  .eval-stamp{position:absolute;right:32px;top:48px;transform:rotate(-8deg);border:2px solid var(--brick);color:var(--brick);font-size:10px;letter-spacing:.22em;text-transform:uppercase;padding:6px 12px;font-weight:600;opacity:.55;pointer-events:none;font-family:var(--mono)}
+  .eval-begin{display:inline-block;margin-top:8px;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--brick);font-weight:500;text-decoration:none;border-bottom:1px solid var(--brick);padding-bottom:4px;transition:color .2s,border-color .2s;font-family:var(--mono)}
+  .eval-begin:hover{color:var(--ink);border-color:var(--ink)}
+  @media (max-width:760px){
+    .eval{padding:28px 22px 32px}
+    .eval-spec{grid-template-columns:96px 1fr;font-size:12px}
+    .eval-row{grid-template-columns:1fr;gap:2px;padding:6px 0;border-bottom:1px dotted var(--stone-soft)}
+    .eval-score{grid-template-columns:1fr;gap:6px}
+    .eval-score-grade{text-align:left}
+    .eval-meta{grid-template-columns:1fr}
+    .eval-stamp{right:18px;top:34px;font-size:9px}
+  }
+
   /* TOC */
   .toc{display:grid;grid-template-columns:80px 1fr;gap:clamp(24px,4vw,72px);margin-bottom:120px;align-items:start}
   .toc-no{font-size:36px;font-weight:300;font-style:italic;color:var(--brick);line-height:1;font-family:var(--serif);padding-top:8px}
@@ -331,23 +372,50 @@
 
 <main>
 
-<!-- ━━━ COVER ━━━ -->
-<section class="cover">
-  <div class="cover-meta">
-    <span><b>เล่มที่ 01</b> &middot; ฉบับ II</span>
-    <span>รายงานเจาะลึก</span>
-    <span>พฤษภาคม 2026 &middot; กรุงเทพ / เชียงราย</span>
-  </div>
-  <div>
-    <div class="cover-eyebrow">กาแฟ &middot; AI &middot; ภาคเหนือ</div>
-    <h1 class="cover-title">Doi<span class="it">Bean</span></h1>
-    <p class="cover-sub">AI co-pilot ที่พาชาวสวนดอยช้างจาก <em>฿100/กก.</em> สู่ตลาด specialty ระดับโลก โดยดูแลครบทั้งวงจร ตั้งแต่เลือกสายพันธุ์ที่จะปลูก จนถึง roaster ชิมแล้วซื้อ</p>
-  </div>
-  <dl class="cover-foot">
-    <div><dt>กลุ่มเป้าหมาย</dt><dd>กรรมการ Hackathon, ผู้ร่วมก่อตั้ง, นักลงทุน</dd></div>
-    <div><dt>เวลาอ่าน</dt><dd>~18 นาที · 16 ตอน · เริ่มที่ตอนไหนก็ได้</dd></div>
-    <div><dt>ฉบับ</dt><dd>v1.0 — แหล่งอ้างอิงอยู่ท้ายเล่ม</dd></div>
+<!-- ━━━ COVER — แบบประเมิน ━━━ -->
+<section class="eval" aria-label="หน้าปกแบบประเมิน">
+  <span class="eval-stamp">เบื้องต้น</span>
+  <header class="eval-head">
+    <span>แบบประเมิน Evaluation Sheet</span>
+    <span class="eval-no">เลขที่ 01</span>
+  </header>
+  <div class="eval-rule"></div>
+
+  <dl class="eval-spec">
+    <dt>ตัวอย่าง</dt>     <dd><b>Thesis — DoiBean</b></dd>
+    <dt>แหล่งที่มา</dt>   <dd>ดอยช้าง &middot; เชียงราย &middot; ประเทศไทย</dd>
+    <dt>ความสูง</dt>      <dd>1,200 – 1,420 ม. &middot; ทิศตะวันออกเฉียงเหนือ</dd>
+    <dt>สายพันธุ์</dt>    <dd>Catimor / Typica / Caturra ผสม</dd>
+    <dt>กระบวนการ</dt>    <dd>วิเคราะห์ตลาด 16 ตอน &middot; mixed-method</dd>
+    <dt>วันที่ประเมิน</dt><dd>พฤษภาคม 2026 &middot; กรุงเทพ / เชียงราย</dd>
+    <dt>ผู้ประเมิน</dt>   <dd>มอนด์ &middot; @Moysed</dd>
   </dl>
+
+  <div class="eval-rule thin"></div>
+  <span class="eval-section-label">Preliminary Assessment &middot; การประเมินเบื้องต้น</span>
+  <div class="eval-criteria">
+    <div class="eval-row"><span class="eval-name">จังหวะตลาด</span><span class="eval-bar">████████░░</span><span class="eval-note">โครงสร้างพื้นฐานเพิ่งพร้อม</span></div>
+    <div class="eval-row"><span class="eval-name">ความหนักแน่นแนวคิด</span><span class="eval-bar">█████████░</span><span class="eval-note">3 ปัญหาแก้ได้ รวมเป็น 1 แอป</span></div>
+    <div class="eval-row"><span class="eval-name">data flywheel</span><span class="eval-bar">████████░░</span><span class="eval-note">เริ่มมีคูเมืองหลัง 2 ฤดูกาล</span></div>
+    <div class="eval-row"><span class="eval-name">คู่แข่ง</span><span class="eval-bar">█████████░</span><span class="eval-note">ผู้เล่นจุดเดียว คูเมืองอ่อน</span></div>
+    <div class="eval-row"><span class="eval-name">ผลิตภัณฑ์</span><span class="eval-bar">█████████░</span><span class="eval-note">6 โมดูล 2 hero</span></div>
+    <div class="eval-row"><span class="eval-name">ความน่าเชื่อ MVP</span><span class="eval-bar">████████░░</span><span class="eval-note">แผน 60 วัน scope ชัด</span></div>
+  </div>
+
+  <div class="eval-score">
+    <span class="eval-score-label">Preliminary Score</span>
+    <span class="eval-score-value">84.5</span>
+    <span class="eval-score-grade">Specialty Grade<br>≥ 80 SCA</span>
+  </div>
+
+  <div class="eval-rule thin"></div>
+  <dl class="eval-meta">
+    <div><dt>Cat-1 Defects</dt><dd>0</dd></div>
+    <div><dt>Cat-2 Defects</dt><dd>3 — climate, capital, key-person</dd></div>
+    <div class="full"><dt>Cupping Notes &middot; หมายเหตุ</dt><dd>กลิ่นดอกไม้ มะลิ ความเปรี้ยวแบบ citrus — เอกลักษณ์ดอยช้าง รายงาน 16 ตอนสำหรับกรรมการ Hackathon ผู้ร่วมก่อตั้ง และนักลงทุน แหล่งอ้างอิงอยู่ท้ายเล่ม</dd></div>
+  </dl>
+
+  <a class="eval-begin" href="#summary">เริ่มการประเมิน →</a>
 </section>
 
 <!-- ━━━ TOC ━━━ -->
