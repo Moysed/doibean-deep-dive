@@ -50,10 +50,31 @@ Design for all three. Optimize the demo for **Somchai**.
 
 ---
 
-## 3. Aesthetic direction — "hand-stamped coffee bag meets cupping form"
+## 3. Aesthetic direction — TWO MODES, deliberate split
 
 ### Single-sentence brief
-A modern mobile app that feels like a hand-stamped coffee bag and a Q-grader cupping form had a baby — warm, structured, tactile, never sterile.
+DoiBean has a split personality: **friendly-warm everyday screens** (Home, Onboarding, Tutorial, Earnings) crossed with **editorial cupping-form data screens** (Score Reveal, Lot Detail, Variety Advisor). The mix is what makes it both approachable for a hill-tribe farmer and credible for a Tokyo Q-grader.
+
+### Mode A — "Friendly Everyday" (warm, illustrated, photo-led)
+Reference: `docs/references/style-reference-recipe-app.png` — coffee recipe app with warm illustrated barista hero, big rounded yellow/brick primary CTAs, pill chip selectors, photo cards with rank badges, friendly bottom-tab nav.
+
+Stretch the reference's vibe onto OUR palette: bone background instead of peach, brick + crema instead of generic yellow/coral. Borrow the warmth, the rounded-full pills, the photo cards, the illustrated splash — keep our specific color identity.
+
+For: Onboarding splash, Home/Today, Tutorial Videos, Earnings, Marketplace browse cards, profile/settings, empty states.
+
+### Mode B — "Editorial Cupping Form" (precise, structured, honest)
+Reference: real Q-grader cupping forms, Cereal Magazine layouts, hand-stamped coffee bag tags. Letterpress feel, registration ticks at corners, hand-numbered lots, mono labels, hairline rules, rotated stamps.
+
+Each Mode B screen feels like a small physical document — a logbook page, a lot tag, a cupping form. This is where credibility lives.
+
+For: Score Reveal, Lot Detail body (the cupping form + traceability section), Variety Advisor with SHAP explanations, Q-grader signoff, the cupping-form metaphor cover.
+
+### Mode-switching rules
+- **Same palette across both modes** — never break out of bone/brick/crema/espresso/moss/slate
+- **Mode A signals**: rounded-full CTAs, photo cards, illustrated heroes, pill chips, larger corner radius (16–24px), softer shadows allowed on photo cards, more crema/yellow accents
+- **Mode B signals**: corner radius max 4px, mono labels, hairline borders, registration ticks, brick on espresso, no shadows
+- **Transitions feel intentional**: tapping a friendly Home card opens the editorial Score Reveal — feels like opening a serious document inside a friendly app
+- **Never blend within a single screen** — pick the mode, commit. Bottom CTA can borrow Mode A buttons even on Mode B screens (acceptable boundary).
 
 ### Mood adjectives
 **warm · structured · tactile · honest · slow-craft · paper-and-ink · numbered · stamped · ranked · scored · grounded**
@@ -117,15 +138,24 @@ NOT: minimal, neon, glassy, futuristic, AI-y, generic-SaaS, cyberpunk, "clean" w
 --slate: #5A4D3F;       /* secondary text */
 ```
 
-**How to use them:**
-- **Bone (background)** is the dominant surface. 70%+ of the screen.
-- **Espresso (text)** is the dominant ink. Never use pure black.
-- **Crema (gold)** for numerals, large display, verified marks.
-- **Brick (hot red)** ONLY for emphasis — score numbers, primary CTAs, errors.
-- **Moss (organic green)** ONLY for "verified" / "certified" / "organic" / "passed" states.
-- **Slate** for secondary text, captions, mono labels.
-- **Stone** for hairline rules between sections.
-- Never use color combinations not on this list. No purple, no cyan, no neon anything.
+**How to use them — Mode A (Friendly Everyday):**
+- Bone background, warm crema as accent surface (cards, hero panels)
+- Brick or crema as **primary CTA bg** (rounded-full, 56–64px tall, bone text)
+- Pill chip selectors — bone bg + stone border default, brick bg + bone text when selected
+- Photo cards with 16–20px corner radius, soft inner shadow OK
+- Illustrations only in palette colors (no neon, no stock-illustration-ai-style)
+- More crema/crema-light visible — warm and inviting
+
+**How to use them — Mode B (Editorial Cupping Form):**
+- Bone is the dominant surface (70%+)
+- Espresso is the dominant ink. Never pure black.
+- Crema (gold) for numerals, large display, verified marks
+- Brick ONLY for emphasis — score numbers, primary CTAs, errors
+- Moss ONLY for verified/certified/passed states
+- Slate for secondary text, captions, mono labels
+- Stone for hairline rules between sections
+
+**Never (both modes):** purple, cyan, neon, gradient text, color combinations outside the palette.
 
 ### Typography
 ```css
@@ -158,7 +188,43 @@ Use `clamp()` for fluid sizing across mobile → desktop:
 
 ## 5. Component vocabulary
 
-### Lot Card (the core artifact)
+### Pill Chip (Mode A — selectors and filters)
+- Rounded-full, 36px tall, padding 12px 20px
+- Default: bone bg, stone border, slate text
+- Selected: brick bg (or crema for organic state), bone text, no border
+- Inactive but enabled: stone-soft bg, slate text
+- Used for: variety selection, score-range filter, process method, light/medium/strong, certification toggle
+- Reference: the Light / Medium / Strong row in the recipe-app screenshot
+
+### Primary CTA Button (Mode A)
+- Rounded-full, 56–64px tall, full-width with 24px side margins on mobile
+- Brick bg + bone text (default), or crema bg + ink text (alternate)
+- Press state: scale 0.98 + slight darken
+- Always has at least 16px vertical padding
+- Reference: "Find My Recipe" yellow button + "Watch Videos" yellow button in the recipe-app screenshot
+
+### Bottom Tab Nav (Mode A)
+- Fixed bottom, 5 items max
+- Filled-icon style (lucide-react filled or custom SVG), 24px icons
+- Active: brick fill + tiny brick dot below
+- Inactive: slate fill
+- Center item can be elevated as a "create" capsule (brick bg with bone icon)
+- Background: paper with hairline stone top border
+
+### Photo Card with Rank Badge (Mode A)
+- Photo at top (16:9 or 4:3), 16–20px rounded corners on photo
+- Rank badge overlay top-left: small rounded-full crema bg + ink text "1", "2", "3"
+- Below photo: title in Figtree 500, subtitle with avatar + name
+- Used for: trending lots, tutorial videos, featured roasters
+
+### Illustrated Hero (Mode A)
+- Full-width or constrained image at top of splash/onboarding
+- Hand-drawn style, palette colors only (bone + crema + brick + moss accents)
+- Subject: Doi Chang farmer, coffee cherries, mountains, barista pouring, hands holding beans
+- Aspect 4:5 or 5:6 vertical
+- NEVER generic stock illustration. NEVER AI-generated illustration in the obvious style. Commission a real illustrator OR use a single matched style throughout.
+
+### Lot Card (the core artifact — Mode B)
 Every lot is rendered as a small physical-feeling card. Required:
 - Number plate at top-left: `LOT 047`
 - Origin line: `DOI CHANG · CHIANG RAI · 1,420m`
