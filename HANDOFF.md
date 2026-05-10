@@ -8,12 +8,16 @@
 
 ## Read first (in this order)
 
-1. **`pitch-th.html`** (10 slides, 5 min) — fastest way to understand what we're building and why. Use arrow keys, press `G` to jump.
-2. **`index.html`** Chapter VII — the six product modules.
-3. **`index.html`** Chapter VIII — tech stack with justifications. Don't change these unless you have a strong reason; they're defended choices.
-4. **`index.html`** Chapter XV — 60-day MVP plan. **This is your scope.**
-5. **`brand.html`** — visual standards. Logo, palette, type, do/don'ts.
-6. **`chiangmai-research.html`** — field notes. Skim before designing flows; the pain points are real and named.
+All source docs live in `docs/` as markdown. Original HTML editions (with editorial design) are at the repo root if you want the visual version.
+
+1. **`docs/pitch.th.md`** — fastest way to understand what we're building and why. ~5 min read. *Visual version: `pitch-th.html` (arrow keys to navigate, press `G` to jump to a slide).*
+2. **`docs/deep-dive.md`** Chapter VII — the six product modules.
+3. **`docs/deep-dive.md`** Chapter VIII — tech stack with justifications. Don't change these unless you have a strong reason; they're defended choices.
+4. **`docs/deep-dive.md`** Chapter XV — 60-day MVP plan. **This is your scope.**
+5. **`docs/brand.md`** — visual standards. Logo, palette, type, do/don'ts.
+6. **`docs/field-notes.md`** — Chiang Mai field notes. Skim before designing flows; the pain points are real and named.
+
+Thai-language editions: `docs/deep-dive.th.md`, `docs/pitch.th.md`.
 
 ---
 
