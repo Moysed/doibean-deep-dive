@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9-Box AI Solution Brief — DoiBean Vol. 01 / VI</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bone:#F4EFE6;--paper:#FBF7EE;--espresso:#2A1810;--ink:#1A0F08;
+    --crema:#C8A268;--crema-dim:#A88C4F;--crema-light:#E5C896;
+    --brick:#B8543A;--moss:#5C6B3F;--stone:#C9C0B0;--stone-soft:#E4DDCB;--slate:#5A4D3F;
+    --serif:"Figtree","Helvetica Neue",Helvetica,sans-serif;
+    --serif-th:"Figtree","Helvetica Neue",Helvetica,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+    --gutter:clamp(20px,3.5vw,56px);--col:62ch}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--serif-th);font-feature-settings:"kern","liga";
+    background:var(--bone);color:var(--espresso);
+    font-size:clamp(15px,1.05vw,17px);line-height:1.7;
+    text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--espresso);color:var(--bone)}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(circle at 30% 20%,rgba(200,162,104,0.04),transparent 60%),radial-gradient(circle at 80% 70%,rgba(184,84,58,0.03),transparent 50%)}
+
+  /* folio */
+  .folio{position:fixed;top:0;left:0;right:0;z-index:50;display:grid;
+    grid-template-columns:1fr auto 1fr;align-items:baseline;
+    padding:14px clamp(20px,3vw,40px) 12px;
+    background:linear-gradient(to bottom,var(--bone) 0%,var(--bone) 70%,rgba(244,239,230,0));
+    font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--slate)}
+  .folio-l{justify-self:start}.folio-c{justify-self:center;color:var(--espresso);font-weight:500}
+  .folio-r{justify-self:end;display:flex;gap:18px;align-items:baseline}
+  .folio-r a,.folio-r button{color:var(--slate);text-decoration:none;font:inherit;
+    font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
+    background:none;border:none;border-bottom:1px solid transparent;padding:0 0 1px;cursor:pointer;transition:color .2s,border-color .2s}
+  .folio-r a:hover,.folio-r button:hover{color:var(--espresso);border-bottom-color:var(--crema)}
+  .folio-divider{position:fixed;top:46px;left:0;right:0;height:1px;background:var(--stone);z-index:49}
+
+  /* index drawer */
+  .idx-overlay{position:fixed;inset:0;background:rgba(26,15,8,.4);z-index:200;display:none;backdrop-filter:blur(2px)}
+  .idx-overlay.show{display:block}
+  .idx-panel{position:absolute;top:0;right:0;bottom:0;width:min(440px,90vw);
+    background:var(--paper);border-left:1px solid var(--stone);padding:80px 40px 40px;overflow-y:auto}
+  .idx-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--slate);margin-bottom:8px}
+  .idx-title{font-size:34px;font-weight:300;letter-spacing:-.02em;line-height:1.1;margin-bottom:32px;font-family:var(--serif-th)}
+  .idx-list{list-style:none;border-top:1px solid var(--stone)}
+  .idx-list li{border-bottom:1px solid var(--stone)}
+  .idx-list a{display:grid;grid-template-columns:auto 1fr;gap:20px;padding:18px 0;text-decoration:none;align-items:baseline;transition:padding .2s}
+  .idx-list a:hover{padding-left:8px}
+  .idx-num{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--crema-dim)}
+  .idx-name{font-size:20px;font-weight:400;color:var(--espresso);font-family:var(--serif-th)}
+  .idx-meta{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);margin-top:4px}
+  .idx-list a.current .idx-name{font-weight:500;color:var(--brick)}
+  .idx-list a.current .idx-num{color:var(--brick)}
+
+  /* shell */
+  main{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:120px var(--gutter) 160px}
+
+  /* cover */
+  .cover{display:grid;gap:40px;padding-bottom:56px;margin-bottom:88px;border-bottom:1px solid var(--stone)}
+  .cover-meta{display:flex;justify-content:space-between;align-items:baseline;
+    font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--slate);
+    padding-bottom:24px;border-bottom:1px solid var(--stone);flex-wrap:wrap;gap:12px}
+  .cover-meta b{color:var(--espresso);font-weight:500}
+  .cover-eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--brick);font-weight:500}
+  .cover-title{font-family:var(--serif);font-size:clamp(56px,9vw,140px);font-weight:300;letter-spacing:-.02em;line-height:.92;
+    margin-top:16px}
+  .cover-title .it{color:var(--brick);font-weight:500}
+  .cover-sub{font-size:clamp(18px,1.8vw,24px);font-weight:400;line-height:1.55;color:var(--slate);max-width:48ch;margin-top:24px}
+  .cover-foot{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;padding-top:32px;margin-top:24px;
+    border-top:1px solid var(--stone);font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--slate)}
+  .cover-foot dt{color:var(--espresso);font-weight:500;margin-bottom:6px}
+  .cover-foot dd{font-family:var(--serif-th);font-size:15px;letter-spacing:0;text-transform:none;color:var(--espresso);font-weight:400;line-height:1.55}
+  @media (max-width:760px){.cover-foot{grid-template-columns:1fr 1fr}}
+
+  /* boxes — the 9 grid */
+  .boxes-intro{margin-bottom:48px;font-size:15px;color:var(--slate);max-width:60ch;line-height:1.7;font-family:var(--mono);letter-spacing:.04em}
+  .boxes-intro a{color:var(--brick);text-decoration:none;border-bottom:1px solid var(--brick);padding-bottom:1px}
+  .boxes-intro a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+  .box{margin-bottom:80px;display:grid;grid-template-columns:80px 1fr;gap:clamp(24px,4vw,64px);align-items:start}
+  @media (max-width:760px){.box{grid-template-columns:1fr;gap:16px}}
+  .box-no{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--brick);font-weight:500;padding-top:8px;position:sticky;top:80px;align-self:start}
+  @media (max-width:760px){.box-no{position:static}}
+  .box-no .num{display:block;font-family:var(--serif);font-size:48px;font-weight:300;color:var(--brick);line-height:.9;letter-spacing:-.03em;margin-bottom:6px;font-style:italic}
+  .box-body{min-width:0;border-top:1.5px solid var(--ink);padding-top:18px}
+  .box-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--slate);margin-bottom:6px;font-weight:500}
+  .box-title{font-size:clamp(28px,3.6vw,42px);font-weight:400;letter-spacing:-.015em;line-height:1.15;color:var(--espresso);margin-bottom:18px;max-width:24ch}
+  .box-title em{color:var(--brick);font-weight:500}
+  .box-body p{max-width:var(--col);margin-bottom:1em;font-size:16px;line-height:1.75}
+  .box-body p strong{font-weight:600;color:var(--espresso)}
+  .box-body p em{color:var(--brick);font-style:italic;font-weight:500}
+  .box-body ul{list-style:none;margin:14px 0 24px;max-width:var(--col)}
+  .box-body ul li{padding:10px 0 10px 28px;border-bottom:1px solid var(--stone-soft);font-size:15.5px;line-height:1.65;position:relative}
+  .box-body ul li::before{content:"—";position:absolute;left:0;color:var(--crema-dim)}
+  .box-body ul li:last-child{border-bottom:none}
+  .box-body ul li strong{font-weight:600;color:var(--espresso)}
+  .box-body ul li em{color:var(--brick);font-style:italic;font-weight:500}
+
+  /* checklist for AI tasks (with check glyph) */
+  .checklist{list-style:none;margin:14px 0 24px;max-width:var(--col)}
+  .checklist li{padding:12px 0 12px 32px;border-bottom:1px solid var(--stone-soft);font-size:15.5px;line-height:1.6;position:relative;display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline}
+  .checklist li::before{content:"☑";position:absolute;left:0;top:11px;color:var(--moss);font-size:14px;font-weight:700}
+  .checklist .ck-name{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--brick);font-weight:500;white-space:nowrap;padding-right:14px}
+  .checklist .ck-desc{font-size:15px;color:var(--espresso);line-height:1.55}
+
+  /* small split sub-heading inside a box */
+  .sub-h{font-family:var(--mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);font-weight:500;margin:24px 0 10px;border-top:1px dashed var(--stone);padding-top:18px}
+  .sub-h:first-child{border-top:none;padding-top:0}
+
+  /* compact 2-col grid for risk table */
+  .risk-tbl{width:100%;border-collapse:collapse;margin:14px 0 24px;font-size:14.5px;border-top:1.5px solid var(--ink)}
+  .risk-tbl th,.risk-tbl td{padding:14px 16px;text-align:left;vertical-align:top;line-height:1.6;border-bottom:1px solid var(--stone-soft)}
+  .risk-tbl th{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);font-weight:500;width:36%}
+  .risk-tbl td:first-child{font-family:var(--serif-th);font-weight:600;color:var(--espresso)}
+  .risk-tbl td:last-child{color:var(--slate);font-size:14.5px;line-height:1.65}
+  .risk-tbl strong{font-weight:600;color:var(--espresso)}
+  .risk-tbl em{color:var(--brick);font-style:italic;font-weight:500}
+  @media (max-width:680px){.risk-tbl th,.risk-tbl td{display:block;width:100%;border:none;padding:8px 0}.risk-tbl tr{display:block;border-bottom:1px solid var(--stone-soft);padding:12px 0}}
+
+  /* template suggestion callout */
+  .tmpl{background:var(--ink);color:var(--bone);padding:32px 36px;margin:48px 0 0;border-left:3px solid var(--crema);max-width:780px}
+  .tmpl-tag{font-family:var(--mono);font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--crema);font-weight:500;margin-bottom:16px}
+  .tmpl-title{font-size:24px;font-weight:500;color:var(--bone);margin-bottom:12px;font-family:var(--serif-th)}
+  .tmpl-title em{color:var(--crema-light);font-style:italic;font-weight:500}
+  .tmpl p{font-size:15px;line-height:1.7;color:var(--stone-soft);max-width:54ch}
+  .tmpl p strong{color:var(--crema)}
+
+  /* footer */
+  footer{margin-top:120px;padding-top:32px;border-top:1px solid var(--stone);
+    display:grid;grid-template-columns:1fr 1fr;gap:32px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--slate);align-items:end}
+  footer .colophon{font-family:var(--serif-th);font-size:14px;letter-spacing:0;text-transform:none;color:var(--espresso);line-height:1.6}
+  footer a{color:var(--espresso);text-decoration:none;border-bottom:1px solid var(--crema);padding-bottom:1px;transition:border-color .2s}
+  footer a:hover{border-bottom-color:var(--brick)}
+  footer .end{font-family:var(--serif);font-size:18px;color:var(--brick);font-style:italic}
+  @media (max-width:760px){footer{grid-template-columns:1fr;gap:18px}}
+
+  @media print{
+    .folio,.folio-divider,.idx-overlay{display:none!important}
+    body{background:white}main{padding:24px}
+    .box{break-inside:avoid;page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<header class="folio">
+  <div class="folio-l">DoiBean &nbsp;·&nbsp; Vol. 01</div>
+  <div class="folio-c">9-Box AI Solution Brief</div>
+  <div class="folio-r">
+    <a href="index.html">Deep Dive ↗</a>
+    <button onclick="window.toggleIndex()">Index</button>
+  </div>
+</header>
+<div class="folio-divider"></div>
+
+<div class="idx-overlay" id="idxOverlay" onclick="if(event.target===this)window.toggleIndex()">
+  <aside class="idx-panel" role="dialog" aria-label="หน้าทั้งหมด">
+    <div class="idx-eyebrow">DoiBean &middot; Vol. 01</div>
+    <h2 class="idx-title">หน้าในเล่ม</h2>
+    <ul class="idx-list">
+      <li><a href="index.html" data-page="index"><span class="idx-num">I</span><span><span class="idx-name">Deep Dive Report</span><span class="idx-meta">English &middot; 16 sections &middot; 18 min</span></span></a></li>
+      <li><a href="index-th.html" data-page="index-th"><span class="idx-num">II</span><span><span class="idx-name">รายงานเจาะลึก</span><span class="idx-meta">ภาษาไทย &middot; 16 ตอน &middot; 18 นาที</span></span></a></li>
+      <li><a href="pitch-th.html" data-page="pitch-th"><span class="idx-num">III</span><span><span class="idx-name">Pitch Deck</span><span class="idx-meta">10 สไลด์ &middot; arrow keys</span></span></a></li>
+      <li><a href="brand.html" data-page="brand"><span class="idx-num">IV</span><span><span class="idx-name">Standards Manual</span><span class="idx-meta">โลโก้ &middot; สี &middot; ฟอนต์</span></span></a></li>
+      <li><a href="chiangmai-research.html" data-page="chiangmai-research"><span class="idx-num">V</span><span><span class="idx-name">Field Notes &mdash; Chiang Mai</span><span class="idx-meta">9 หมวด &middot; เสียงผู้ใช้</span></span></a></li>
+      <li><a href="9-box.html" data-page="9-box"><span class="idx-num">VI</span><span><span class="idx-name">9-Box AI Brief</span><span class="idx-meta">ภาษาไทย &middot; 9 ช่อง &middot; AI Solution</span></span></a></li>
+    </ul>
+  </aside>
+</div>
+
+<main>
+
+<!-- ━━━ COVER ━━━ -->
+<section class="cover">
+  <div class="cover-meta">
+    <span><b>เล่มที่ 01</b> &middot; ฉบับ VI</span>
+    <span>9-Box AI Solution Brief</span>
+    <span>พฤษภาคม 2026 &middot; เชียงใหม่ / เชียงราย</span>
+  </div>
+  <div>
+    <div class="cover-eyebrow">AgriTech &middot; Verified-Origin Platform</div>
+    <h1 class="cover-title">เก้า<span class="it">ช่อง</span></h1>
+    <p class="cover-sub">โครงสร้างเสนอ AI Solution สำหรับ DoiBean — ปิดส่วนต่างราคา 25 เท่าระหว่างชาวสวนดอยช้างและร้านคาเฟ่ ด้วย CV + LLM + marketplace</p>
+  </div>
+  <dl class="cover-foot">
+    <div><dt>Source Tool</dt><dd>Custocare 9-Box AI Solution Brief Workshop</dd></div>
+    <div><dt>เวลาอ่าน</dt><dd>~6 นาที &middot; 9 ช่อง</dd></div>
+    <div><dt>Sector</dt><dd>AgriTech &middot; NDEA Chiang Mai Digital Economy</dd></div>
+  </dl>
+</section>
+
+<p class="boxes-intro">
+  ฉบับสำหรับกรอกใน <a href="https://aisolutionbreif.netlify.app/" target="_blank" rel="noopener">aisolutionbreif.netlify.app</a> &middot; เก้าช่องครอบคลุมตั้งแต่ปัญหา &middot; ผู้เดือดร้อน &middot; วิธีแก้เดิม &middot; งาน AI &middot; ข้อมูล &middot; มนุษย์ในวงจร &middot; ผลลัพธ์ &middot; ตัวชี้วัด &middot; ความเสี่ยง
+</p>
+
+<!-- ━━━ I — PROBLEM ━━━ -->
+<section class="box" id="problem">
+  <div class="box-no"><span class="num">I</span>BOX</div>
+  <div class="box-body">
+    <div class="box-eyebrow">Problem &middot; ปัญหา</div>
+    <h2 class="box-title">ส่วนต่าง <em>25 เท่า</em> ที่หายไปกับคนกลาง</h2>
+    <p>ชาวสวนกาแฟ specialty ดอยช้าง ขายเมล็ดเขียวได้กิโลละ <strong>฿100</strong> แต่ร้านคาเฟ่ขาย <strong>฿2,500</strong> ต่อกิโล — ส่วนต่าง <em>25 เท่า</em> ชาวสวนได้แค่ <strong>4%</strong> ของมูลค่าสุดท้าย</p>
+    <p>เกิดจาก 3 ปัญหาที่แก้ได้:</p>
+    <ul>
+      <li><strong>ข้อมูลไม่สมมาตร</strong> — ชาวสวนไม่รู้คะแนน SCA ของเมล็ดตัวเอง ไม่รู้ defect ไม่รู้ flavor profile</li>
+      <li><strong>ไม่มีช่องทางขายตรง</strong> — ชาวสวนเก่งแค่ไหน ก็ไม่สามารถส่งให้ roaster โตเกียว/เบอร์ลินตรง (ขั้นตอน export, ภาษา, trust)</li>
+      <li><strong>ปลูกผิดสายพันธุ์ในอีก 5 ปี</strong> — climate ขยับเขตปลูกขึ้นที่สูง ~150 ม./ทศวรรษ สายพันธุ์ที่ปลูกวันนี้ผลผลิตจะลด 25% ในปี 2035</li>
+    </ul>
+    <p><strong>ความถี่:</strong> ทุกฤดูเก็บเกี่ยว (รายปี) + ทุกการตัดสินใจปลูกใหม่ (ทุก 5–7 ปี)</p>
+  </div>
+</section>
+
+<!-- ━━━ II — WHO SUFFERS ━━━ -->
+<section class="box" id="who">
+  <div class="box-no"><span class="num">II</span>BOX</div>
+  <div class="box-body">
+    <div class="box-eyebrow">Who Suffers &middot; ใครเดือดร้อน</div>
+    <h2 class="box-title">ห้า<em>กลุ่ม</em> ตามลำดับความเร่งด่วน</h2>
+    <ul>
+      <li><strong>3,921 ครัวเรือนชาวสวน specialty</strong> ในเชียงราย (ตัวเลขปี 2025, +25% จากปี 2020) — กลุ่มหลัก</li>
+      <li><strong>ชาวเขา (อาข่า ลีซู)</strong> ที่ระดับ 1,200–1,420 ม.</li>
+      <li><strong>Roaster โตเกียว / เบอร์ลิน / โซล</strong> ต้องการ traceability + คุณภาพคงที่ แต่ติดกับการซื้อผ่านผู้ส่งออกที่ไม่โปร่งใส</li>
+      <li><strong>ภาครัฐไทย</strong> — เสีย GDP export ให้ middlemen markup ที่ไหลออกประเทศ</li>
+      <li><strong>ผู้บริโภค</strong> จ่ายราคา premium โดยไม่รู้ origin จริง</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ━━━ III — CURRENT WORKAROUND ━━━ -->
+<section class="box" id="workaround">
+  <div class="box-no"><span class="num">III</span>BOX</div>
+  <div class="box-body">
+    <div class="box-eyebrow">Current Workaround &middot; วิธีแก้ปัจจุบัน</div>
+    <h2 class="box-title">ที่ยังใช้กันอยู่ — และทำไมมัน<em>ไม่พอ</em></h2>
+    <ul>
+      <li>ขายผ่าน <strong>สหกรณ์ในราคา commodity</strong> (price-taker, ไม่มีคะแนนคุณภาพ)</li>
+      <li>คุณภาพประเมินจาก <strong>Q-grader ของผู้ส่งออก</strong> — ชาวสวนไม่เห็นคะแนน</li>
+      <li>คำแนะนำสายพันธุ์จาก <strong>เจ้าหน้าที่ส่งเสริมการเกษตร</strong> ข้อมูลล้าสมัย ไม่มี climate model</li>
+      <li><strong>Excel + สมุดจดมือ</strong> สำหรับติดตามผลผลิต</li>
+      <li>หา roaster จาก <strong>trade show + อีเมล</strong> — ช้า, trust ต่ำ</li>
+      <li>ชำระเงินผ่าน <strong>Western Union / SWIFT manual</strong> — ค่าธรรมเนียมสูง ไม่มี escrow</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ━━━ IV — AI TASK ━━━ -->
+<section class="box" id="ai-task">
+  <div class="box-no"><span class="num">IV</span>BOX</div>
+  <div class="box-body">
+    <div class="box-eyebrow">AI Task &middot; งาน AI</div>
+    <h2 class="box-title">หกงาน — <em>multi-task</em> บนวงจรเดียว</h2>
+    <ul class="checklist">
+      <li><span class="ck-name">Classify</span><span class="ck-desc">ตรวจจับ defect บนเมล็ดเขียว (SCA Cat-1 / Cat-2 taxonomy 30+ class)</span></li>
+      <li><span class="ck-name">Predict</span><span class="ck-desc">ทำนายผลผลิตสายพันธุ์ภายใต้ IPCC scenarios ปี 2030/2040 ตาม GPS แปลง</span></li>
+      <li><span class="ck-name">Recommend</span><span class="ck-desc">แนะนำสายพันธุ์ทนสภาพอากาศตามระดับความสูง + ดิน + microclimate</span></li>
+      <li><span class="ck-name">Detect</span><span class="ck-desc">โรคใบสนิม (roya), ด้วงเจาะผลกาแฟ, anthracnose จากภาพถ่ายของชาวสวน</span></li>
+      <li><span class="ck-name">Extract</span><span class="ck-desc">ทำนาย cupping notes จาก visual analysis ของเมล็ดเขียว</span></li>
+      <li><span class="ck-name">Generate</span><span class="ck-desc">แปล Thai → ภาษา roaster (English / Japanese / Korean) เล่าเรื่อง origin</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ━━━ V — DATA NEEDED ━━━ -->
+<section class="box" id="data">
+  <div class="box-no"><span class="num">V</span>BOX</div>
+  <div class="box-body">
+    <div class="box-eyebrow">Data Needed &middot; ข้อมูลที่ต้องการ</div>
+    <h2 class="box-title"><em>มี</em> + <em>ต้องเก็บเพิ่ม</em></h2>
+
+    <div class="sub-h">มีอยู่แล้ว</div>
+    <ul>
+      <li>ชุดข้อมูล SCA สาธารณะ <strong>5,000 ภาพ</strong> พร้อม defect labels</li>
+      <li>IPCC RCP4.5 / RCP6.0 projections (2030, 2040)</li>
+      <li>ข้อมูล GIS ชั้นดินจากกรมพัฒนาที่ดิน (DOA)</li>
+      <li>ข้อมูล climate ย้อนหลัง 20 ปีจาก TMD</li>
+      <li>Mapbox / OSM สำหรับ plot mapping</li>
+    </ul>
+
+    <div class="sub-h">ต้องเก็บเพิ่ม</div>
+    <ul>
+      <li><strong>ภาพเมล็ดเขียวไทย 2,000+ ภาพ</strong> balance ตาม defect class (ปัจจุบัน 500 ภาพ = underfit ~16/class)</li>
+      <li>GPS pin + altitude + slope/aspect ของแปลงนำร่อง</li>
+      <li>ผลเก็บเกี่ยวต่อแปลงต่อฤดู (สำหรับ data flywheel — ต้อง 2 ฤดูขึ้นไป)</li>
+      <li>คะแนน Q-grader คู่กับคะแนนโมเดล (validation set)</li>
+      <li>รายงานโรค/แมลงต่อพื้นที่ลุ่มน้ำ (hyperlocal outbreak map)</li>
+    </ul>
+
+    <div class="sub-h">แหล่งข้อมูล</div>
+    <p>ความร่วมมือดอยตุง (3 ฟาร์มนำร่อง) &middot; สหกรณ์กาแฟดอยช้าง &middot; API จาก TMD/DOA (ฟรี) &middot; citizen science จากผู้ใช้แอป</p>
+  </div>
+</section>
+
+<!-- ━━━ VI — HUMAN LOOP ━━━ -->
+<section class="box" id="human">
+  <div class="box-no"><span class="num">VI</span>BOX</div>
+  <div class="box-body">
+    <div class="box-eyebrow">Human Loop &middot; มนุษย์ในวงจร</div>
+    <h2 class="box-title">ที่ไหน <em>มนุษย์</em> ต้องตัดสินใจ</h2>
+    <ul>
+      <li><strong>Q-grader override</strong> เมื่อ confidence &lt; 90% หรือคะแนนต่างจาก manual &gt;2 SCA จุด → ส่ง review</li>
+      <li><strong>Farmer veto</strong> ในการเลือกสายพันธุ์ — โมเดลแสดง top 3 พร้อม SHAP explanations ชาวสวนเลือกเอง</li>
+      <li><strong>Admin approval</strong> สำหรับ onboarding roaster (KYC, payment terms, trade history)</li>
+      <li><strong>Lot signoff</strong> โดยผู้ส่งออกก่อนส่งระหว่างประเทศ (compliance + ประกัน)</li>
+      <li><strong>คณะกรรมการระงับข้อพิพาท</strong> เมื่อคะแนนไม่ตรงกัน: Q-grader 2 คน + ตัวแทนชาวสวน 1 + ตัวแทนแพลตฟอร์ม 1</li>
+      <li><strong>Climate disclaimer</strong> — variety advisor ต้องแสดง uncertainty band ก่อน farmer acknowledge</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ━━━ VII — OUTPUT ━━━ -->
+<section class="box" id="output">
+  <div class="box-no"><span class="num">VII</span>BOX</div>
+  <div class="box-body">
+    <div class="box-eyebrow">Output / Result &middot; ผลลัพธ์</div>
+    <h2 class="box-title">สี่<em>รูปแบบ</em> ส่งถึงผู้ใช้</h2>
+    <ul class="checklist">
+      <li><span class="ck-name">Dashboard</span><span class="ck-desc">แอปมือถือชาวสวน — ประวัติสแกน, lot ปัจจุบัน, ราคา offer, สถานะการชำระ</span></li>
+      <li><span class="ck-name">Alert</span><span class="ck-desc">ช่วงเก็บเกี่ยวเปิด, โรคระบาดในลุ่มน้ำ, ได้รับ offer จาก roaster</span></li>
+      <li><span class="ck-name">Report</span><span class="ck-desc">Lot Quality Sheet (PDF, ไทย+อังกฤษ) — คะแนน SCA, defect, cupping notes, ภาพ, GPS — ให้ roaster</span></li>
+      <li><span class="ck-name">Action</span><span class="ck-desc">ชำระตรงผ่าน PromptPay / Stripe Connect เมื่อ roaster ยืนยัน + auto-generate เอกสาร export</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ━━━ VIII — SUCCESS METRIC ━━━ -->
+<section class="box" id="metric">
+  <div class="box-no"><span class="num">VIII</span>BOX</div>
+  <div class="box-body">
+    <div class="box-eyebrow">Success Metric &middot; ตัวชี้วัด</div>
+    <h2 class="box-title">รู้ว่าได้ผล <em>เมื่อ</em>...</h2>
+
+    <div class="sub-h">ตัวชี้วัด tech</div>
+    <ul>
+      <li>ความแม่น Cat-1 defect <strong>≥85%</strong> บนเมล็ดไทย</li>
+      <li>ความสัมพันธ์คะแนน SCA <strong>±2 จุด</strong> เทียบ Q-grader manual (validation set)</li>
+      <li>TFLite inference <strong>&lt; 2 วินาที</strong> บน Snapdragon 4xx (Android ราคาถูก)</li>
+    </ul>
+
+    <div class="sub-h">ผลลัพธ์ชาวสวน (นำร่อง 100 ฟาร์ม 24 เดือน)</div>
+    <ul>
+      <li>รายได้ต่อกิโลเมล็ดเขียว <strong>≥ ฿1,400</strong> (เทียบ ฿100 baseline = ดีขึ้น 14 เท่า)</li>
+      <li>รายได้สุทธิชาวสวน <strong>+3 เท่า</strong> ใน 24 เดือน</li>
+    </ul>
+
+    <div class="sub-h">Marketplace</div>
+    <ul>
+      <li>ปิด <strong>1 transaction</strong> ดอยช้าง → โตเกียว/เบอร์ลิน ใน 60 วันแรก</li>
+      <li><strong>50 ชาวสวน + 5 anchor roasters</strong> ภายในเดือนที่ 12</li>
+      <li><strong>200 ชาวสวน + 20 roasters</strong> ภายในเดือนที่ 24</li>
+    </ul>
+
+    <div class="sub-h">ระดับจังหวัด (NDEA Chiang Mai Digital Economy)</div>
+    <ul>
+      <li>มูลค่า verified-origin export จากเชียงใหม่ <strong>+฿50M</strong> ต่อปี ภายในปีที่ 2</li>
+      <li>ขยาย sector — กาแฟ → ชา → สมุนไพร → น้ำผึ้ง บนแพลตฟอร์มเดียวกัน</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ━━━ IX — RISK ━━━ -->
+<section class="box" id="risk">
+  <div class="box-no"><span class="num">IX</span>BOX</div>
+  <div class="box-body">
+    <div class="box-eyebrow">Risk &middot; ความเสี่ยง</div>
+    <h2 class="box-title">แปด<em>ทาง</em> ที่จะตาย — และวิธีรอด</h2>
+    <table class="risk-tbl">
+      <thead><tr><th>ความเสี่ยง</th><th>การ mitigate</th></tr></thead>
+      <tbody>
+        <tr><td>Data privacy / PDPA — GPS, รายได้, ข้อมูลพืชของชาวสวนอ่อนไหว</td><td>เก็บใน device เท่าที่ทำได้, ใช้ <strong>THaLLE local LLM</strong> (ไม่ส่งออก Anthropic API), ขอ consent ชัด + ยกเลิกได้</td></tr>
+        <tr><td>Variety advisor liability — แนะผิด = ชาวสวนเสีย 4–7 ปี</td><td>SHAP explanations + uncertainty band + farmer override + disclaimer + ประกันภัย</td></tr>
+        <tr><td>Tech sovereignty — Anthropic + AWS = <em>เมืองขึ้น</em></td><td>เปลี่ยน LLM เป็น THaLLE (KBTG open-source), ใช้ NIPA/CAT cloud, train บน LANTA supercomputer</td></tr>
+        <tr><td>Algorithmic bias — โมเดล train จากเมล็ด Latin America อาจ misclassify ไทย</td><td>ชุดข้อมูลไทย <strong>2,000+ ภาพ</strong> ก่อน launch + audit ต่อเนื่องกับ Q-grader ชาวเขา</td></tr>
+        <tr><td>Two-sided cold-start — roaster โตเกียวไม่เชื่อคะแนนแอปไทยใหม่</td><td>anchor 1 trusted Thai/Japanese specialty buyer ก่อน + Q-grader manual co-sign 50 lot แรก</td></tr>
+        <tr><td>สหกรณ์ตอบโต้การเมือง — lobby กฎ <em>"certified-export"</em> บล็อกแพลตฟอร์ม</td><td>ผ่าน NDEA + สำนักงานอุตสาหกรรม + extension services — วาง <em>"ส่งเสริม"</em> ไม่ใช่ <em>"แทนที่"</em></td></tr>
+        <tr><td>Solo founder concentration — มอนด์ทำ 4 บทบาท</td><td>หา co-founder (เชียงราย) + CTO + designer ภายใน 60 วัน — ถ้าไม่ได้ อย่าเพิ่งระดม pre-seed</td></tr>
+        <tr><td>Climate model ผิด — IPCC RCP6.0 อาจเป็นจริง ไม่ใช่ RCP4.5</td><td>re-run คำแนะนำรายปี + soft-launch ในฐานะ <em>"guidance"</em> ไม่ใช่ <em>"prescription"</em></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ━━━ TEMPLATE SUGGESTION ━━━ -->
+<aside class="tmpl">
+  <div class="tmpl-tag">Template Suggestion</div>
+  <h3 class="tmpl-title">DoiBean — <em>AgriTech Verified-Origin</em></h3>
+  <p>เพิ่ม template ใหม่ใน <strong>Custocare 9-Box AI Solution Brief Workshop</strong> เพื่อใช้ซ้ำกับ AgriTech farmer-app brief อื่นๆ ในอนาคต — ชา &middot; สมุนไพร &middot; ข้าวพันธุ์พิเศษ &middot; น้ำผึ้ง &middot; งานคราฟต์เชียงใหม่</p>
+</aside>
+
+<footer>
+  <div>
+    <div class="colophon">
+      สรุปจากการประชุมบอร์ดที่ปรึกษา 8 ท่าน 3 รอบ &middot;
+      <em>Almondo-local Boardroom</em> &middot; พฤษภาคม 2026 &middot;
+      <a href="https://aisolutionbreif.netlify.app/" target="_blank" rel="noopener">aisolutionbreif.netlify.app</a>
+    </div>
+  </div>
+  <div style="text-align:right">
+    <span class="end">·  ·  ·</span>
+  </div>
+</footer>
+
+</main>
+
+<script>
+(function(){
+  function toggle(){
+    var o=document.getElementById('idxOverlay');
+    var willShow=!o.classList.contains('show');
+    o.classList.toggle('show');
+    if(willShow){
+      var path=window.location.pathname.split('/').pop()||'index.html';
+      var cur=path.replace('.html','')||'index';
+      o.querySelectorAll('.idx-list a').forEach(function(a){
+        a.classList.toggle('current',a.dataset.page===cur);
+      });
+    }
+  }
+  window.toggleIndex=toggle;
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){
+      var o=document.getElementById('idxOverlay');
+      if(o)o.classList.remove('show');
+    }
+  });
+})();
+</script>
+</body>
+</html>
