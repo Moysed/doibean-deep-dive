@@ -4,1900 +4,1082 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DoiBean — รายงานเจาะลึก</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,30..100,0..1;1,9..144,300..900,30..100,0..1&family=Noto+Sans+Thai:wght@400;500;600;700&family=Noto+Serif+Thai:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
 <style>
-  :root {
-    --coffee-dark: #2C1810;
-    --coffee-mid: #5D3A1F;
-    --coffee-light: #8B6F47;
-    --cream: #FAF6F0;
-    --cream-dark: #F0E6D2;
-    --bean-green: #5C7A3F;
-    --terracotta: #C66E4E;
-    --gold: #C9A96E;
-    --slate: #2C2416;
-    --slate-mid: #5A4D3F;
-    --border: #D4C5A9;
-    --bg-callout-insight: #FFF8E7;
-    --bg-callout-warning: #FFEEE5;
-    --bg-callout-data: #EEF2E8;
-    --bg-callout-money: #F5EEDF;
+  :root{
+    --bone:#F4EFE6;--paper:#FBF7EE;--espresso:#2A1810;--ink:#1A0F08;
+    --crema:#C8A268;--crema-dim:#A88C4F;--crema-light:#E5C896;
+    --brick:#B8543A;--moss:#5C6B3F;--stone:#C9C0B0;--stone-soft:#E4DDCB;--slate:#5A4D3F;
+    --serif:"Fraunces",ui-serif,Georgia,serif;
+    --serif-th:"Noto Serif Thai","Fraunces",ui-serif,serif;
+    --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+    --gutter:clamp(20px,3.5vw,56px);--col:62ch;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: "Sukhumvit Set", "IBM Plex Sans Thai", "Noto Sans Thai", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-    line-height: 1.8;
-    color: var(--slate);
-    background: var(--cream);
-    font-size: 16px;
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--serif-th);font-feature-settings:"kern","liga","onum","pnum","ss01";
+    font-variation-settings:"opsz" 14,"SOFT" 50,"WONK" 0;
+    background:var(--bone);color:var(--espresso);
+    font-size:clamp(15px,1.05vw,17px);line-height:1.7;
+    text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;
   }
-  .layout {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-  nav.toc {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow-y: auto;
-    padding: 32px 20px;
-    background: var(--coffee-dark);
-    color: var(--cream);
-    font-size: 13px;
-  }
-  nav.toc h2 {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--gold);
-    margin-bottom: 16px;
-    font-weight: 600;
-  }
-  nav.toc ol {
-    list-style: none;
-    counter-reset: section;
-  }
-  nav.toc li {
-    counter-increment: section;
-    margin: 6px 0;
-  }
-  nav.toc a {
-    color: var(--cream-dark);
-    text-decoration: none;
-    display: block;
-    padding: 6px 8px;
-    border-radius: 4px;
-    transition: all 0.15s;
-    border-left: 2px solid transparent;
-  }
-  nav.toc a:hover {
-    background: rgba(255,255,255,0.05);
-    border-left-color: var(--gold);
-    color: white;
-  }
-  nav.toc a::before {
-    content: counter(section, decimal-leading-zero);
-    color: var(--coffee-light);
-    margin-right: 10px;
-    font-variant-numeric: tabular-nums;
-    font-size: 11px;
-  }
-  nav.toc a.tldr-link, nav.toc a.wrap-link {
-    color: var(--gold);
-    font-weight: 600;
-  }
-  nav.toc a.tldr-link::before, nav.toc a.wrap-link::before {
-    content: "★";
-    color: var(--gold);
-  }
-  main {
-    padding: 60px 80px;
-    max-width: 980px;
-  }
-  header.hero {
-    margin-bottom: 60px;
-    padding-bottom: 40px;
-    border-bottom: 3px solid var(--coffee-dark);
-  }
-  .eyebrow {
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--coffee-mid);
-    font-weight: 600;
-    margin-bottom: 12px;
-  }
-  h1 {
-    font-size: 56px;
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -1.5px;
-    color: var(--coffee-dark);
-    margin-bottom: 20px;
-  }
-  .tagline {
-    font-size: 22px;
-    color: var(--slate-mid);
-    font-weight: 400;
-    line-height: 1.55;
-    max-width: 720px;
-  }
-  .meta {
-    margin-top: 24px;
-    display: flex;
-    gap: 24px;
-    font-size: 13px;
-    color: var(--slate-mid);
-    flex-wrap: wrap;
-  }
-  .meta span { display: inline-flex; align-items: center; gap: 6px; }
-  .meta strong { color: var(--coffee-dark); }
-  section {
-    margin-bottom: 64px;
-    scroll-margin-top: 20px;
-  }
-  main section[id] {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 1200px;
-  }
-  h2 {
-    font-size: 36px;
-    font-weight: 700;
-    color: var(--coffee-dark);
-    margin-bottom: 8px;
-    letter-spacing: -0.5px;
-    line-height: 1.3;
-  }
-  h2 .num {
-    color: var(--gold);
-    font-size: 18px;
-    font-weight: 600;
-    display: block;
-    margin-bottom: 6px;
-    letter-spacing: 2px;
-  }
-  h3 {
-    font-size: 22px;
-    color: var(--coffee-dark);
-    margin: 32px 0 12px;
-    font-weight: 600;
-  }
-  h4 {
-    font-size: 16px;
-    color: var(--coffee-mid);
-    margin: 20px 0 8px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  p { margin-bottom: 14px; }
-  ul, ol { margin-left: 22px; margin-bottom: 16px; }
-  li { margin-bottom: 8px; line-height: 1.75; }
-  strong { color: var(--coffee-dark); font-weight: 600; }
-  em { color: var(--coffee-mid); font-style: normal; font-weight: 500; background: var(--bg-callout-money); padding: 1px 4px; border-radius: 3px; }
-  .lede {
-    font-size: 19px;
-    color: var(--slate-mid);
-    line-height: 1.7;
-    margin-bottom: 24px;
-    padding-left: 20px;
-    border-left: 3px solid var(--gold);
+  ::selection{background:var(--espresso);color:var(--bone)}
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(circle at 30% 20%,rgba(200,162,104,0.04),transparent 60%),radial-gradient(circle at 80% 70%,rgba(184,84,58,0.03),transparent 50%);
   }
 
-  /* Special TL;DR + Wrap-up sections */
-  .tldr-box {
-    background: linear-gradient(135deg, var(--coffee-dark), var(--coffee-mid));
-    color: var(--cream);
-    padding: 36px 40px;
-    border-radius: 16px;
-    margin: 40px 0 60px;
-    box-shadow: 0 8px 24px rgba(44, 24, 16, 0.2);
-  }
-  .tldr-box h2 {
-    color: var(--gold);
-    margin-bottom: 8px;
-  }
-  .tldr-box .num { color: var(--cream-dark); }
-  .tldr-box .lede {
-    color: var(--cream-dark);
-    border-color: var(--gold);
-    margin-bottom: 24px;
-  }
-  .tldr-box p { color: var(--cream-dark); }
-  .tldr-box strong { color: white; }
-  .tldr-box em { background: rgba(201, 169, 110, 0.25); color: var(--gold); }
-  .tldr-list {
-    display: grid;
-    gap: 14px;
-    margin-top: 20px;
-  }
-  .tldr-item {
-    display: grid;
-    grid-template-columns: 36px 1fr;
-    gap: 16px;
-    align-items: start;
-  }
-  .tldr-num {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: var(--gold);
-    color: var(--coffee-dark);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 15px;
-    flex-shrink: 0;
-  }
-  .tldr-text { color: var(--cream); font-size: 16px; line-height: 1.65; }
-  .tldr-text b { color: var(--gold); }
+  /* folio */
+  .folio{position:fixed;top:0;left:0;right:0;z-index:50;display:grid;
+    grid-template-columns:1fr auto 1fr;align-items:baseline;
+    padding:14px clamp(20px,3vw,40px) 12px;
+    background:linear-gradient(to bottom,var(--bone) 0%,var(--bone) 70%,rgba(244,239,230,0));
+    font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--slate)}
+  .folio-l{justify-self:start}.folio-c{justify-self:center;color:var(--espresso);font-weight:500;font-family:var(--serif-th);letter-spacing:0;text-transform:none;font-size:12px}
+  .folio-r{justify-self:end;display:flex;gap:18px;align-items:baseline}
+  .folio-r a,.folio-r button{color:var(--slate);text-decoration:none;font:inherit;
+    font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
+    background:none;border:none;border-bottom:1px solid transparent;padding:0 0 1px;cursor:pointer;transition:color .2s,border-color .2s}
+  .folio-r a:hover,.folio-r button:hover{color:var(--espresso);border-bottom-color:var(--crema)}
+  .folio-r .th{font-family:var(--serif-th);letter-spacing:0;text-transform:none;font-size:12px}
+  .folio-divider{position:fixed;top:46px;left:0;right:0;height:1px;background:var(--stone);z-index:49}
 
-  .callout {
-    margin: 24px 0;
-    padding: 20px 24px;
-    border-radius: 8px;
-    border-left: 5px solid;
-    position: relative;
-  }
-  .callout-label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    display: block;
-  }
-  .callout.insight { background: var(--bg-callout-insight); border-color: var(--gold); }
-  .callout.insight .callout-label { color: #8B6F1A; }
-  .callout.warning { background: var(--bg-callout-warning); border-color: var(--terracotta); }
-  .callout.warning .callout-label { color: var(--terracotta); }
-  .callout.data { background: var(--bg-callout-data); border-color: var(--bean-green); }
-  .callout.data .callout-label { color: var(--bean-green); }
-  .callout.money { background: var(--bg-callout-money); border-color: var(--coffee-mid); }
-  .callout.money .callout-label { color: var(--coffee-mid); }
+  /* index drawer */
+  .idx-overlay{position:fixed;inset:0;background:rgba(26,15,8,.4);z-index:200;display:none;backdrop-filter:blur(2px)}
+  .idx-overlay.show{display:block}
+  .idx-panel{position:absolute;top:0;right:0;bottom:0;width:min(440px,90vw);
+    background:var(--paper);border-left:1px solid var(--stone);padding:80px 40px 40px;overflow-y:auto}
+  .idx-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--slate);margin-bottom:8px}
+  .idx-title{font-size:34px;font-weight:400;letter-spacing:-.01em;line-height:1.15;margin-bottom:32px}
+  .idx-list{list-style:none;border-top:1px solid var(--stone)}
+  .idx-list li{border-bottom:1px solid var(--stone)}
+  .idx-list a{display:grid;grid-template-columns:auto 1fr;gap:20px;padding:18px 0;text-decoration:none;align-items:baseline;transition:padding .2s}
+  .idx-list a:hover{padding-left:8px}
+  .idx-num{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--crema-dim)}
+  .idx-name{font-size:20px;font-weight:500;color:var(--espresso)}
+  .idx-meta{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);margin-top:4px}
+  .idx-list a.current .idx-name{color:var(--brick)}
+  .idx-list a.current .idx-num{color:var(--brick)}
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    font-size: 14px;
-    background: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 1px 3px rgba(44, 24, 16, 0.08);
-  }
-  thead { background: var(--coffee-dark); color: var(--cream); }
-  th {
-    text-align: left;
-    padding: 12px 16px;
-    font-weight: 600;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  td {
-    padding: 14px 16px;
-    border-bottom: 1px solid var(--cream-dark);
-    vertical-align: top;
-    line-height: 1.7;
-  }
-  tr:last-child td { border-bottom: none; }
-  tr:hover td { background: var(--cream); }
-  td.num { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--coffee-dark); }
+  /* shell */
+  main{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:120px var(--gutter) 160px}
 
-  .stat-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
-    margin: 24px 0;
-  }
-  .stat {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-  }
-  .stat-value {
-    font-size: 32px;
-    font-weight: 800;
-    color: var(--coffee-dark);
-    line-height: 1.1;
-    letter-spacing: -1px;
-  }
-  .stat-label {
-    font-size: 12px;
-    color: var(--slate-mid);
-    margin-top: 6px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  .stat-context {
-    font-size: 13px;
-    color: var(--slate-mid);
-    margin-top: 8px;
-    line-height: 1.6;
+  /* cover */
+  .cover{display:grid;gap:48px;padding-bottom:64px;margin-bottom:96px;border-bottom:1px solid var(--stone)}
+  .cover-meta{display:flex;justify-content:space-between;align-items:baseline;
+    font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--slate);
+    padding-bottom:24px;border-bottom:1px solid var(--stone);flex-wrap:wrap;gap:12px}
+  .cover-meta b{color:var(--espresso);font-weight:500}
+  .cover-eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--brick);font-weight:500}
+  .cover-title{font-size:clamp(72px,12vw,200px);font-weight:300;letter-spacing:-.04em;line-height:.88;
+    font-family:var(--serif);font-variation-settings:"opsz" 144,"SOFT" 30;margin-top:24px}
+  .cover-title .it{font-style:italic;font-variation-settings:"opsz" 144,"SOFT" 100,"WONK" 1;color:var(--brick)}
+  .cover-sub{font-size:clamp(20px,2.2vw,30px);font-weight:400;line-height:1.5;color:var(--slate);max-width:38ch;margin-top:32px}
+  .cover-sub em{font-style:italic;color:var(--brick);font-family:var(--serif);font-variation-settings:"opsz" 96,"SOFT" 100,"WONK" 1}
+  .cover-foot{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;padding-top:32px;margin-top:24px;
+    border-top:1px solid var(--stone);font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--slate)}
+  .cover-foot dt{color:var(--espresso);font-weight:500;margin-bottom:6px}
+  .cover-foot dd{font-family:var(--serif-th);font-size:15px;letter-spacing:0;text-transform:none;color:var(--espresso);font-weight:400;line-height:1.6}
+
+  /* TOC */
+  .toc{display:grid;grid-template-columns:80px 1fr;gap:clamp(24px,4vw,72px);margin-bottom:120px;align-items:start}
+  .toc-no{font-size:36px;font-weight:300;font-style:italic;color:var(--brick);line-height:1;font-family:var(--serif);font-variation-settings:"opsz" 36,"SOFT" 100;padding-top:8px}
+  .toc-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);margin-bottom:16px}
+  .toc-title{font-size:clamp(38px,5vw,68px);font-weight:400;letter-spacing:-.01em;line-height:1.2;margin-bottom:48px}
+  .toc-title em{font-style:italic;color:var(--brick);font-family:var(--serif);font-variation-settings:"opsz" 144,"SOFT" 100,"WONK" 1}
+  .toc-list{list-style:none;border-top:1px solid var(--stone);max-width:680px}
+  .toc-list li{border-bottom:1px solid var(--stone-soft)}
+  .toc-list a{display:grid;grid-template-columns:48px 1fr auto;gap:24px;padding:14px 0;text-decoration:none;color:var(--espresso);align-items:baseline;transition:padding .2s,color .2s}
+  .toc-list a:hover{padding-left:6px;color:var(--brick)}
+  .toc-list .toc-i{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--brick)}
+  .toc-list .toc-t{font-size:18px;font-weight:400}
+  .toc-list .toc-p{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--slate)}
+
+  /* section */
+  .section{margin-bottom:128px;display:grid;grid-template-columns:80px 1fr;gap:clamp(24px,4vw,72px);align-items:start}
+  .section-no{font-size:36px;font-weight:300;font-style:italic;color:var(--brick);line-height:1;font-family:var(--serif);font-variation-settings:"opsz" 36,"SOFT" 100;padding-top:12px;position:sticky;top:80px}
+  .section-body{min-width:0}
+  .section-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);margin-bottom:16px}
+  .section-title{font-size:clamp(36px,4.6vw,60px);font-weight:400;letter-spacing:-.015em;line-height:1.18;margin-bottom:24px;max-width:22ch}
+  .section-title em{font-style:italic;color:var(--brick);font-family:var(--serif);font-variation-settings:"opsz" 144,"SOFT" 100,"WONK" 1}
+  .section-lede{font-size:clamp(18px,1.5vw,22px);font-weight:400;line-height:1.65;color:var(--slate);max-width:54ch;margin-bottom:48px}
+  .section-body p{max-width:var(--col);margin-bottom:1em;font-size:17px;line-height:1.8}
+  .section-body h3{font-size:clamp(22px,2vw,28px);font-weight:500;letter-spacing:-.005em;line-height:1.3;margin:48px 0 16px;max-width:32ch}
+  .section-body h3 em{font-style:italic;color:var(--brick);font-family:var(--serif);font-variation-settings:"opsz" 36,"SOFT" 100,"WONK" 1}
+  .section-body ul{list-style:none;margin:16px 0 24px;max-width:var(--col)}
+  .section-body ul li{padding:10px 0 10px 28px;border-bottom:1px solid var(--stone-soft);font-size:16px;line-height:1.7;position:relative}
+  .section-body ul li::before{content:"—";position:absolute;left:0;color:var(--crema-dim)}
+  .section-body strong{font-weight:600;color:var(--ink)}
+  .section-body em{font-style:italic;font-family:var(--serif);font-variation-settings:"opsz" 14,"SOFT" 100,"WONK" 1}
+  .section-body mark{background:linear-gradient(transparent 60%,rgba(200,162,104,.4) 60%);padding:0 2px}
+
+  /* drop cap on first paragraph after section-lede — Thai-aware */
+  .has-dropcap > p:first-of-type::first-letter{
+    font-size:4.4em;line-height:.85;float:left;
+    margin:.05em .14em -.05em -.02em;
+    color:var(--brick);font-weight:300;
   }
 
-  .lifecycle {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 32px 24px;
-    margin: 24px 0;
-    overflow-x: auto;
+  .ornament{margin:64px auto 0;text-align:center;color:var(--crema);font-family:var(--serif);letter-spacing:.5em;font-size:14px;user-select:none}
+
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--stone);border:1px solid var(--stone);margin:32px 0 48px}
+  .stat{background:var(--paper);padding:32px 28px 28px;display:flex;flex-direction:column;gap:10px;min-height:240px;position:relative}
+  .stat::before{content:attr(data-fig);position:absolute;top:14px;right:18px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--crema-dim)}
+  .stat-value{font-size:clamp(56px,6vw,88px);font-weight:300;letter-spacing:-.04em;line-height:.95;color:var(--brick);font-family:var(--serif);font-variation-settings:"opsz" 144,"SOFT" 30;margin-bottom:0}
+  .stat-label{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--espresso);font-weight:500}
+  .stat-context{font-size:13.5px;color:var(--slate);line-height:1.65}
+
+  /* pull quote */
+  .pull{
+    font-size:clamp(24px,2.6vw,36px);font-weight:400;line-height:1.45;color:var(--espresso);
+    letter-spacing:-.005em;
+    max-width:32ch;margin:48px 0;padding:32px 0 32px 32px;
+    border-left:1px solid var(--brick);
   }
-  .lifecycle-flow {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 8px;
-    min-width: 720px;
-    align-items: stretch;
+  .pull em{font-style:italic;color:var(--brick);font-family:var(--serif);font-variation-settings:"opsz" 96,"SOFT" 100,"WONK" 1}
+  .pull-attribution{display:block;margin-top:14px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--slate);font-weight:500}
+
+  /* callouts (sidenote-flavored) */
+  .note{
+    background:var(--paper);border:1px solid var(--stone);padding:28px 32px;margin:32px 0;max-width:680px;
+    position:relative;
   }
-  .stage {
-    text-align: center;
-    padding: 14px 6px;
-    background: var(--cream);
-    border-radius: 6px;
-    border: 2px solid transparent;
-    position: relative;
-    font-size: 13px;
+  .note-tag{font-family:var(--mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);font-weight:500;margin-bottom:12px}
+  .note p{font-size:15px;line-height:1.75;margin:0}
+  .note.thesis{background:var(--ink);color:var(--bone);border-color:var(--ink)}
+  .note.thesis .note-tag{color:var(--crema)}
+  .note.thesis p{color:var(--stone-soft)}
+  .note.thesis strong{color:var(--crema)}
+  .note.thesis em{color:var(--crema-light)}
+
+  /* value chain */
+  .chain{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--stone);border:1px solid var(--stone);margin:32px 0;text-align:center;align-items:stretch}
+  .chain-cell{background:var(--paper);padding:48px 24px 32px;display:flex;flex-direction:column;justify-content:center;gap:8px;position:relative}
+  .chain-cell:nth-child(3){background:var(--ink);color:var(--bone)}
+  .chain-arrow{position:absolute;right:-12px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--crema);background:var(--bone);padding:4px;z-index:2;font-family:var(--serif)}
+  .chain-cell:last-child .chain-arrow{display:none}
+  .chain-price{font-size:clamp(40px,5vw,64px);font-weight:300;letter-spacing:-.03em;line-height:1;font-family:var(--serif);font-variation-settings:"opsz" 96}
+  .chain-cell:nth-child(3) .chain-price{color:var(--crema)}
+  .chain-label{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--slate)}
+  .chain-cell:nth-child(3) .chain-label{color:var(--stone-soft)}
+  .chain-foot{font-family:var(--serif-th);font-size:18px;color:var(--slate);text-align:center;margin-top:24px}
+  .chain-foot strong{color:var(--brick);font-weight:500}
+
+  /* lifecycle */
+  .lifecycle{margin:32px 0 48px;border:1px solid var(--stone);background:var(--paper)}
+  .stages{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--stone)}
+  .stage{background:var(--paper);padding:28px 14px 24px;text-align:center;display:flex;flex-direction:column;gap:8px;min-height:160px;position:relative}
+  .stage.hit{background:linear-gradient(180deg,rgba(200,162,104,.18),var(--paper) 60%)}
+  .stage-num{font-size:32px;font-weight:300;color:var(--crema-dim);font-family:var(--serif);font-variation-settings:"opsz" 36;line-height:1}
+  .stage.hit .stage-num{color:var(--brick)}
+  .stage-name{font-family:var(--serif-th);font-size:15px;font-weight:600;color:var(--espresso)}
+  .stage-pain{font-size:11.5px;color:var(--slate);line-height:1.5}
+  .stage-mod{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--brick);font-weight:500;margin-top:auto}
+
+  /* tables */
+  .data-table{width:100%;border-collapse:collapse;margin:32px 0 24px;font-size:14.5px}
+  .data-table th{text-align:left;padding:14px 16px 12px;border-bottom:1.5px solid var(--espresso);font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--espresso);font-weight:500;background:transparent}
+  .data-table td{padding:18px 16px;border-bottom:1px solid var(--stone-soft);vertical-align:top;line-height:1.65}
+  .data-table tr:last-child td{border-bottom:1px solid var(--stone)}
+  .data-table .num{font-family:var(--mono);font-size:13px;letter-spacing:.04em;color:var(--brick);font-weight:500;white-space:nowrap}
+  .data-table .row-highlight{background:linear-gradient(90deg,rgba(200,162,104,.12),transparent 80%)}
+  .data-table .row-highlight td{font-weight:500}
+  .data-table strong{font-weight:600;color:var(--ink)}
+  .data-table em{font-style:italic;color:var(--brick);font-family:var(--serif);font-variation-settings:"opsz" 14,"SOFT" 100,"WONK" 1}
+
+  /* module spreads */
+  .module{display:grid;grid-template-columns:1fr;gap:24px;margin:48px 0 64px;padding-top:36px;border-top:1.5px solid var(--espresso)}
+  .module.hero{border-top-color:var(--brick);border-top-width:3px}
+  .module-head{display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:baseline}
+  .module-no{font-size:48px;font-weight:300;font-style:italic;color:var(--brick);line-height:1;font-family:var(--serif);font-variation-settings:"opsz" 96,"SOFT" 100}
+  .module-tag{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--slate);font-weight:500;margin-bottom:6px}
+  .module.hero .module-tag{color:var(--brick)}
+  .module-title{font-size:clamp(26px,2.6vw,38px);font-weight:500;letter-spacing:-.005em;line-height:1.25}
+  .module-title em{font-style:italic;color:var(--brick);font-family:var(--serif);font-variation-settings:"opsz" 96,"SOFT" 100,"WONK" 1}
+  .module-fig{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--crema-dim);align-self:start}
+  .module-body{display:grid;grid-template-columns:1fr;gap:24px}
+  @media (min-width:880px){.module-body{grid-template-columns:1.4fr 1fr}}
+  .module-body p{margin:0}
+  .module-io{background:var(--paper);border:1px solid var(--stone);padding:24px 28px;display:flex;flex-direction:column;gap:18px}
+  .module-io-row{display:flex;flex-direction:column;gap:6px}
+  .io-label{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--brick);font-weight:500}
+  .io-text{font-size:13.5px;line-height:1.65;color:var(--espresso)}
+
+  .scan-output{
+    background:var(--ink);color:var(--stone-soft);padding:28px 32px;margin:24px 0;
+    font-family:var(--mono);font-size:13px;line-height:1.85;border-left:3px solid var(--crema);
+    white-space:pre;overflow-x:auto;
   }
-  .stage.hit { border-color: var(--gold); background: var(--bg-callout-insight); }
-  .stage-num {
-    display: inline-block;
-    width: 26px;
-    height: 26px;
-    line-height: 26px;
-    border-radius: 50%;
-    background: var(--coffee-dark);
-    color: var(--cream);
-    font-size: 11px;
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
-  .stage.hit .stage-num { background: var(--gold); color: var(--coffee-dark); }
-  .stage-name {
-    font-weight: 600;
-    color: var(--coffee-dark);
-    margin-bottom: 4px;
-    font-size: 13px;
-  }
-  .stage-pain {
-    font-size: 11px;
-    color: var(--slate-mid);
-    line-height: 1.4;
-  }
-  .stage-mod {
-    margin-top: 6px;
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--gold);
-    text-transform: uppercase;
-    letter-spacing: 1px;
+  .scan-output .lbl{color:var(--stone);display:inline-block;width:200px}
+  .scan-output .val{color:var(--bone);font-weight:500}
+  .scan-output .pass{color:var(--moss)}
+  .scan-output .warn{color:var(--brick)}
+
+  /* personas */
+  .personas{display:grid;grid-template-columns:1fr;gap:1px;background:var(--stone);border:1px solid var(--stone);margin:32px 0}
+  .persona{background:var(--paper);padding:36px 32px;display:grid;grid-template-columns:160px 1fr;gap:32px;align-items:start}
+  @media (max-width:680px){.persona{grid-template-columns:1fr;gap:16px}}
+  .persona-id{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--brick);font-weight:500}
+  .persona-name{font-size:22px;font-weight:500;margin-top:8px;line-height:1.3}
+  .persona-name em{font-style:italic;color:var(--brick);font-family:var(--serif);font-variation-settings:"opsz" 36,"SOFT" 100,"WONK" 1}
+  .persona-body p{font-size:15px;line-height:1.75;color:var(--espresso);max-width:54ch;margin:0 0 8px}
+
+  /* business model rows */
+  .stream{padding:28px 0;border-bottom:1px solid var(--stone-soft)}
+  .stream:first-of-type{border-top:1.5px solid var(--espresso)}
+  .stream-tag{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--brick);font-weight:500;margin-bottom:8px}
+  .stream-title{font-size:22px;font-weight:600;margin-bottom:12px;line-height:1.3}
+
+  /* GTM phases */
+  .phases{display:grid;grid-template-columns:1fr;gap:24px;margin:32px 0}
+  @media (min-width:880px){.phases{grid-template-columns:repeat(3,1fr)}}
+  .phase{background:var(--paper);border:1px solid var(--stone);padding:32px 28px}
+  .phase-no{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);font-weight:500;margin-bottom:8px}
+  .phase-title{font-size:20px;font-weight:600;margin-bottom:8px;line-height:1.3}
+  .phase-window{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--slate);text-transform:uppercase;margin-bottom:20px}
+  .phase ul{list-style:none;margin:0}
+  .phase li{font-size:14px;line-height:1.7;color:var(--espresso);padding:8px 0 8px 18px;border-bottom:1px dashed var(--stone-soft);position:relative}
+  .phase li::before{content:"·";position:absolute;left:0;color:var(--crema-dim);font-weight:700}
+
+  /* moats */
+  .moat{display:grid;grid-template-columns:48px 1fr;gap:32px;padding:28px 0;border-bottom:1px solid var(--stone)}
+  .moat:first-of-type{border-top:1.5px solid var(--espresso);padding-top:32px}
+  .moat-num{font-size:36px;font-weight:300;font-style:italic;color:var(--brick);line-height:1;font-family:var(--serif);font-variation-settings:"opsz" 96,"SOFT" 100}
+  .moat-title{font-size:21px;font-weight:600;margin-bottom:10px;line-height:1.3}
+  .moat-body{font-size:15px;line-height:1.75;color:var(--espresso);max-width:62ch}
+
+  /* MVP plan */
+  .mvp-week{display:grid;grid-template-columns:140px 1fr;gap:32px;padding:24px 0;border-bottom:1px solid var(--stone-soft)}
+  .mvp-week:first-of-type{border-top:1.5px solid var(--espresso);padding-top:28px}
+  .mvp-window{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--brick);font-weight:500}
+  .mvp-task{font-size:16px;line-height:1.7;color:var(--espresso)}
+  .mvp-task strong{font-weight:600}
+
+  /* demo storyboard */
+  .demo-row{display:grid;grid-template-columns:110px 1fr;gap:32px;padding:18px 0;border-bottom:1px dashed var(--stone-soft);align-items:start}
+  .demo-row:first-of-type{border-top:1.5px solid var(--espresso);padding-top:24px}
+  .demo-time{font-family:var(--mono);font-size:13px;color:var(--brick);font-weight:500;letter-spacing:.04em}
+  .demo-action{font-size:15px;line-height:1.7}
+  .demo-action strong{font-weight:600}
+  .demo-action em{font-style:italic;color:var(--brick);font-family:var(--serif);font-variation-settings:"opsz" 14,"SOFT" 100,"WONK" 1}
+
+  /* final reasons */
+  .reasons{display:grid;grid-template-columns:1fr;gap:1px;background:var(--stone);border:1px solid var(--stone);margin:32px 0}
+  .reason{background:var(--paper);padding:32px;display:grid;grid-template-columns:60px 1fr;gap:24px;align-items:baseline}
+  .reason-no{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--brick);font-weight:500}
+  .reason-title{font-size:20px;font-weight:600;margin-bottom:6px;line-height:1.3}
+  .reason-body{font-size:15px;line-height:1.7;color:var(--espresso)}
+
+  /* citations */
+  .citations{font-family:var(--mono);font-size:12px;line-height:1.8;color:var(--slate);columns:2;column-gap:48px;column-rule:1px solid var(--stone-soft);margin-top:32px}
+  @media (max-width:680px){.citations{columns:1}}
+  .citations p{font-family:var(--serif-th);font-size:13.5px;break-inside:avoid;margin-bottom:10px}
+  .citations a{color:var(--espresso);text-decoration:none;border-bottom:1px solid var(--crema);padding-bottom:1px;font-family:var(--mono);font-size:11.5px}
+
+  /* footer */
+  footer{margin-top:120px;padding-top:32px;border-top:1px solid var(--stone);
+    display:grid;grid-template-columns:1fr 1fr;gap:32px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--slate);align-items:end}
+  footer .colophon{font-family:var(--serif-th);font-size:14.5px;letter-spacing:0;text-transform:none;color:var(--espresso);line-height:1.65}
+  footer .colophon em{font-style:italic;color:var(--brick);font-family:var(--serif);font-variation-settings:"opsz" 14,"SOFT" 100,"WONK" 1}
+  footer a{color:var(--espresso);text-decoration:none;border-bottom:1px solid var(--crema);padding-bottom:1px}
+  footer a:hover{border-bottom-color:var(--brick)}
+  footer .end{font-family:var(--serif);font-size:18px;color:var(--brick);font-style:italic}
+  footer .links{font-family:var(--serif-th);letter-spacing:0;text-transform:none;font-size:13px}
+
+  @media (max-width:760px){
+    .section,.toc{grid-template-columns:1fr;gap:16px}
+    .section-no,.toc-no{position:static;font-size:24px}
+    .cover-foot{grid-template-columns:1fr 1fr}
+    .stages{grid-template-columns:repeat(4,1fr)}
+    .stage{min-height:140px}
+    .chain{grid-template-columns:1fr}
+    .chain-arrow{display:none!important}
+    .module-head{grid-template-columns:1fr}
+    .demo-row,.mvp-week{grid-template-columns:1fr;gap:8px}
+    .persona{grid-template-columns:1fr}
   }
 
-  .value-chain {
-    background: linear-gradient(to right, var(--bg-callout-warning) 0%, var(--bg-callout-money) 50%, var(--bg-callout-data) 100%);
-    padding: 32px;
-    border-radius: 12px;
-    margin: 24px 0;
-  }
-  .chain-row {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr auto 1fr;
-    gap: 12px;
-    align-items: center;
-    text-align: center;
-  }
-  .chain-node {
-    background: white;
-    padding: 16px;
-    border-radius: 8px;
-    border: 2px solid var(--border);
-  }
-  .chain-price {
-    font-size: 28px;
-    font-weight: 800;
-    color: var(--coffee-dark);
-    line-height: 1.2;
-  }
-  .chain-label {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--slate-mid);
-    margin-top: 6px;
-  }
-  .chain-arrow {
-    font-size: 24px;
-    color: var(--coffee-mid);
-    font-weight: 300;
-  }
-  .chain-multiplier {
-    text-align: center;
-    margin-top: 16px;
-    font-size: 16px;
-    color: var(--coffee-dark);
-  }
-  .chain-multiplier strong { font-size: 24px; color: var(--terracotta); }
-
-  .module-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 28px;
-    margin: 20px 0;
-    position: relative;
-  }
-  .module-header {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 16px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--cream-dark);
-  }
-  .module-num {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    background: var(--coffee-dark);
-    color: var(--gold);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    font-weight: 800;
-    flex-shrink: 0;
-  }
-  .module-title {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--coffee-dark);
-    margin: 0;
-  }
-  .module-tag {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--bean-green);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 2px;
-  }
-  .io-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-top: 16px;
-  }
-  .io-block {
-    background: var(--cream);
-    padding: 14px 16px;
-    border-radius: 6px;
-    font-size: 13px;
-    line-height: 1.65;
-  }
-  .io-label {
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--coffee-mid);
-    font-weight: 700;
-    margin-bottom: 6px;
-  }
-
-  .persona-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px;
-    margin: 16px 0;
-    display: grid;
-    grid-template-columns: 80px 1fr;
-    gap: 20px;
-  }
-  .persona-avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: var(--coffee-dark);
-    color: var(--gold);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 36px;
-    font-weight: 800;
-  }
-  .persona-name {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--coffee-dark);
-    margin: 0;
-  }
-  .persona-meta {
-    font-size: 13px;
-    color: var(--slate-mid);
-    margin-bottom: 10px;
-    line-height: 1.65;
-  }
-
-  .scan-output {
-    background: #1A0F08;
-    color: #E8D9C0;
-    padding: 20px 24px;
-    border-radius: 8px;
-    font-family: "SF Mono", Monaco, "Cascadia Mono", "Roboto Mono", monospace;
-    font-size: 13px;
-    line-height: 1.85;
-    margin: 16px 0;
-    overflow-x: auto;
-  }
-  .scan-output .label { color: var(--gold); }
-  .scan-output .value { color: white; font-weight: 600; }
-  .scan-output .pass { color: #7FB069; }
-  .scan-output .warn { color: #E89B5C; }
-
-  .storyboard {
-    display: grid;
-    gap: 12px;
-    margin: 20px 0;
-  }
-  .scene {
-    display: grid;
-    grid-template-columns: 80px 1fr;
-    gap: 16px;
-    background: white;
-    padding: 16px 20px;
-    border-radius: 8px;
-    border-left: 4px solid var(--gold);
-  }
-  .scene-time {
-    font-family: "SF Mono", monospace;
-    font-weight: 700;
-    color: var(--coffee-mid);
-    font-size: 14px;
-    padding-top: 2px;
-  }
-  .scene-desc { font-size: 14px; color: var(--slate); line-height: 1.7; }
-
-  .risk-row {
-    display: grid;
-    grid-template-columns: 220px 80px 1fr;
-    gap: 16px;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--cream-dark);
-    align-items: start;
-  }
-  .risk-name { font-weight: 600; color: var(--coffee-dark); font-size: 14px; padding-top: 4px; }
-  .risk-score {
-    text-align: center;
-    padding: 4px 10px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    width: fit-content;
-  }
-  .risk-high { background: var(--terracotta); color: white; }
-  .risk-med { background: var(--gold); color: var(--coffee-dark); }
-  .risk-low { background: var(--bean-green); color: white; }
-  .risk-mit { font-size: 14px; color: var(--slate-mid); line-height: 1.7; }
-
-  .moat-stack {
-    display: grid;
-    gap: 8px;
-    margin: 20px 0;
-  }
-  .moat-layer {
-    background: white;
-    border: 1px solid var(--border);
-    border-left: 6px solid var(--gold);
-    padding: 16px 20px;
-    border-radius: 6px;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 16px;
-    align-items: start;
-  }
-  .moat-num {
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--gold);
-    font-variant-numeric: tabular-nums;
-    line-height: 1;
-  }
-  .moat-title {
-    font-weight: 700;
-    color: var(--coffee-dark);
-    font-size: 16px;
-    margin-bottom: 4px;
-  }
-  .moat-desc { font-size: 13px; color: var(--slate-mid); line-height: 1.7; }
-
-  .timeline {
-    border-left: 3px solid var(--coffee-dark);
-    padding-left: 24px;
-    margin: 20px 0 20px 12px;
-  }
-  .week {
-    margin-bottom: 24px;
-    position: relative;
-  }
-  .week::before {
-    content: "";
-    position: absolute;
-    left: -34px;
-    top: 6px;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: var(--gold);
-    border: 3px solid var(--cream);
-  }
-  .week-label {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--coffee-mid);
-    font-weight: 700;
-  }
-  .week-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--coffee-dark);
-    margin: 4px 0 8px;
-  }
-
-  footer {
-    margin-top: 80px;
-    padding-top: 40px;
-    border-top: 1px solid var(--border);
-    font-size: 13px;
-    color: var(--slate-mid);
-  }
-  footer h3 { font-size: 14px; color: var(--coffee-dark); margin-bottom: 12px; }
-  footer ul { list-style: none; margin-left: 0; }
-  footer li { margin-bottom: 6px; }
-  footer a { color: var(--coffee-mid); text-decoration: none; border-bottom: 1px dotted var(--coffee-light); }
-  footer a:hover { color: var(--terracotta); border-color: var(--terracotta); }
-
-  mark {
-    background: linear-gradient(180deg, transparent 60%, var(--gold) 60%);
-    padding: 0 2px;
-    color: var(--coffee-dark);
-    font-weight: 600;
-  }
-
-  @media (max-width: 1024px) {
-    .layout { grid-template-columns: 1fr; }
-    nav.toc { position: relative; height: auto; max-height: 300px; }
-    main { padding: 40px 24px; }
-    h1 { font-size: 36px; }
-    .lifecycle-flow { grid-template-columns: repeat(2, 1fr); }
-    .chain-row { grid-template-columns: 1fr; }
-    .chain-arrow { transform: rotate(90deg); }
-  }
-
-  @media print {
-    nav.toc { display: none; }
-    .layout { grid-template-columns: 1fr; }
-    main { padding: 20px; max-width: 100%; }
-    .module-card, .stat, table { break-inside: avoid; }
-    .lang-switch { display: none; }
-  }
-
-  .lang-switch {
-    position: fixed;
-    top: 20px;
-    right: 24px;
-    z-index: 100;
-    background: var(--coffee-dark);
-    color: var(--gold);
-    padding: 10px 18px;
-    border-radius: 24px;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    box-shadow: 0 4px 12px rgba(44, 24, 16, 0.25);
-    transition: all 0.2s;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  }
-  .lang-switch:hover {
-    background: var(--gold);
-    color: var(--coffee-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(44, 24, 16, 0.35);
-  }
-  .lang-switch::before {
-    content: "🌐";
-    font-size: 14px;
-  }
-
-  /* --- Site Nav (cross-page navigation) --- */
-  .site-nav-btn {
-    position: fixed;
-    top: 20px;
-    left: 24px;
-    z-index: 100;
-    background: var(--coffee-dark);
-    color: var(--gold);
-    padding: 10px 18px;
-    border-radius: 24px;
-    border: 1px solid rgba(201, 169, 110, 0.3);
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: inherit;
-    transition: all 0.2s;
-  }
-  .site-nav-btn:hover {
-    background: var(--gold);
-    color: var(--coffee-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
-  }
-  .site-nav-btn::before { content: "▦"; font-size: 14px; opacity: 0.85; }
-  .site-nav-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(44, 24, 16, 0.55);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    z-index: 200;
-    display: none;
-    padding: 80px 24px 24px;
-  }
-  .site-nav-overlay.show { display: block; }
-  .site-nav-panel {
-    background: white;
-    border-radius: 16px;
-    border: 2px solid var(--gold);
-    box-shadow: 0 16px 48px rgba(0,0,0,0.35);
-    width: 380px;
-    max-width: calc(100% - 48px);
-    padding: 8px;
-    margin-left: 24px;
-  }
-  .site-nav-panel-title {
-    padding: 16px 20px 12px;
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: var(--coffee-mid);
-    text-transform: uppercase;
-    font-weight: 800;
-    border-bottom: 1px solid var(--cream-dark);
-    margin-bottom: 4px;
-  }
-  .site-nav-link {
-    display: grid;
-    grid-template-columns: 36px 1fr;
-    gap: 12px;
-    padding: 12px 16px;
-    text-decoration: none;
-    border-radius: 10px;
-    align-items: center;
-    margin-top: 2px;
-    transition: background 0.15s;
-    position: relative;
-  }
-  .site-nav-link:hover { background: var(--cream); }
-  .site-nav-link.current { background: linear-gradient(90deg, #FFF8E7, white); }
-  .site-nav-link.current::before {
-    content: "";
-    position: absolute;
-    left: 4px;
-    top: 12px;
-    bottom: 12px;
-    width: 3px;
-    background: var(--gold);
-    border-radius: 2px;
-  }
-  .site-nav-link-icon { font-size: 22px; text-align: center; }
-  .site-nav-link-name {
-    color: var(--coffee-dark);
-    font-weight: 700;
-    font-size: 15px;
-    margin-bottom: 2px;
-    font-family: inherit;
-  }
-  .site-nav-link-meta {
-    color: var(--slate-mid);
-    font-size: 12px;
-    font-family: inherit;
-  }
-  @media print { .site-nav-btn, .site-nav-overlay { display: none !important; } }
-
-  /* --- Cleaner TOC sidebar --- */
-  nav.toc {
-    padding: 28px 16px;
-    font-size: 12.5px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--coffee-light) transparent;
-  }
-  nav.toc::-webkit-scrollbar { width: 4px; }
-  nav.toc::-webkit-scrollbar-track { background: transparent; }
-  nav.toc::-webkit-scrollbar-thumb { background: var(--coffee-light); border-radius: 2px; }
-  nav.toc h2 {
-    font-size: 10px;
-    letter-spacing: 2.5px;
-    margin-bottom: 14px;
-    padding: 0 10px;
-  }
-  nav.toc li { margin: 1px 0; }
-  nav.toc a {
-    color: rgba(240, 230, 210, 0.72);
-    padding: 8px 12px 8px 10px;
-    border-radius: 6px;
-    line-height: 1.4;
-    border-left-width: 2px;
-  }
-  nav.toc a:hover {
-    background: rgba(255,255,255,0.04);
-    color: white;
-    border-left-color: transparent;
-  }
-  nav.toc a.active {
-    background: rgba(201, 169, 110, 0.12);
-    border-left-color: var(--gold);
-    color: white;
-  }
-  nav.toc a::before {
-    color: rgba(139, 111, 71, 0.7);
-    margin-right: 12px;
-    font-size: 10px;
-  }
-  nav.toc a:hover::before, nav.toc a.active::before { color: var(--gold); }
-  nav.toc a.tldr-link, nav.toc a.wrap-link {
-    margin: 6px 0;
-    background: rgba(201, 169, 110, 0.08);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
-  }
+  @media print{.folio,.folio-divider,.idx-overlay{display:none!important}body{background:white}}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-<a class="lang-switch" href="index.html" title="English">EN</a>
-<button class="site-nav-btn" onclick="window.toggleSiteNav()" title="หน้าทั้งหมด">หน้า</button>
 
-<div class="site-nav-overlay" id="siteNavOverlay" onclick="if(event.target===this)window.toggleSiteNav()">
-  <div class="site-nav-panel">
-    <div class="site-nav-panel-title">หน้าในโครงการ DoiBean</div>
-    <a href="index.html" class="site-nav-link" data-page="index">
-      <span class="site-nav-link-icon">📊</span>
-      <div>
-        <div class="site-nav-link-name">Deep Dive Report</div>
-        <div class="site-nav-link-meta">English · 16 sections · ~18 min</div>
-      </div>
-    </a>
-    <a href="index-th.html" class="site-nav-link" data-page="index-th">
-      <span class="site-nav-link-icon">📊</span>
-      <div>
-        <div class="site-nav-link-name">รายงานเจาะลึก</div>
-        <div class="site-nav-link-meta">ภาษาไทย · 16 sections · ~18 นาที</div>
-      </div>
-    </a>
-    <a href="pitch-th.html" class="site-nav-link" data-page="pitch-th">
-      <span class="site-nav-link-icon">🎤</span>
-      <div>
-        <div class="site-nav-link-name">Pitch Deck</div>
-        <div class="site-nav-link-meta">10 สไลด์ · navigate ด้วย arrow keys</div>
-      </div>
-    </a>
-    <a href="brand.html" class="site-nav-link" data-page="brand">
-      <span class="site-nav-link-icon">🎨</span>
-      <div>
-        <div class="site-nav-link-name">Brand Guidelines</div>
-        <div class="site-nav-link-meta">โลโก้ · สี · typography · การใช้งาน</div>
-      </div>
-    </a>
-    <a href="chiangmai-research.html" class="site-nav-link" data-page="chiangmai-research">
-      <span class="site-nav-link-icon">🔍</span>
-      <div>
-        <div class="site-nav-link-name">CM Pain Points Research</div>
-        <div class="site-nav-link-meta">9 หมวด hackathon · user voice</div>
-      </div>
-    </a>
+<header class="folio">
+  <div class="folio-l">DoiBean &nbsp;·&nbsp; Vol. 01</div>
+  <div class="folio-c">รายงานเจาะลึก</div>
+  <div class="folio-r">
+    <a href="index.html">English ↗</a>
+    <button onclick="window.toggleIndex()" class="th">สารบัญ</button>
   </div>
+</header>
+<div class="folio-divider"></div>
+
+<div class="idx-overlay" id="idxOverlay" onclick="if(event.target===this)window.toggleIndex()">
+  <aside class="idx-panel">
+    <div class="idx-eyebrow">DoiBean · Vol. 01</div>
+    <h2 class="idx-title">หน้าในเล่ม</h2>
+    <ul class="idx-list">
+      <li><a href="index.html" data-page="index"><span class="idx-num">I</span><span><span class="idx-name">Deep Dive Report</span><span class="idx-meta">English · 16 sections · 18 min</span></span></a></li>
+      <li><a href="index-th.html" data-page="index-th"><span class="idx-num">II</span><span><span class="idx-name">รายงานเจาะลึก</span><span class="idx-meta">ภาษาไทย · 16 ตอน · 18 นาที</span></span></a></li>
+      <li><a href="pitch-th.html" data-page="pitch-th"><span class="idx-num">III</span><span><span class="idx-name">Pitch Deck</span><span class="idx-meta">10 สไลด์ · arrow keys</span></span></a></li>
+      <li><a href="brand.html" data-page="brand"><span class="idx-num">IV</span><span><span class="idx-name">Standards Manual</span><span class="idx-meta">โลโก้ · สี · ฟอนต์</span></span></a></li>
+      <li><a href="chiangmai-research.html" data-page="chiangmai-research"><span class="idx-num">V</span><span><span class="idx-name">Field Notes — Chiang Mai</span><span class="idx-meta">9 หมวด · เสียงผู้ใช้</span></span></a></li>
+    </ul>
+  </aside>
 </div>
-
 <script>
-(function(){
-  function toggle() {
-    var o = document.getElementById('siteNavOverlay');
-    var willShow = !o.classList.contains('show');
-    o.classList.toggle('show');
-    if (willShow) {
-      var path = window.location.pathname.split('/').pop() || 'index.html';
-      var cur = path.replace('.html', '') || 'index';
-      o.querySelectorAll('.site-nav-link').forEach(function(a){
-        a.classList.toggle('current', a.dataset.page === cur);
-      });
-    }
-  }
-  window.toggleSiteNav = toggle;
-  document.addEventListener('keydown', function(e){
-    if (e.key === 'Escape') {
-      var o = document.getElementById('siteNavOverlay');
-      if (o) o.classList.remove('show');
-    }
-  });
-  // Scroll-spy for TOC — IntersectionObserver, no per-frame layout reads
-  var sections = document.querySelectorAll('main section[id], main footer[id]');
-  var tocLinks = document.querySelectorAll('nav.toc a[href^="#"]');
-  var linkMap = {};
-  tocLinks.forEach(function(l){
-    var id = l.getAttribute('href').replace('#','');
-    if (id) linkMap[id] = l;
-  });
-  function setActive(id){
-    tocLinks.forEach(function(l){ l.classList.remove('active'); });
-    if (id && linkMap[id]) linkMap[id].classList.add('active');
-  }
-  if ('IntersectionObserver' in window && sections.length) {
-    var visible = new Set();
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if (e.isIntersecting) visible.add(e.target.id);
-        else visible.delete(e.target.id);
-      });
-      var activeId = null;
-      for (var i = sections.length - 1; i >= 0; i--) {
-        if (visible.has(sections[i].id)) { activeId = sections[i].id; break; }
-      }
-      if (activeId) setActive(activeId);
-    }, { rootMargin: '-120px 0px -70% 0px', threshold: 0 });
-    sections.forEach(function(s){ io.observe(s); });
-  }
-})();
+(function(){function t(){var o=document.getElementById('idxOverlay');var s=!o.classList.contains('show');o.classList.toggle('show');if(s){var p=window.location.pathname.split('/').pop()||'index-th.html';var c=p.replace('.html','')||'index-th';o.querySelectorAll('.idx-list a').forEach(function(a){a.classList.toggle('current',a.dataset.page===c)})}}window.toggleIndex=t;document.addEventListener('keydown',function(e){if(e.key==='Escape'){var o=document.getElementById('idxOverlay');if(o)o.classList.remove('show')}})})();
 </script>
-
-<div class="layout">
-
-<nav class="toc">
-  <h2>สารบัญ</h2>
-  <ol>
-    <li><a class="tldr-link" href="#tldr">สรุป 30 วินาที</a></li>
-    <li><a href="#summary">บทสรุปผู้บริหาร</a></li>
-    <li><a href="#problem">ปัญหา 25 เท่า</a></li>
-    <li><a href="#lifecycle">วงจรชาวสวน 7 ขั้น</a></li>
-    <li><a href="#merge">ทำไมต้องรวม 2 ไอเดีย</a></li>
-    <li><a href="#market">ขนาดตลาด</a></li>
-    <li><a href="#competition">คู่แข่งและช่องว่าง</a></li>
-    <li><a href="#product">ผลิตภัณฑ์ — 6 โมดูล</a></li>
-    <li><a href="#tech">เทคโนโลยีที่เลือกใช้</a></li>
-    <li><a href="#personas">3 กลุ่มผู้ใช้หลัก</a></li>
-    <li><a href="#business">โมเดลธุรกิจ</a></li>
-    <li><a href="#gtm">กลยุทธ์ขยายตลาด</a></li>
-    <li><a href="#moat">5 ชั้นกำแพงป้องกัน</a></li>
-    <li><a href="#risks">ความเสี่ยงและวิธีรับมือ</a></li>
-    <li><a href="#demo">กลยุทธ์ Demo Day</a></li>
-    <li><a href="#mvp">แผน MVP 60 วัน</a></li>
-    <li><a href="#wins">ทำไมจะชนะ</a></li>
-    <li><a class="wrap-link" href="#wrapup">สรุปจบ</a></li>
-    <li><a href="#sources">แหล่งอ้างอิง</a></li>
-  </ol>
-</nav>
 
 <main>
 
-<header class="hero">
-  <div class="eyebrow">รายงานเจาะลึก · กาแฟ × AI × ภาคเหนือ</div>
-  <h1>DoiBean</h1>
-  <p class="tagline">AI co-pilot ที่พาชาวสวนดอยช้างจาก <strong>100 บาท/กก.</strong> สู่ตลาด specialty coffee ระดับโลก โดยดูแลครบทั้งวงจร ตั้งแต่เลือกสายพันธุ์ที่จะปลูก จนถึง roaster ชิมแล้วซื้อ</p>
-  <div class="meta">
-    <span><strong>กลุ่มเป้าหมาย:</strong> กรรมการ Hackathon, ผู้ร่วมก่อตั้ง, นักลงทุน</span>
-    <span><strong>เวลาอ่าน:</strong> ~18 นาที (หรือ 30 วินาทีถ้าอ่านแค่สรุป)</span>
+<!-- ━━━ COVER ━━━ -->
+<section class="cover">
+  <div class="cover-meta">
+    <span><b>เล่มที่ 01</b> &middot; ฉบับ II</span>
+    <span>รายงานเจาะลึก</span>
+    <span>พฤษภาคม 2026 &middot; กรุงเทพ / เชียงราย</span>
   </div>
-</header>
+  <div>
+    <div class="cover-eyebrow">กาแฟ &middot; AI &middot; ภาคเหนือ</div>
+    <h1 class="cover-title">Doi<span class="it">Bean</span></h1>
+    <p class="cover-sub">AI co-pilot ที่พาชาวสวนดอยช้างจาก <em>฿100/กก.</em> สู่ตลาด specialty ระดับโลก โดยดูแลครบทั้งวงจร ตั้งแต่เลือกสายพันธุ์ที่จะปลูก จนถึง roaster ชิมแล้วซื้อ</p>
+  </div>
+  <dl class="cover-foot">
+    <div><dt>กลุ่มเป้าหมาย</dt><dd>กรรมการ Hackathon, ผู้ร่วมก่อตั้ง, นักลงทุน</dd></div>
+    <div><dt>เวลาอ่าน</dt><dd>~18 นาที · 16 ตอน · เริ่มที่ตอนไหนก็ได้</dd></div>
+    <div><dt>ฉบับ</dt><dd>v1.0 — แหล่งอ้างอิงอยู่ท้ายเล่ม</dd></div>
+  </dl>
+</section>
 
-<!-- ============= TL;DR ============= -->
-<section id="tldr" class="tldr-box">
-  <h2><span class="num">★ อ่านเฉพาะนี่ก็พอ</span>สรุป 30 วินาที</h2>
-  <p class="lede">ถ้ามีเวลาอ่านแค่กล่องนี้ นี่คือทุกอย่างที่ต้องรู้</p>
+<!-- ━━━ TOC ━━━ -->
+<section class="toc">
+  <div class="toc-no">·</div>
+  <div>
+    <div class="toc-eyebrow">สารบัญ</div>
+    <h2 class="toc-title">สิบหก<em>ตอน</em></h2>
+    <ol class="toc-list" style="padding:0">
+      <li><a href="#summary"><span class="toc-i">I</span><span class="toc-t">บทสรุปผู้บริหาร</span><span class="toc-p">02</span></a></li>
+      <li><a href="#problem"><span class="toc-i">II</span><span class="toc-t">ปัญหา 25 เท่า</span><span class="toc-p">03</span></a></li>
+      <li><a href="#lifecycle"><span class="toc-i">III</span><span class="toc-t">วงจรชาวสวน 7 ขั้น</span><span class="toc-p">04</span></a></li>
+      <li><a href="#merge"><span class="toc-i">IV</span><span class="toc-t">ทำไมการรวมจึงชนะ</span><span class="toc-p">05</span></a></li>
+      <li><a href="#market"><span class="toc-i">V</span><span class="toc-t">ขนาดตลาด</span><span class="toc-p">06</span></a></li>
+      <li><a href="#competition"><span class="toc-i">VI</span><span class="toc-t">คู่แข่งและช่องว่าง</span><span class="toc-p">07</span></a></li>
+      <li><a href="#product"><span class="toc-i">VII</span><span class="toc-t">ผลิตภัณฑ์ — 6 โมดูล</span><span class="toc-p">08</span></a></li>
+      <li><a href="#tech"><span class="toc-i">VIII</span><span class="toc-t">เทคโนโลยี — เหตุผลของทุกการเลือก</span><span class="toc-p">10</span></a></li>
+      <li><a href="#personas"><span class="toc-i">IX</span><span class="toc-t">3 กลุ่มผู้ใช้หลัก</span><span class="toc-p">11</span></a></li>
+      <li><a href="#business"><span class="toc-i">X</span><span class="toc-t">โมเดลธุรกิจ</span><span class="toc-p">12</span></a></li>
+      <li><a href="#gtm"><span class="toc-i">XI</span><span class="toc-t">กลยุทธ์ขยายตลาด</span><span class="toc-p">13</span></a></li>
+      <li><a href="#moat"><span class="toc-i">XII</span><span class="toc-t">5 ชั้นกำแพงป้องกัน</span><span class="toc-p">14</span></a></li>
+      <li><a href="#risks"><span class="toc-i">XIII</span><span class="toc-t">ความเสี่ยงและวิธีรับมือ</span><span class="toc-p">15</span></a></li>
+      <li><a href="#demo"><span class="toc-i">XIV</span><span class="toc-t">กลยุทธ์ Demo Day</span><span class="toc-p">16</span></a></li>
+      <li><a href="#mvp"><span class="toc-i">XV</span><span class="toc-t">แผน MVP 60 วัน</span><span class="toc-p">17</span></a></li>
+      <li><a href="#wins"><span class="toc-i">XVI</span><span class="toc-t">ทำไมจะชนะ Hackathon</span><span class="toc-p">18</span></a></li>
+    </ol>
+  </div>
+</section>
 
-  <div class="tldr-list">
-    <div class="tldr-item">
-      <div class="tldr-num">1</div>
-      <div class="tldr-text"><b>ปัญหา:</b> ชาวสวนดอยช้างขายเมล็ดเขียว 100 บาท/กก. แต่ผู้บริโภคจ่าย 2,500 บาท/กก. คั่ว — ส่วนต่าง <b>25 เท่า</b> ถูกพ่อค้าคนกลางและการขาดข้อมูลคุณภาพกินไปจนหมด</div>
+<!-- ━━━ I — บทสรุปผู้บริหาร ━━━ -->
+<section class="section" id="summary">
+  <div class="section-no">I.</div>
+  <div class="section-body has-dropcap">
+    <div class="section-eyebrow">ตอนที่ I &mdash; แนวคิดหลัก</div>
+    <h2 class="section-title">บทสรุป<em>ผู้บริหาร</em></h2>
+    <p class="section-lede">ไอเดียกาแฟสองตัว — เครื่องมือสแกนคุณภาพ และที่ปรึกษาเรื่องสายพันธุ์ที่ทนสภาพอากาศ — รวมเป็นแอปเดียว เพราะให้บริการชาวสวนคนเดียวกันในจังหวะที่ต่างกันของวงจรเดียวกัน · การรวมปลดล็อกระบบที่ป้อนข้อมูลกันเอง ที่ผลิตภัณฑ์เดี่ยวสร้างไม่ได้</p>
+
+    <div class="stats">
+      <div class="stat" data-fig="i.">
+        <div class="stat-value">25×</div>
+        <div class="stat-label">ส่วนต่างราคา</div>
+        <div class="stat-context">ชาวสวนได้ ฿100/กก. → ผู้บริโภคจ่าย ฿2,500/กก. คั่ว · ส่วนต่างถูกพ่อค้าคนกลางและการที่ฝ่ายผู้ซื้อรู้คุณภาพมากกว่ากินไปทั้งหมด</div>
+      </div>
+      <div class="stat" data-fig="ii.">
+        <div class="stat-value">3,921</div>
+        <div class="stat-label">ครัวเรือน specialty</div>
+        <div class="stat-context">เชียงรายเพียงจังหวัดเดียว ปี 2025 — เพิ่มขึ้น 25% จากปี 2020 · ฐานผู้ใช้ที่กำลังเติบโตและต้องการเครื่องมือ</div>
+      </div>
+      <div class="stat" data-fig="iii.">
+        <div class="stat-value">98%</div>
+        <div class="stat-label">ความแม่นยำ AI สแกน</div>
+        <div class="stat-context">งานวิจัย Springer 2025 ยืนยันว่า computer vision จำแนกตำหนิเมล็ดเขียวได้แม่น — เป็นปัญหาที่แก้ได้ทางเทคโนโลยีแล้ว</div>
+      </div>
+      <div class="stat" data-fig="iv.">
+        <div class="stat-value">−25%</div>
+        <div class="stat-label">ผลผลิต/+2°C</div>
+        <div class="stat-context">โลกร้อนบังคับให้ต้องเปลี่ยนสายพันธุ์ภายใน 5–10 ปี · การตัดสินใจวันนี้กำหนดผลผลิตในอนาคต</div>
+      </div>
     </div>
-    <div class="tldr-item">
-      <div class="tldr-num">2</div>
-      <div class="tldr-text"><b>ทางแก้:</b> แอปเดียวที่ดูแลชาวสวนตลอดวงจรกาแฟ — แนะนำสายพันธุ์ที่ทนสภาพอากาศ + สแกนคุณภาพเมล็ดด้วยกล้องมือถือ + เชื่อมตรงกับ roaster ทั่วโลก พร้อมแปลเรื่องราวชาวสวนเป็น 4 ภาษา</div>
-    </div>
-    <div class="tldr-item">
-      <div class="tldr-num">3</div>
-      <div class="tldr-text"><b>ทำไมต้องรวมทุกอย่างเป็นแอปเดียว:</b> ชาวสวนคนเดียวกันต้องตัดสินใจเรื่องเหล่านี้ในจังหวะต่างกันของปี ทำแยกกัน = แอปเปิดปีละครั้ง · ทำรวม = แอปที่ใช้ตลอดทั้งปี + เก็บข้อมูลที่คู่แข่งสร้างไม่ได้</div>
-    </div>
-    <div class="tldr-item">
-      <div class="tldr-num">4</div>
-      <div class="tldr-text"><b>โอกาสตลาด:</b> ครัวเรือน specialty ไทย 25,000 ราย + roaster ทั่วโลกในตลาด $50B · เป้าหมาย 3 ปี: 5,000 ชาวสวน, ARR $1M, ขยายไปลาวและเวียดนาม</div>
-    </div>
-    <div class="tldr-item">
-      <div class="tldr-num">5</div>
-      <div class="tldr-text"><b>ทำไมจะชนะ:</b> Demo บนเวทีเอาเมล็ดจริงมาสแกนใน 30 วินาที + เชื่อมโยงเรื่องชาวอาข่ากับ roaster เบอร์ลิน + ทีมไทยที่มีสายสัมพันธ์มูลนิธิดอยตุงที่ต่างชาติเลียนแบบไม่ได้</div>
+
+    <div class="note thesis">
+      <div class="note-tag">★ แนวคิดหลัก</div>
+      <p>ตลาด specialty coffee ไทยมี <strong>ส่วนต่างราคา 25 เท่า</strong> ที่เกิดจากปัญหาแก้ได้ 3 อย่าง: <em>ไม่มีการตรวจสอบคุณภาพระดับฟาร์ม</em>, <em>ไม่มีช่องทางขายตรงให้ roaster ต่างประเทศ</em>, และ <em>ไม่มีตัวช่วยตัดสินใจเรื่องการปลูกใหม่ให้ทนสภาพอากาศ</em> · Computer vision + LLM แปลภาษา + marketplace ปิดทั้ง 3 ช่องว่างพร้อมกัน · การดูแลทั้งวงจรครบ ไม่ใช่แค่จุดเดียว คือสิ่งที่ทำให้ป้องกันคู่แข่งที่ทำเฉพาะจุดเดียวได้</p>
     </div>
   </div>
 </section>
 
-<!-- ============= บทสรุปผู้บริหาร ============= -->
-<section id="summary">
-  <h2><span class="num">SECTION 01</span>บทสรุปผู้บริหาร</h2>
-  <p class="lede">ไอเดียกาแฟสองตัว (#7 เครื่องมือสแกนคุณภาพ และ #8 ที่ปรึกษาเรื่องสายพันธุ์ที่ทนสภาพอากาศ) รวมเป็นแอปเดียวกัน เพราะทั้งสองตัวให้บริการชาวสวนคนเดียวกันในจังหวะที่ต่างกันของวงจรการปลูก การรวมจะปลดล็อกระบบเก็บข้อมูลที่ป้อนกันเองและกำแพงป้องกันที่ผลิตภัณฑ์เดี่ยวสร้างไม่ได้</p>
+<!-- ━━━ II — ปัญหา ━━━ -->
+<section class="section" id="problem">
+  <div class="section-no">II.</div>
+  <div class="section-body has-dropcap">
+    <div class="section-eyebrow">ตอนที่ II &mdash; การวินิจฉัย</div>
+    <h2 class="section-title">ปัญหา <em>25 เท่า</em></h2>
+    <p class="section-lede">ก่อนออกแบบทางแก้ ต้องเข้าใจให้ชัดว่ามูลค่าหายไปไหนบ้าง · ปัญหาแก้ได้ 3 อย่าง ตามลำดับ</p>
 
-  <div class="stat-grid">
-    <div class="stat">
-      <div class="stat-value">25×</div>
-      <div class="stat-label">ส่วนต่างราคา</div>
-      <div class="stat-context">ชาวสวนได้ 100฿/กก. ผู้บริโภคจ่าย 2,500฿/กก. คั่ว · ส่วนต่างถูกพ่อค้าคนกลางและการที่ฝ่ายผู้ซื้อรู้คุณภาพมากกว่าผู้ขายกินไปทั้งหมด</div>
-    </div>
-    <div class="stat">
-      <div class="stat-value">3,921</div>
-      <div class="stat-label">ครัวเรือน specialty</div>
-      <div class="stat-context">เชียงรายปี 2025 เพิ่มขึ้น 25% จากปี 2020 — ฐานผู้ใช้ที่กำลังเติบโตและต้องการเครื่องมือ</div>
-    </div>
-    <div class="stat">
-      <div class="stat-value">98%</div>
-      <div class="stat-label">ความแม่นยำ AI สแกน</div>
-      <div class="stat-context">งานวิจัย 2025 ยืนยันว่า computer vision จำแนกตำหนิเมล็ดกาแฟแม่นแล้ว — เป็นปัญหาที่แก้ได้ทางเทคโนโลยี</div>
-    </div>
-    <div class="stat">
-      <div class="stat-value">25%</div>
-      <div class="stat-label">ผลผลิตลด/+2°C</div>
-      <div class="stat-context">โลกร้อนบังคับให้ต้องเปลี่ยนสายพันธุ์ภายใน 5-10 ปี การตัดสินใจวันนี้กำหนดผลผลิตในอนาคต</div>
-    </div>
-  </div>
+    <p>ระยะทางจากเมล็ดเขียวบนผ้ารองคัดบนดอย ไปถึงแก้วกาแฟคั่วในเคาน์เตอร์ร้านเล็กๆ ในกรุงเทพ ในแง่ต้นทุนแล้วไม่ได้ไกลเลย · แต่เกือบทุกบาทที่ถูกเพิ่มเข้าไประหว่างทาง ดอยช้างถึง espresso bar ในกรุงเทพ ตกอยู่ในมือคนที่ไม่เคยปลูกต้นกาแฟแม้แต่ต้นเดียว</p>
 
-  <div class="callout insight">
-    <span class="callout-label">★ แนวคิดหลัก</span>
-    ตลาด specialty coffee ไทยมี <strong>ส่วนต่างราคา 25 เท่า</strong> ซึ่งเกิดจากปัญหา 3 อย่างที่แก้ได้: (1) ไม่มีการตรวจสอบคุณภาพระดับฟาร์ม (2) ไม่มีช่องทางขายตรงให้ roaster ต่างประเทศ และ (3) ไม่มีตัวช่วยตัดสินใจเรื่องการปลูกใหม่ให้ทนสภาพอากาศที่เปลี่ยนไป · Computer vision + LLM แปลภาษา + marketplace ปิดทั้ง 3 ช่องว่างพร้อมกัน · การดูแลทั้งวงจรครบ (ไม่ใช่แค่จุดเดียว) คือสิ่งที่ทำให้ป้องกันคู่แข่งที่ทำเฉพาะจุดเดียวได้
-  </div>
-</section>
-
-<!-- ============= ปัญหา ============= -->
-<section id="problem">
-  <h2><span class="num">SECTION 02</span>ปัญหา 25 เท่า</h2>
-  <p class="lede">ก่อนออกแบบทางแก้ ต้องเข้าใจให้ชัดว่ามูลค่าหายไปไหนบ้าง</p>
-
-  <h3>เงินไปไหนหมด</h3>
-  <div class="value-chain">
-    <div class="chain-row">
-      <div class="chain-node">
+    <h3>เงิน<em>ไปไหน</em>หมด</h3>
+    <div class="chain">
+      <div class="chain-cell">
         <div class="chain-price">฿100</div>
-        <div class="chain-label">ชาวสวน (เมล็ดเขียว/กก.)</div>
+        <div class="chain-label">ชาวสวน · เมล็ดเขียว · ต่อ กก.</div>
+        <span class="chain-arrow">→</span>
       </div>
-      <div class="chain-arrow">→</div>
-      <div class="chain-node">
+      <div class="chain-cell">
         <div class="chain-price">฿350</div>
-        <div class="chain-label">สหกรณ์ / ผู้ส่งออก</div>
+        <div class="chain-label">สหกรณ์ · ผู้ส่งออก</div>
+        <span class="chain-arrow">→</span>
       </div>
-      <div class="chain-arrow">→</div>
-      <div class="chain-node">
+      <div class="chain-cell">
         <div class="chain-price">฿2,500</div>
-        <div class="chain-label">ร้านคาเฟ่ / รีเทล (200 กรัม)</div>
+        <div class="chain-label">ร้านคาเฟ่ · 200 กรัม รีเทล</div>
       </div>
     </div>
-    <div class="chain-multiplier">ส่วนต่างรวม <strong>25×</strong> จากดินสู่แก้ว · ชาวสวนได้เพียง <strong>4%</strong> ของมูลค่าสุดท้าย</div>
-  </div>
+    <p class="chain-foot">ส่วนต่างรวม <strong>25× จากดินสู่แก้ว</strong> · ชาวสวนได้เพียงสี่เปอร์เซ็นต์</p>
 
-  <h3>3 รากของปัญหา</h3>
+    <h3>3 ราก<em>ของปัญหา</em></h3>
 
-  <div class="callout warning">
-    <span class="callout-label">⚠ ราก 1 — ฝ่ายผู้ซื้อรู้คุณภาพมากกว่าผู้ขาย</span>
-    ชาวสวนไม่รู้คะแนน SCA ตำหนิ หรือกลิ่นรสของเมล็ดตัวเอง · พ่อค้ารับซื้อรู้ (หรืออ้างว่ารู้) · เมื่อไม่มีข้อมูลคุณภาพยืนยันได้ ชาวสวนก็ตั้งราคาเองไม่ได้ ต้องรับราคาที่พ่อค้าเสนอ · <strong>นี่คือสิ่งที่ computer vision แก้</strong>
-  </div>
+    <div class="note">
+      <div class="note-tag">ราก i &mdash; ฝ่ายผู้ซื้อรู้คุณภาพมากกว่าผู้ขาย</div>
+      <p>ชาวสวนไม่รู้คะแนน SCA ตำหนิ หรือกลิ่นรสของเมล็ดตัวเอง · พ่อค้ารับซื้อรู้ (หรืออ้างว่ารู้) · เมื่อไม่มีข้อมูลคุณภาพยืนยันได้ ชาวสวนก็ตั้งราคาเองไม่ได้ ต้องรับราคาที่พ่อค้าเสนอ · <strong>นี่คือสิ่งที่ computer vision แก้</strong></p>
+    </div>
 
-  <div class="callout warning">
-    <span class="callout-label">⚠ ราก 2 — ไม่มีช่องทางขายตรง</span>
-    ต่อให้ชาวสวนทำเมล็ดคุณภาพสูงแค่ไหน ก็เข้าไม่ถึง roaster ที่โตเกียวหรือเบอร์ลิน · กฎหมายส่งออก ระบบจ่ายเงินข้ามชาติ กำแพงภาษา และความไม่ไว้ใจกัน ทำให้การขายตรงเป็นไปไม่ได้ถ้าไม่มีโครงสร้างพื้นฐานรองรับ · <strong>นี่คือสิ่งที่ marketplace แก้</strong>
-  </div>
+    <div class="note">
+      <div class="note-tag">ราก ii &mdash; ไม่มีช่องทางขายตรง</div>
+      <p>ต่อให้ชาวสวนทำเมล็ดคุณภาพสูงแค่ไหน ก็เข้าไม่ถึง roaster ที่โตเกียวหรือเบอร์ลิน · กฎหมายส่งออก ระบบจ่ายเงินข้ามชาติ กำแพงภาษา และความไม่ไว้ใจกัน ทำให้การขายตรงเป็นไปไม่ได้ถ้าไม่มีโครงสร้างพื้นฐานรองรับ · <strong>นี่คือสิ่งที่ marketplace แก้</strong></p>
+    </div>
 
-  <div class="callout warning">
-    <span class="callout-label">⚠ ราก 3 — ปลูกผิดสายพันธุ์ใน 5 ปี</span>
-    สภาพอากาศกำลังเลื่อนเขตปลูกขึ้นเขาประมาณ 150 เมตรต่อทศวรรษ · ชาวสวนที่ปลูก Caturra ที่ระดับ 1,200 เมตรวันนี้ ปี 2035 จะเก็บผลผลิตได้แทบไม่คุ้ม · เกษตรอำเภอไม่มีข้อมูลและเครื่องมือพอจะแนะนำได้ · <strong>นี่คือสิ่งที่ที่ปรึกษาสายพันธุ์แก้</strong>
-  </div>
+    <div class="note">
+      <div class="note-tag">ราก iii &mdash; ปลูกผิดสายพันธุ์ใน 5 ปี</div>
+      <p>สภาพอากาศกำลังเลื่อนเขตปลูกขึ้นเขาประมาณ 150 เมตรต่อทศวรรษ · ชาวสวนที่ปลูก Caturra ที่ระดับ 1,200 เมตรวันนี้ ปี 2035 จะเก็บผลผลิตได้แทบไม่คุ้ม · เกษตรอำเภอไม่มีข้อมูลและเครื่องมือพอจะแนะนำได้ · <strong>นี่คือสิ่งที่ที่ปรึกษาสายพันธุ์แก้</strong></p>
+    </div>
 
-  <div class="callout data">
-    <span class="callout-label">📊 บริบทสำคัญ — ทำไมจังหวะนี้ใช่</span>
-    มี 3 ปัจจัยที่ทำให้ปี 2026 เป็นจังหวะที่เหมาะสุด: (1) มือถือเข้าถึงหมู่บ้านบนดอยเกิน 80% เด็กชาวอาข่าทุกคนมี Android Go (2) Stripe Connect และ PromptPay ข้ามประเทศพร้อมใช้แล้ว (3) สัญชาติชาวเขาเปิดทางเมื่อ มิ.ย. 2025 ลดอุปสรรคของบัญชีธนาคารและเอกสารส่งออก · นี่คือครั้งแรกที่โครงสร้างพื้นฐานสำหรับแอปขายตรงพร้อมจริงๆ
+    <p class="pull">มี 3 ปัจจัยที่ทำให้ปี 2026 เป็นจังหวะที่ใช่ — มือถือเข้าถึงหมู่บ้านบนดอยเกินแปดสิบเปอร์เซ็นต์, Stripe Connect และ PromptPay ข้ามประเทศพร้อมใช้แล้ว, และการเปิดสัญชาติชาวเขาในเดือน มิ.ย. 2025 ลดอุปสรรคขั้นสุดท้ายของบัญชีธนาคารชาวสวน<span class="pull-attribution">— ทำไมต้องเป็นตอนนี้ ในประโยคเดียว</span></p>
+
+    <div class="ornament">▲ &nbsp; △ &nbsp; ▲</div>
   </div>
 </section>
 
-<!-- ============= วงจร ============= -->
-<section id="lifecycle">
-  <h2><span class="num">SECTION 03</span>วงจรชาวสวน 7 ขั้น</h2>
-  <p class="lede">ชาวสวนทุกคนผ่าน 7 ขั้นนี้ทุกปี · ไอเดีย #7 และ #8 เข้าถึงคนละขั้นกัน — เลยต้องอยู่ในแอปเดียวกัน</p>
+<!-- ━━━ III — วงจร ━━━ -->
+<section class="section" id="lifecycle">
+  <div class="section-no">III.</div>
+  <div class="section-body has-dropcap">
+    <div class="section-eyebrow">ตอนที่ III &mdash; วงจรชาวสวน</div>
+    <h2 class="section-title">เจ็ดขั้น <em>ทุกปี</em></h2>
+    <p class="section-lede">ชาวสวนทุกคนผ่าน 7 ขั้นนี้ทุกปี · ไอเดียดั้งเดิมสองตัว — เครื่องสแกนคุณภาพและที่ปรึกษาสายพันธุ์ — เข้าถึงคนละขั้นกัน · เลยต้องอยู่ในแอปเดียวกัน</p>
 
-  <div class="lifecycle">
-    <div class="lifecycle-flow">
-      <div class="stage hit">
-        <div class="stage-num">1</div>
-        <div class="stage-name">ปลูก</div>
-        <div class="stage-pain">เลือกพันธุ์ผิด เสีย 5 ปี</div>
-        <div class="stage-mod">Idea #8</div>
+    <p>ผลิตภัณฑ์ที่แก้ปัญหาแค่ขั้นเดียว มักลูกค้าหลุดเพราะถูกเปิดดูแค่ปีละครั้ง · แอปที่อยู่กับช่วงเดียวของปฏิทินเป็นแค่เครื่องมือ · แอปที่อยู่ตลอดทั้งปฏิทินคือเพื่อน — และเพื่อนเท่านั้นที่ถูกใช้ ถูกไว้ใจ และถูกบอกต่อ</p>
+
+    <div class="lifecycle">
+      <div class="stages">
+        <div class="stage hit"><div class="stage-num">1</div><div class="stage-name">ปลูก</div><div class="stage-pain">เลือกพันธุ์ผิด เสีย 5 ปี</div><div class="stage-mod">Idea #8</div></div>
+        <div class="stage hit"><div class="stage-num">2</div><div class="stage-name">ดูแล</div><div class="stage-pain">ตัดแต่ง โรค ไม่รู้</div><div class="stage-mod">Idea #8</div></div>
+        <div class="stage"><div class="stage-num">3</div><div class="stage-name">เฝ้าระวัง</div><div class="stage-pain">การระบาดมองไม่เห็น</div></div>
+        <div class="stage"><div class="stage-num">4</div><div class="stage-name">เก็บ</div><div class="stage-pain">เก็บเร็ว/ช้าเกินไป</div></div>
+        <div class="stage"><div class="stage-num">5</div><div class="stage-name">แปรรูป</div><div class="stage-pain">วิธีผิด เสียโอกาส</div></div>
+        <div class="stage hit"><div class="stage-num">6</div><div class="stage-name">เกรด</div><div class="stage-pain">ไม่รู้คะแนน ตั้งราคาไม่ได้</div><div class="stage-mod">Idea #7</div></div>
+        <div class="stage hit"><div class="stage-num">7</div><div class="stage-name">ขาย</div><div class="stage-pain">ผ่านสหกรณ์เท่านั้น</div><div class="stage-mod">Idea #7</div></div>
       </div>
-      <div class="stage hit">
-        <div class="stage-num">2</div>
-        <div class="stage-name">ดูแล</div>
-        <div class="stage-pain">ตัดแต่ง โรค ไม่รู้</div>
-        <div class="stage-mod">Idea #8</div>
+    </div>
+
+    <p class="pull">สร้างแยกกัน แต่ละไอเดียคือแอป<em>เปิดปีละครั้ง</em> — ลูกค้าหายเร็ว retention ต่ำ · สร้างรวมกัน บวกโมดูลสามถึงห้าระหว่างกลาง คุณจะได้แอปที่ชาวสวนเปิดเป็นร้อยครั้งต่อปี<span class="pull-attribution">— ข้อสังเกตเชิงกลยุทธ์</span></p>
+  </div>
+</section>
+
+<!-- ━━━ IV — ทำไมรวม ━━━ -->
+<section class="section" id="merge">
+  <div class="section-no">IV.</div>
+  <div class="section-body has-dropcap">
+    <div class="section-eyebrow">ตอนที่ IV &mdash; การโต้แย้ง</div>
+    <h2 class="section-title">ทำไมการรวม<em>จึงชนะ</em></h2>
+    <p class="section-lede">3 เหตุผลที่ทบต้นกัน: การรวมวงจร · ระบบเก็บข้อมูลที่ป้อนกันเอง · กำแพงป้องกันหลายชั้น · ไม่มีตัวไหนทำงานคนเดียวได้ ทั้ง 3 ตัวเสริมกัน</p>
+
+    <h3>1 &middot; การรวม<em>วงจร</em></h3>
+    <p>ชาวสวนที่ใช้ที่ปรึกษาสายพันธุ์ในเดือนมีนาคม จะมีแอปอยู่ในมือถือตอนเก็บเกี่ยวเดือนพฤศจิกายน · การเปลี่ยนมาใช้โมดูลสแกนเมล็ดเกิดขึ้นโดยปริยายไม่มีต้นทุนหาลูกค้าใหม่ · ในทางกลับกัน ชาวสวนที่ตื่นตาตื่นใจกับการสแกนครั้งแรก ก็จะอยากรู้ว่าสายพันธุ์ไหนจะให้คะแนนสูงกว่า · <strong>ติดตั้งครั้งเดียว ใช้ผลิตภัณฑ์ 2 อย่าง ต้นทุนหาลูกค้าใหม่เป็นศูนย์</strong></p>
+
+    <h3>2 &middot; ระบบเก็บข้อมูลที่<em>ป้อนกันเอง</em></h3>
+    <p>นี่คือสิ่งที่ทีมส่วนใหญ่มองข้าม — ข้อมูลของแต่ละโมดูลจะส่งกลับไปทำให้โมดูลอื่นแม่นยำขึ้น:</p>
+    <ul>
+      <li><strong>สายพันธุ์ + GPS + คะแนนเก็บเกี่ยว</strong> — ผ่าน 2 ฤดู เราจะมีชุดข้อมูลแรกของโลกที่เชื่อมโยงระดับความสูงและสภาพภูมิอากาศย่อยของไทย เข้ากับผลการชิมจริง · ไม่มีองค์กรวิจัยกาแฟไหนเก็บไว้</li>
+      <li><strong>ตำหนิที่สแกน + วิธีแปรรูป + ราคาสุดท้าย</strong> — สอน AI ให้แนะนำได้ว่า เมล็ดที่มีตำหนิแบบนี้ เจอสภาพอากาศแบบนี้ ควรทำ washed, honey หรือ natural ถึงจะได้ราคาดีที่สุด</li>
+      <li><strong>ความชอบของ roaster + โปรไฟล์ชาวสวน</strong> — การจับคู่จะแม่นขึ้นเรื่อยๆ · หลัง 1,000 ดีล AI ทำนายได้ว่า roaster คนไหนจะชอบ lot ของชาวสวนคนไหน ก่อนที่ทั้งสองฝ่ายจะรู้เอง</li>
+    </ul>
+
+    <div class="note">
+      <div class="note-tag">เลข Data Moat</div>
+      <p>การสแกน 1 ครั้งเท่ากับข้อมูลสอน 1 แถว · 10,000 ชาวสวน × 5 ครั้ง/ฤดู = <strong>50,000 รูปเมล็ดเขียวไทยที่ติดป้ายแล้วต่อปี</strong> · ชุดข้อมูล SCA สาธารณะทั่วโลกมีรวมประมาณ 5,000 รูป (ส่วนใหญ่เป็นเมล็ดแอฟริกาและละตินอเมริกา) · ตั้งแต่ปีที่ 1 โมเดลของเราจะแม่นยำกว่า Cropster, Bext360 หรือ BeanGrader บนเมล็ดไทย <em>อย่างเด็ดขาด</em> · ช่องว่างนี้กว้างขึ้นทุกปี</p>
+    </div>
+
+    <h3>3 &middot; กำแพงป้องกัน<em>หลายชั้น</em></h3>
+    <p>ผลิตภัณฑ์ 2 ตัว = คู่แข่งสองคนต่อแต่ละจุด · แอปรวม = คู่แข่งต้องสร้าง 6 โมดูลให้ครบถึงจะแย่งลูกค้าได้ · ต้นทุนการแทนที่จะโตเร็วกว่าต้นทุนการเพิ่มฟีเจอร์</p>
+
+    <h3>ถ้าไม่รวมกัน<em>จะเกิดอะไร</em></h3>
+    <p>ถ้าออก #7 และ #8 แยกกัน ภายใน 18 เดือนจะเกิดสิ่งเหล่านี้:</p>
+    <ul>
+      <li>เครื่องสแกนเดี่ยวจะถูกทีมจากอินโดนีเซียหรือเวียดนามเลียนแบบใน 6 เดือน เพราะ AI ตรวจตำหนิเป็นเทคนิคที่งานวิจัยตีพิมพ์แล้ว</li>
+      <li>ที่ปรึกษาสายพันธุ์เดี่ยว retention พังเพราะชาวสวนเปิดปีละครั้ง ไม่มีใครยอมจ่ายค่าสมาชิกรายเดือนสำหรับสิ่งที่ใช้ปีละหน · ลูกค้าหายเร็ว</li>
+      <li>รวมกัน ทั้งสองตัวเสริมกัน กลายเป็นผลิตภัณฑ์ที่กำหนดมาตรฐานหมวดใหม่ · เลียนแบบยากกว่าเดิม 10 เท่า</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ━━━ V — ตลาด ━━━ -->
+<section class="section" id="market">
+  <div class="section-no">V.</div>
+  <div class="section-body has-dropcap">
+    <div class="section-eyebrow">ตอนที่ V &mdash; ตัวเลข</div>
+    <h2 class="section-title">ขนาด<em>ตลาด</em></h2>
+    <p class="section-lede">TAM, SAM, และ SOM ที่ตั้งอยู่บนความเป็นจริง — ไม่หลอกตัวเองและไม่หลอกนักลงทุน</p>
+
+    <table class="data-table">
+      <thead><tr><th>ระดับ</th><th>คำนิยาม</th><th>ขนาด</th><th>เหตุผล</th></tr></thead>
+      <tbody>
+        <tr><td><strong>TAM</strong></td><td>ชาวสวน specialty + roasters ทั่วโลก</td><td class="num">$50B GMV</td><td>ตลาด specialty ปี 2025 (SCA) · ชาวสวนกาแฟทั่วโลก ~25 ล้านราย, กลุ่ม specialty ~2 ล้านราย</td></tr>
+        <tr><td><strong>SAM</strong></td><td>เขตปลูก SE Asia: ไทย + ลาว + เวียดนาม Arabica + พม่า</td><td class="num">~85,000 ครัวเรือน</td><td>ไทย 25k + ลาว 30k + เวียดนาม 25k + พม่า 5k · ปัญหาเดียวกัน ภาษาทับซ้อนกัน</td></tr>
+        <tr><td><strong>SOM ปี 1</strong></td><td>ดอยช้าง + ดอยตุง + ดอยแม่สลอง</td><td class="num">500 ชาวสวน</td><td>เริ่มผ่านมูลนิธิดอยตุง · ประมาณ 1% ของครัวเรือน specialty ในไทย</td></tr>
+        <tr class="row-highlight"><td><strong>SOM ปี 3</strong></td><td>ทั่วประเทศไทย + เริ่มลาว + roaster ต่างชาติ 200 ราย</td><td class="num">5,000 ชาวสวน</td><td>20% ของครัวเรือน specialty ไทย · เป้าหมาย Series A</td></tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <div class="note-tag">รายได้ที่คำนวณไว้สำหรับปี 3 (SOM)</div>
+      <p>5,000 ชาวสวน &times; อัตราเปลี่ยนเป็น Pro 30% &times; ฿99/เดือน = <strong>฿1.5M/เดือน รายได้ประจำ</strong> ($43k MRR) · 200 roasters &times; ฿990/เดือน = <strong>฿200k/เดือน</strong> ($5.7k MRR) · มูลค่าซื้อขายในระบบประมาณ $5M (5,000 ชาวสวน &times; $1,000 ต่อ lot &times; 1 lot/ปี) &times; ค่าธรรมเนียม 8% = <strong>$400k/ปี</strong> · <em>รวม ARR ปี 3 ≈ $1M</em> · ตัวเลขดีพอสำหรับ vertical SaaS ที่ระดมทุน Series A</p>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ VI — คู่แข่ง ━━━ -->
+<section class="section" id="competition">
+  <div class="section-no">VI.</div>
+  <div class="section-body has-dropcap">
+    <div class="section-eyebrow">ตอนที่ VI &mdash; สนามแข่ง</div>
+    <h2 class="section-title">คู่แข่งและ<em>ช่องว่าง</em></h2>
+    <p class="section-lede">วิเคราะห์คู่แข่งทุกราย หาช่องว่างที่ยังไม่มีใครครอบครอง</p>
+
+    <table class="data-table">
+      <thead><tr><th>คู่แข่ง</th><th>พื้นที่</th><th>ทำอะไร</th><th>ช่องว่างที่เปิดทิ้งไว้</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Cropster</strong></td><td>ออสเตรีย → ทั่วโลก</td><td>ซอฟต์แวร์ QC โรงคั่ว, log การ cup, จัดการสต็อก</td><td>หยุดที่ประตูโรงคั่ว ไม่แตะเข้าฟาร์ม</td></tr>
+        <tr><td><strong>Bext360</strong></td><td>USA → แอฟริกา ละตินอเมริกา</td><td>Blockchain provenance เน้นบริษัทใหญ่</td><td>ไม่มี AI vision บนมือถือ ต้องเซ็นสัญญาขนาดองค์กร ไม่ได้ให้บริการ SE Asia</td></tr>
+        <tr><td><strong>Sucafina &middot; Caravela</strong></td><td>สวิส · โคลอมเบีย</td><td>ผู้นำเข้า-ส่งออกกาแฟเขียวแบบดั้งเดิม</td><td>พึ่งความสัมพันธ์ส่วนตัว ขยายไม่ได้ มาร์จินไปอยู่ที่ผู้นำเข้า</td></tr>
+        <tr><td><strong>BeanGrader</strong></td><td>USA</td><td>AI ตรวจตำหนิแบบ web upload เท่านั้น</td><td>ไม่มี marketplace ไม่มีฝั่งชาวสวน เป็นแค่เครื่องมือลอยๆ</td></tr>
+        <tr><td><strong>Ricult</strong></td><td>ไทย · ปากีสถาน</td><td>Satellite + AI สำหรับพืชไร่ทั่วไป</td><td>ไม่มีความเชี่ยวชาญกาแฟ ไม่มี vision ไม่เข้าตลาด specialty</td></tr>
+        <tr><td><strong>ดอยตุง &middot; ดอยช้าง</strong></td><td>ไทย</td><td>แบรนด์เดียวครบวงจร: ปลูก → คั่ว → คาเฟ่</td><td>เฉพาะชาวสวนของตนเอง ไม่ได้ช่วยให้ชุมชนอื่นใช้เทคโนโลยีได้</td></tr>
+        <tr class="row-highlight"><td><strong>DoiBean</strong></td><td>ไทย → SEA belt</td><td><strong>แอปครบวงจรจากฟาร์มถึง roaster · vision + LLM + marketplace</strong></td><td><em>นี่แหละช่องว่าง</em></td></tr>
+      </tbody>
+    </table>
+
+    <div class="note thesis">
+      <div class="note-tag">★ ช่องว่างที่ว่าง</div>
+      <p>ไม่มีใครครอบครองเส้นทางจากชาวสวนถึง roaster ครบวงจร พร้อม AI ที่รันบนมือถือ · คู่แข่งทุกรายครอบครองแค่ส่วนเดียวของห่วงโซ่ · โครงสร้าง specialty แบบตะวันตกสมมติว่าชาวสวนมีช่องส่งออกอยู่แล้ว — ซึ่งชาวสวนไทยและ SE Asia ไม่มี · <strong>แอปครบวงจรต้องสร้างจากภายในภูมิภาคเอง</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ VII — ผลิตภัณฑ์ ━━━ -->
+<section class="section" id="product">
+  <div class="section-no">VII.</div>
+  <div class="section-body has-dropcap">
+    <div class="section-eyebrow">ตอนที่ VII &mdash; ผลิตภัณฑ์</div>
+    <h2 class="section-title">หก <em>โมดูล</em> แยกชิ้นส่วน</h2>
+    <p class="section-lede">แต่ละโมดูลแก้ปัญหาขั้นเดียวของวงจร · รวมกันเป็นผลิตภัณฑ์เดียวที่แยกออกจากกันไม่ได้ · 2 โมดูลเป็นโมดูลฮีโร่ — ตัว demo และตัวเปิดตลาด — มีเส้น brick หนาบนหัว</p>
+
+    <article class="module">
+      <header class="module-head">
+        <div class="module-no">I.</div>
+        <div>
+          <div class="module-tag">ก่อนปลูก &middot; รายปี</div>
+          <h3 class="module-title">ที่ปรึกษาเรื่องพื้นที่และสายพันธุ์</h3>
+        </div>
+        <div class="module-fig">โมดูล 01</div>
+      </header>
+      <div class="module-body">
+        <p>ชาวสวนปักหมุด GPS ที่แปลง · แอปดึงข้อมูลระดับความสูง ความชัน ทิศทาง ดิน ประวัติอากาศ 20 ปี และพยากรณ์อนาคตจาก IPCC RCP4.5 · แสดงผลเป็นรายการสายพันธุ์ที่แนะนำ พร้อมเหตุผลที่ชาวสวนเข้าใจ</p>
+        <div class="module-io">
+          <div class="module-io-row"><div class="io-label">ข้อมูลที่ใช้</div><div class="io-text">พิกัด GPS → ระดับความสูงจาก DEM → ความชัน/ทิศทาง → ฐานข้อมูลดิน LDD → ประวัติอากาศ TMD ย้อนหลัง 20 ปี → พยากรณ์ IPCC ปี 2030/2040</div></div>
+          <div class="module-io-row"><div class="io-label">ตัวอย่างผลลัพธ์</div><div class="io-text">"แปลงคุณอยู่ที่ 1,420 ม. หันทิศ NE อุณหภูมิเฉลี่ย 22°C · แนะนำ Catimor 70% + Typica 30% · ปี 2035 Caturra แท้ๆ จะอยู่ไม่ได้แล้ว ปลูกล่างลงไป 200 ม. เผื่อไว้"</div></div>
+        </div>
       </div>
-      <div class="stage">
-        <div class="stage-num">3</div>
-        <div class="stage-name">เฝ้าระวัง</div>
-        <div class="stage-pain">การระบาดมองไม่เห็น</div>
+      <div class="note">
+        <div class="note-tag">ทำไมเรื่องนี้สำคัญ</div>
+        <p>ต้นกาแฟใช้เวลา 3–4 ปีถึงเก็บเกี่ยวครั้งแรก และ 5+ ปีถึงให้ผลผลิตสูงสุด · เลือกสายพันธุ์ผิดวันนี้ = <strong>ความผิดพลาดทางเศรษฐกิจ 7 ปี</strong> · ไม่มีชาวสวนคนไหนเข้าถึงข้อมูลรวมแบบนี้ได้ เกษตรอำเภอก็ไม่มี</p>
       </div>
-      <div class="stage">
-        <div class="stage-num">4</div>
-        <div class="stage-name">เก็บ</div>
-        <div class="stage-pain">เก็บเร็ว/ช้าเกินไป</div>
+    </article>
+
+    <article class="module">
+      <header class="module-head">
+        <div class="module-no">II.</div>
+        <div>
+          <div class="module-tag">ฤดูปลูก &middot; รายสัปดาห์</div>
+          <h3 class="module-title">ตรวจโรคและศัตรูพืช</h3>
+        </div>
+        <div class="module-fig">โมดูล 02</div>
+      </header>
+      <div class="module-body">
+        <p>ชาวสวนถ่ายรูปใบที่สงสัย · CV บนมือถือจำแนกศัตรูพืชกาแฟไทย — ใบสนิม (<em>roya</em>), มอดเจาะผล, coffee berry disease, anthracnose · มีแผนที่การระบาดระดับลุ่มน้ำ บอกว่าชาวสวนใกล้เคียงกำลังเจออะไร</p>
+        <div class="module-io">
+          <div class="module-io-row"><div class="io-label">เทคโนโลยี</div><div class="io-text">TFLite vision ขนาด 4 MB · ทำงาน offline · เทรนจาก PlantVillage + ชุดข้อมูลไทยที่เก็บเองผ่านพันธมิตรในพื้นที่</div></div>
+          <div class="module-io-row"><div class="io-label">การรักษา</div><div class="io-text">แนะนำที่เป็นมิตรกับใบรับรอง organic (สำคัญสำหรับราคาพรีเมียมส่งออก) · มีลิงก์ร้านเกษตรใกล้สุดที่มีของพร้อมขาย</div></div>
+        </div>
       </div>
-      <div class="stage">
-        <div class="stage-num">5</div>
-        <div class="stage-name">แปรรูป</div>
-        <div class="stage-pain">วิธีผิด เสียโอกาสพรีเมียม</div>
+    </article>
+
+    <article class="module">
+      <header class="module-head">
+        <div class="module-no">III.</div>
+        <div>
+          <div class="module-tag">ช่วงเก็บเกี่ยว &middot; รายวัน</div>
+          <h3 class="module-title">ตัวจับเวลาเก็บเกี่ยว</h3>
+        </div>
+        <div class="module-fig">โมดูล 03</div>
+      </header>
+      <div class="module-body" style="grid-template-columns:1fr">
+        <p>ถ่ายรูปเชอร์รี่ → ML วัดเปอร์เซ็นต์ความสุกจากสีและความแน่น · รวมกับพยากรณ์อากาศ 7 วัน: "เก็บวันอังคาร ไม่ใช่วันนี้ · ฝนวันพฤหัสจะลด Brix" · ระบบยังแนะนำได้ด้วยว่าควรทำ washed, honey หรือ natural ตามโปรไฟล์เมล็ด สภาพอากาศ และราคาพรีเมียมในตลาดตอนนั้น</p>
       </div>
-      <div class="stage hit">
-        <div class="stage-num">6</div>
-        <div class="stage-name">เกรด</div>
-        <div class="stage-pain">ไม่รู้คะแนน ตั้งราคาไม่ได้</div>
-        <div class="stage-mod">Idea #7</div>
+    </article>
+
+    <article class="module hero">
+      <header class="module-head">
+        <div class="module-no" style="color:var(--brick)">IV.</div>
+        <div>
+          <div class="module-tag">★ โมดูลฮีโร่ &middot; หลังเก็บเกี่ยว</div>
+          <h3 class="module-title">เครื่องสแกนคุณภาพ<em>เมล็ด</em></h3>
+        </div>
+        <div class="module-fig">โมดูล 04 &middot; Hero</div>
+      </header>
+      <div class="module-body" style="grid-template-columns:1fr">
+        <p>โรยเมล็ดเขียว 50–100 เม็ดบนกระดาษ A4 ขาว (เราส่งชุดอุปกรณ์ฟรี) · ถ่ายด้วยกล้องมือถือ · <strong>MobileNetV3 ที่ fine-tune กับมาตรฐาน SCA</strong> จำแนกทุกเมล็ดที่เห็น</p>
+        <pre class="scan-output"><span class="lbl">SCA Score Estimate</span> <span class="val">84.5</span>  <span class="pass">✓ Specialty Grade</span>
+<span class="lbl">Cat-1 Defects</span>     <span class="pass">0  ✓</span>
+<span class="lbl">Cat-2 Defects</span>     <span class="warn">3 (2 partial sour, 1 floater)</span>
+<span class="lbl">Bean Size</span>         Screen 17 (87%), Screen 16 (13%)
+<span class="lbl">Predicted Cupping</span> floral, jasmine, citrus acidity
+<span class="lbl">Suggested Roast</span>   light to medium-light
+<span class="lbl">Price Floor</span>       <span class="val">฿1,400/กก. green</span></pre>
       </div>
-      <div class="stage hit">
-        <div class="stage-num">7</div>
-        <div class="stage-name">ขาย</div>
-        <div class="stage-pain">ผ่านสหกรณ์เท่านั้น</div>
-        <div class="stage-mod">Idea #7</div>
+      <div class="note">
+        <div class="note-tag">ขอบเขตทางกฎหมายและความเชื่อมั่น</div>
+        <p>ผลลัพธ์ติดป้ายชัดเจนว่า <strong>"ประมาณการเบื้องต้น"</strong> — ไม่ใช่การรับรองโดย Q-grader · สำหรับการส่งออกเชิงพาณิชย์ lot ที่ได้คะแนนเกิน 80 SCA จะถูกส่งต่อให้ Q-grader รับรองในแอป (มีค่าใช้จ่าย) · ป้องกันความรับผิดทางกฎหมายและรักษาความเชื่อมั่นกับชุมชน specialty · <em>การไม่กล่าวอ้างเกินจริงคือกำแพงป้องกัน ไม่ใช่จุดอ่อน</em></p>
+      </div>
+    </article>
+
+    <article class="module hero">
+      <header class="module-head">
+        <div class="module-no" style="color:var(--brick)">V.</div>
+        <div>
+          <div class="module-tag">★ โมดูลฮีโร่ &middot; ขาย</div>
+          <h3 class="module-title">Marketplace ขายตรงให้ <em>Roaster</em></h3>
+        </div>
+        <div class="module-fig">โมดูล 05 &middot; Hero</div>
+      </header>
+      <div class="module-body" style="grid-template-columns:1fr">
+        <p>ผลผลิตแต่ละรอบจะกลายเป็น <strong>การ์ด lot</strong> — รูปถ่าย, วิดีโอเรื่องเล่า, รายงาน cupping ที่ AI ประเมิน, รายละเอียดวิธีแปรรูป, ใบรับรอง organic/fair-trade, จำนวนกิโลที่มี · roasters ทั่วโลกค้นหา ขอตัวอย่าง ต่อรอง และจ่ายเงินผ่าน escrow · Stripe Connect จัดการธุรกรรมข้ามประเทศ · การส่งออกในช่วงแรกร่วมมือกับ Beanspire หรือ This Side Up</p>
+      </div>
+      <div class="note">
+        <div class="note-tag">ระบบช่วยตั้งราคาอัจฉริยะ</div>
+        <p>เปรียบเทียบ lot กับตลาดโลกล่าสุด: <em>"Catimor honey คะแนน 84.5 จากอาเจะห์ขายให้ Onyx ที่ £14/กก. green เดือนที่แล้ว · แนะนำให้ตั้งราคา £11–13"</em> · นี่คือฟีเจอร์ที่เปลี่ยนเกม — ชาวสวนที่พูดภาษาอังกฤษไม่ได้ ก็ต่อรองได้เหมือนผู้ส่งออกมืออาชีพ</p>
+      </div>
+    </article>
+
+    <article class="module">
+      <header class="module-head">
+        <div class="module-no">VI.</div>
+        <div>
+          <div class="module-tag">การตลาด &middot; ต่อเนื่อง</div>
+          <h3 class="module-title">นักเล่าเรื่องชาวสวน</h3>
+        </div>
+        <div class="module-fig">โมดูล 06</div>
+      </header>
+      <div class="module-body" style="grid-template-columns:1fr">
+        <p>ชาวสวนอัดเสียง 30 วินาทีในภาษาอาข่า ม้ง กะเหรี่ยง หรือคำเมือง · Claude แปลและเรียบเรียงเป็นข้อความการตลาดในภาษาอังกฤษ จีน ญี่ปุ่น เกาหลี ที่ยังคงความเป็นของแท้ของวัฒนธรรม · สร้าง reel แนวตั้งที่มีหน้าชาวสวนและภาพประกอบฟาร์ม สำหรับลง IG/TikTok</p>
+      </div>
+      <div class="note">
+        <div class="note-tag">ทำไมโมดูลนี้เติมเต็มกำแพงป้องกัน</div>
+        <p>การขายตรงไม่ใช่แค่เรื่องราคา — มันคือ <strong>ความสัมพันธ์และเรื่องราว</strong> · ผู้ซื้อ specialty จ่ายเพิ่มเพื่อเรื่องเล่าที่มาที่ไป ("lot นี้จากครอบครัวชาวอาข่ารุ่นที่ 4") · การเป็นเจ้าของพื้นที่เล่าเรื่อง สร้างแบรนด์ของชาวสวนที่ <em>อยู่ได้แม้นอกแพลตฟอร์ม</em> · ฟังดูย้อนแย้ง แต่นี่เป็นเรื่องสำคัญ: ชาวสวนจะไว้ใจแพลตฟอร์มมากขึ้น เมื่อเห็นว่าแบรนด์ส่วนตัวของเขาอยู่รอดได้แม้ออกจากแอปไป</p>
+      </div>
+    </article>
+
+    <div class="ornament">▲ &nbsp; △ &nbsp; ▲</div>
+  </div>
+</section>
+
+<!-- ━━━ VIII — เทคโนโลยี ━━━ -->
+<section class="section" id="tech">
+  <div class="section-no">VIII.</div>
+  <div class="section-body">
+    <div class="section-eyebrow">ตอนที่ VIII &mdash; สแตก</div>
+    <h2 class="section-title">เทคโนโลยี — เหตุผลของทุก<em>การเลือก</em></h2>
+    <p class="section-lede">การตัดสินใจทางเทคนิคที่อธิบายได้ ที่วิศวกรอาวุโสจะตั้งคำถามไม่ออก</p>
+
+    <table class="data-table">
+      <thead><tr><th>ส่วน</th><th>เลือกใช้</th><th>ทำไมไม่ใช่ตัวอื่น</th></tr></thead>
+      <tbody>
+        <tr><td>กรอบงานมือถือ</td><td><strong>Flutter</strong></td><td>เขียน codebase เดียวรันได้ทุก platform · รันบน Android Go (มือถือถูกที่ชาวสวนใช้จริง) · ประสิทธิภาพดีกว่า React Native สำหรับกล้องและ ML inference</td></tr>
+        <tr><td>ML บนมือถือ</td><td><strong>TFLite, MobileNetV3 quantized</strong></td><td>โมเดล 4 MB · รัน offline · สำคัญเพราะฟาร์มมี 4G ไม่ทั่วถึง · quantize เป็น int8 ลดความแม่นยำแค่ ~2% จาก float32 แต่ลดขนาดได้ 4×</td></tr>
+        <tr><td>ตัวตรวจตำหนิ</td><td><strong>Transfer-learn จาก ImageNet → fine-tune</strong></td><td>500 รูปเมล็ดเขียวไทยที่ติดป้ายมือ + 5,000 ชุด SCA สาธารณะ พอให้ความแม่นยำเกิน 90% · เลี่ยงการเริ่มเก็บข้อมูลจากศูนย์ที่มีต้นทุนสูง</td></tr>
+        <tr><td>ตัวแนะนำสายพันธุ์</td><td><strong>XGBoost</strong> (ไม่ใช่ deep learning)</td><td>ข้อมูลเป็นตาราง ฟีเจอร์ไม่เยอะ ต้องการ <em>การอธิบายได้</em> เพื่อให้ชาวสวนไว้ใจ · ค่า SHAP ช่วยแสดง "พันธุ์นี้เพราะระดับความสูง + ดิน + อุณหภูมิคาดการณ์ปี 2035"</td></tr>
+        <tr><td>Backend</td><td><strong>Node + Postgres + S3</strong></td><td>เทคโนโลยีพื้นฐานที่ทำงานได้จริง หาคนทำได้ · Postgres + PostGIS รองรับ query เชิงพื้นที่ (ร้านเกษตรใกล้สุด, ลุ่มน้ำเดียวกัน)</td></tr>
+        <tr><td>LLM แปลภาษา</td><td><strong>Claude Haiku 4.5</strong></td><td>คุณภาพภาษาไทยและภาษาชนกลุ่มน้อยดีที่สุดในกลุ่ม API ที่เข้าถึงได้ · ราคาถูกพอใช้ต่อข้อความ</td></tr>
+        <tr><td>ระบบจ่ายเงิน</td><td><strong>Stripe Connect</strong></td><td>มี escrow ข้ามประเทศในตัว · จัดการอัตราแลกเปลี่ยน, KYC, และข้อพิพาท · ทางเลือก (โอน Wise มือ) ขยายไม่ผ่าน 50 ธุรกรรม</td></tr>
+        <tr><td>แผนที่และพื้นที่</td><td><strong>Mapbox + ชั้นข้อมูลดิน DOA</strong></td><td>Mapbox ปรับสไตล์อ่านง่ายในระดับความสูงที่ชาวสวนสนใจ · ฐาน GIS ดินของกรมพัฒนาที่ดินฟรีและเชื่อถือได้</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ━━━ IX — PERSONAS ━━━ -->
+<section class="section" id="personas">
+  <div class="section-no">IX.</div>
+  <div class="section-body has-dropcap">
+    <div class="section-eyebrow">ตอนที่ IX &mdash; ผู้คน</div>
+    <h2 class="section-title">3 กลุ่มผู้ใช้ที่ออกแบบ<em>รอบตัวเขา</em></h2>
+    <p class="section-lede">ทุกการตัดสินใจของผลิตภัณฑ์ถูกทดสอบกับ 3 คนนี้ · ถ้าฟีเจอร์ไหนไม่ตอบโจทย์สักคน ก็ไม่ปล่อย</p>
+
+    <div class="personas">
+      <div class="persona">
+        <div>
+          <div class="persona-id">Persona 01 &middot; เริ่มที่: เครื่องสแกน</div>
+          <h3 class="persona-name">ป๋อง · 35 · ชาว<em>อาข่า</em> · ดอยช้าง</h3>
+        </div>
+        <div class="persona-body">
+          <p>พูดอาข่าที่บ้าน คำเมืองที่ตลาด · มือถือใช้ร่วมกับภรรยา · ปลูก Catimor ผสม Caturra 5 ไร่ ที่ระดับ 1,300 ม. · ขายให้พ่อค้ารับซื้อที่มาเดือนละครั้ง ได้ ฿80–120/กก. green · เคยได้ยินคำว่า "specialty" แต่ไม่รู้ว่ามันหมายความว่าอย่างไรกับเขา</p>
+          <p><strong>ทำไมเขาติดตั้ง:</strong> youth ambassador ให้เห็นผลสแกนเมล็ดของเขาเอง — 84.5, specialty grade · เห็นเลขนี้แล้วลืมไม่ได้</p>
+        </div>
+      </div>
+      <div class="persona">
+        <div>
+          <div class="persona-id">Persona 02 &middot; เริ่มที่: ที่ปรึกษาสายพันธุ์</div>
+          <h3 class="persona-name">นิตยา · 50 · ไทย-<em>กะเหรี่ยง</em> · แม่สลอง</h3>
+        </div>
+        <div class="persona-body">
+          <p>ผลผลิตลด 2 ฤดูติด · อ่านข่าว Bangkok Post ว่าโลกร้อนเลื่อนเขตปลูก · ใช้ Android Go และ LINE ทุกวัน · อยากรู้ว่าควรปลูกอะไรไว้ให้หลานสืบทอด</p>
+          <p><strong>ทำไมเธอติดตั้ง:</strong> เกษตรกรของมูลนิธิ demo ที่ปรึกษาสายพันธุ์บนแปลงของเธอ · ผลลัพธ์ออกมาเป็นคำอธิบาย ไม่ใช่คำสั่ง — และนี่คือเหตุผลที่เธอเชื่อ</p>
+        </div>
+      </div>
+      <div class="persona">
+        <div>
+          <div class="persona-id">Persona 03 &middot; เริ่มที่: marketplace</div>
+          <h3 class="persona-name">Mark · 32 · <em>specialty roaster</em> · กรุงเทพ</h3>
+        </div>
+        <div class="persona-body">
+          <p>คั่ว 200 กก./สัปดาห์ · เผาเวลา 6 ชม. ทุกวันศุกร์ ตามตัวอย่าง โทรหาฟาร์ม กรองชุด micro-lot · เดือนแรกบน DoiBean ประหยัดเวลา 15 ชม. และต้นทุน sourcing 30% · ระบบช่วยตั้งราคาอัจฉริยะคือ unfair advantage ของเขา</p>
+          <p><strong>ทำไมเขาสมัครสมาชิก:</strong> รายงาน cupping จาก AI ดีพอที่จะข้ามการส่งตัวอย่างชุดแรกได้ 70% ของเคส · แค่นี้ก็คุ้มค่าทั้งปีแล้ว</p>
+        </div>
       </div>
     </div>
   </div>
+</section>
 
-  <div class="callout insight">
-    <span class="callout-label">★ ข้อสังเกตเชิงกลยุทธ์</span>
-    ไอเดีย #8 เข้าถึงขั้น 1-2 ซึ่งเป็น<em>การตัดสินใจรายปี</em> · ไอเดีย #7 เข้าถึงขั้น 6-7 ซึ่งคือ<em>ช่วงเก็บเกี่ยวรายปี</em> · ทำแยกกัน = แอปที่ชาวสวนเปิดแค่ปีละครั้ง = ลูกค้าหายและ retention ต่ำ · <mark>ทำรวมและเพิ่มโมดูลขั้น 3-5 เข้าไป = แอปที่ชาวสวนเปิดมากกว่า 100 ครั้งต่อปี</mark> นี่คือความต่างระหว่าง "เครื่องมือ" กับ "แพลตฟอร์ม"
+<!-- ━━━ X — ธุรกิจ ━━━ -->
+<section class="section" id="business">
+  <div class="section-no">X.</div>
+  <div class="section-body has-dropcap">
+    <div class="section-eyebrow">ตอนที่ X &mdash; เงิน</div>
+    <h2 class="section-title">3 สาย<em>รายได้</em></h2>
+    <p class="section-lede">ค่าสมาชิกสองฝั่ง บวกค่าธรรมเนียม marketplace และเงินสนับสนุนจากมูลนิธิ · ไม่มีสายเดียวที่แบกบริษัท</p>
+
+    <div class="stream">
+      <div class="stream-tag">สาย 01 &middot; B2C</div>
+      <h3 class="stream-title">Freemium SaaS สำหรับชาวสวน &mdash; ฿99/เดือน Pro</h3>
+      <p>ฟรี: สแกน 5 ครั้ง/เดือน, คำแนะนำสายพันธุ์พื้นฐาน, ลงประกาศ 1 ครั้ง · Pro (฿99/เดือน): สแกนไม่จำกัด, ดูข้อมูลย้อนหลัง, ลงประกาศได้ 3 lot, นักเล่าเรื่องลำดับเร่ง · เป้าหมายอัตราเปลี่ยน 30% — ดีลขายตรง 1 ครั้งจ่ายค่า Pro ได้ 2 ปี</p>
+    </div>
+    <div class="stream">
+      <div class="stream-tag">สาย 02 &middot; B2B</div>
+      <h3 class="stream-title">ค่าสมาชิก Roaster &mdash; ฿990/เดือน + ค่าธรรมเนียม 8%</h3>
+      <p>ค้นหา lot ได้ทั้งหมด, รายงาน cupping จาก AI, escrow ส่งตัวอย่าง, ระบบจ่ายเงิน · ค่าธรรมเนียม 8% จากดีลที่ปิด — มาตรฐานในตลาด coffee infrastructure คือ 12–15% เราตั้งใจตั้งต่ำกว่าใน 3 ปีแรก</p>
+    </div>
+    <div class="stream">
+      <div class="stream-tag">สาย 03 &middot; B2G &middot; มูลนิธิ</div>
+      <h3 class="stream-title">รัฐบาลและพันธมิตรร่วมจ่าย</h3>
+      <p>มูลนิธิดอยตุง, กรมส่งเสริมการเกษตร, NGO ร่วมจ่ายค่า onboard ที่ ฿200/ชาวสวน · การรับรอง carbon credit $50–200/ฟาร์ม/ปี เป็น add-on พรีเมียมสำหรับชาวสวนที่ส่งออกไปยัง roaster ที่สนใจ ESG ในยุโรปและญี่ปุ่น</p>
+    </div>
+
+    <div class="note">
+      <div class="note-tag">Unit Economics</div>
+      <p><strong>LTV ชาวสวน ≈ $350</strong> (รายได้สมาชิก ~$22 + ค่าธรรมเนียม marketplace ~$320 ใน 2 ปี) · <strong>LTV roaster ≈ $990/ปี</strong> · CAC เฉลี่ยประมาณ $100 · <em>LTV/CAC ≈ 3.5×</em> — ดีสำหรับ vertical SaaS</p>
+    </div>
   </div>
 </section>
 
-<!-- ============= ทำไมรวม ============= -->
-<section id="merge">
-  <h2><span class="num">SECTION 04</span>ทำไมการรวมจึงชนะ</h2>
-  <p class="lede">3 เหตุผลที่ทบต้นกัน: การรวมวงจร · ระบบเก็บข้อมูลที่ป้อนกันเอง · กำแพงป้องกันหลายชั้น</p>
+<!-- ━━━ XI — GTM ━━━ -->
+<section class="section" id="gtm">
+  <div class="section-no">XI.</div>
+  <div class="section-body has-dropcap">
+    <div class="section-eyebrow">ตอนที่ XI &mdash; การเปิดตลาด</div>
+    <h2 class="section-title">หัวหาด · <em>ภาคเหนือ</em> · เขตปลูก</h2>
+    <p class="section-lede">3 เฟสใน 36 เดือน · ฝั่งซัพพลายแตกก่อน — ไม่ใช่เรื่องปกติของ marketplace แต่นี่คือทางที่ใช่</p>
 
-  <h3>1. การรวมวงจร (Lifecycle Integration)</h3>
-  <p>ชาวสวนที่ใช้ที่ปรึกษาสายพันธุ์ในเดือนมีนาคม จะมีแอปอยู่ในมือถือตอนเก็บเกี่ยวเดือนพฤศจิกายน · การเปลี่ยนมาใช้โมดูลสแกนเมล็ดเกิดขึ้นโดยปริยายไม่มีต้นทุนหาลูกค้าใหม่ · ในทางกลับกัน ชาวสวนที่ตื่นตาตื่นใจกับการสแกนครั้งแรก ก็จะอยากรู้ว่าสายพันธุ์ไหนที่จะให้คะแนนสูงกว่า · <strong>ติดตั้งครั้งเดียว ใช้ผลิตภัณฑ์ 2 อย่าง ต้นทุนหาลูกค้าใหม่เป็นศูนย์</strong></p>
-
-  <h3>2. ระบบเก็บข้อมูลที่ป้อนกันเอง (Data Flywheel)</h3>
-  <p>นี่คือสิ่งที่ทีมส่วนใหญ่มองข้าม — ข้อมูลของแต่ละโมดูลจะส่งกลับไปทำให้โมดูลอื่นแม่นยำขึ้น:</p>
-  <ul>
-    <li><strong>สายพันธุ์ + GPS + คะแนนเก็บเกี่ยว:</strong> ผ่าน 2 ฤดู เราจะมีชุดข้อมูลแรกของโลกที่เชื่อมโยงระดับความสูงและสภาพภูมิอากาศย่อยของไทยเข้ากับผลการชิมจริง · ไม่มีองค์กรวิจัยกาแฟไหนเก็บไว้ · กลายเป็นข้อมูลสอนของระบบแนะนำในรอบถัดไป</li>
-    <li><strong>ตำหนิที่สแกน + วิธีแปรรูป + ราคาสุดท้าย:</strong> สอน AI ให้แนะนำได้ว่า — เมล็ดที่มีตำหนิแบบนี้ เจอสภาพอากาศแบบนี้ ควรทำ washed, honey หรือ natural ถึงจะได้ราคาดีที่สุด</li>
-    <li><strong>ความชอบของ roaster + โปรไฟล์ชาวสวน:</strong> การจับคู่จะแม่นขึ้นเรื่อยๆ · หลัง 1,000 ดีล AI จะทำนายได้ว่า roaster คนไหนจะชอบ lot ของชาวสวนคนไหน ก่อนที่ทั้งสองฝ่ายจะรู้เอง</li>
-  </ul>
-
-  <div class="callout data">
-    <span class="callout-label">📊 บริบทสำคัญ — เลข Data Moat</span>
-    การสแกน 1 ครั้งเท่ากับข้อมูลสอน 1 แถว · 10,000 ชาวสวน × 5 ครั้ง/ฤดู = <strong>50,000 รูปเมล็ดเขียวไทยที่ติดป้ายแล้วต่อปี</strong> · ชุดข้อมูล SCA สาธารณะทั่วโลกมีรวมประมาณ 5,000 รูป (ส่วนใหญ่เป็นเมล็ดแอฟริกาและละตินอเมริกา) · ตั้งแต่ปีที่ 1 โมเดลของเราจะแม่นยำกว่า Cropster, Bext360 หรือ BeanGrader บนเมล็ดไทย<em>อย่างเด็ดขาด</em> · ช่องว่างนี้กว้างขึ้นทุกปี
-  </div>
-
-  <h3>3. กำแพงป้องกันหลายชั้น (Moat Layering)</h3>
-  <p>ผลิตภัณฑ์ 2 ตัว = คู่แข่งสองคนต่อแต่ละจุด · แอปรวม = คู่แข่งต้องสร้าง 6 โมดูลให้ครบถึงจะแย่งลูกค้าได้ · ต้นทุนการแทนที่จะโตเร็วกว่าต้นทุนการเพิ่มฟีเจอร์</p>
-
-  <h3>ถ้าไม่รวมกันจะเกิดอะไร</h3>
-  <p>ถ้าออก #7 และ #8 แยกกัน ภายใน 18 เดือนจะเกิดสิ่งเหล่านี้:</p>
-  <ul>
-    <li><strong>#7 เดี่ยว</strong> ถูกทีมจากอินโดนีเซียหรือเวียดนามเลียนแบบใน 6 เดือน เพราะ AI ตรวจตำหนิเป็นเทคนิคที่งานวิจัยตีพิมพ์แล้ว</li>
-    <li><strong>#8 เดี่ยว</strong> retention พังเพราะชาวสวนเปิดปีละครั้ง ไม่มีใครยอมจ่ายค่าสมาชิกรายเดือนสำหรับสิ่งที่ใช้ปีละหน · ลูกค้าหายเร็ว</li>
-    <li><strong>รวมกัน</strong> ทั้งสองตัวเสริมกัน กลายเป็นผลิตภัณฑ์ที่กำหนดมาตรฐานหมวดใหม่ · เลียนแบบยากกว่าเดิม 10 เท่า</li>
-  </ul>
-</section>
-
-<!-- ============= ตลาด ============= -->
-<section id="market">
-  <h2><span class="num">SECTION 05</span>ขนาดตลาด</h2>
-  <p class="lede">TAM/SAM/SOM ที่ตั้งอยู่บนความเป็นจริง ไม่หลอกตัวเองและไม่หลอกนักลงทุน</p>
-
-  <table>
-    <thead>
-      <tr><th>ระดับ</th><th>คำนิยาม</th><th>ขนาด</th><th>เหตุผล</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>TAM</strong></td>
-        <td>ชาวสวน specialty + roasters ทั่วโลก</td>
-        <td class="num">$50B GMV</td>
-        <td>ตลาด specialty coffee ปี 2025 (ข้อมูล SCA) · ชาวสวนกาแฟทั่วโลก ~25 ล้านราย, กลุ่ม specialty ~2 ล้านราย</td>
-      </tr>
-      <tr>
-        <td><strong>SAM</strong></td>
-        <td>เขต specialty SE Asia: ไทย + ลาว + เวียดนาม (โซน Arabica) + พม่า</td>
-        <td class="num">~85,000 ครัวเรือน</td>
-        <td>ไทย 25k + ลาว 30k + เวียดนาม Arabica 25k + พม่า 5k · ทุกประเทศเผชิญปัญหาเดียวกัน ภาษาทับซ้อนกัน</td>
-      </tr>
-      <tr>
-        <td><strong>SOM ปี 1</strong></td>
-        <td>ดอยช้าง + ดอยตุง + ดอยแม่สลอง</td>
-        <td class="num">500 ชาวสวน</td>
-        <td>เริ่มผ่านมูลนิธิดอยตุง · ประมาณ 1% ของครัวเรือน specialty ในไทย</td>
-      </tr>
-      <tr>
-        <td><strong>SOM ปี 3</strong></td>
-        <td>ทั่วประเทศไทย + เริ่มลาว</td>
-        <td class="num">5,000 ชาวสวน</td>
-        <td>20% ของครัวเรือน specialty ไทย + roaster ต่างประเทศ 200 ราย</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="callout money">
-    <span class="callout-label">💰 รายได้ที่คำนวณไว้สำหรับปี 3 (SOM)</span>
-    <strong>5,000 ชาวสวน</strong> × อัตราเปลี่ยนเป็น Pro 30% × 99฿/เดือน = <strong>1.5 ล้านบาท/เดือน รายได้ประจำ</strong> ($43k MRR)<br>
-    <strong>200 roasters</strong> × 990฿/เดือน = <strong>200,000฿/เดือน</strong> ($5.7k MRR)<br>
-    <strong>มูลค่าซื้อขายรวม:</strong> ~$5M (5,000 ชาวสวน × $1,000 ต่อ lot × 1 lot/ปี) · เก็บค่าธรรมเนียม 8% = <strong>$400k/ปี</strong><br>
-    <strong>รวม ARR ปี 3 ≈ $1M</strong> · ตัวเลขดีพอสำหรับ vertical SaaS ที่ระดมทุน Series A
+    <div class="phases">
+      <div class="phase">
+        <div class="phase-no">เฟส 01</div>
+        <h3 class="phase-title">ดอยช้าง — หัวหาด</h3>
+        <div class="phase-window">เดือน 0–6</div>
+        <ul>
+          <li>500 ชาวสวนผ่านมูลนิธิดอยตุง</li>
+          <li>5 anchor specialty roasters ในกรุงเทพ</li>
+          <li>10 ชาวสวนส่ง lot ขายต่างประเทศ</li>
+          <li>สื่อ: Bangkok Post 1 ชิ้น + BBC 1 ชิ้น</li>
+          <li>เป้า: พิสูจน์ว่าธุรกรรมขายตรงทำได้</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="phase-no">เฟส 02</div>
+        <h3 class="phase-title">ภาคเหนือไทย</h3>
+        <div class="phase-window">เดือน 6–18</div>
+        <ul>
+          <li>2,500 ชาวสวน เชียงราย + เชียงใหม่ + แม่ฮ่องสอน</li>
+          <li>50 international roasters (โตเกียว, โซล, เบอร์ลิน)</li>
+          <li>มูลค่าซื้อขายในระบบ $1M</li>
+          <li>ระดมทุน Series A จาก traction</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="phase-no">เฟส 03</div>
+        <h3 class="phase-title">เขตปลูก SE Asia</h3>
+        <div class="phase-window">เดือน 18–36</div>
+        <ul>
+          <li>ลาว PDR + เวียดนาม Arabica + พม่า</li>
+          <li>5,000 ชาวสวนรวม</li>
+          <li>200+ international roasters</li>
+          <li>$1M ARR · กำไร contribution margin</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ============= คู่แข่ง ============= -->
-<section id="competition">
-  <h2><span class="num">SECTION 06</span>คู่แข่งและช่องว่าง</h2>
-  <p class="lede">วิเคราะห์คู่แข่งทุกราย หาช่องว่างที่ยังไม่มีใครครอบครอง</p>
+<!-- ━━━ XII — MOAT ━━━ -->
+<section class="section" id="moat">
+  <div class="section-no">XII.</div>
+  <div class="section-body has-dropcap">
+    <div class="section-eyebrow">ตอนที่ XII &mdash; การป้องกัน</div>
+    <h2 class="section-title">5 ชั้น<em>กำแพงป้องกัน</em></h2>
+    <p class="section-lede">แต่ละชั้นเดี่ยวยังไม่พอ · การรวมกันคือสิ่งที่ทำให้การ clone ไม่คุ้มค่าทางเศรษฐกิจ</p>
 
-  <table>
-    <thead>
-      <tr><th>คู่แข่ง</th><th>พื้นที่</th><th>ทำอะไร</th><th>ช่องว่างที่เปิดทิ้งไว้</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Cropster</strong></td>
-        <td>ออสเตรีย → ทั่วโลก</td>
-        <td>ซอฟต์แวร์ QC สำหรับโรงคั่ว, log การ cup, จัดการสต็อก</td>
-        <td>หยุดที่ประตูโรงคั่ว ไม่แตะเข้าฟาร์ม</td>
-      </tr>
-      <tr>
-        <td><strong>Bext360</strong></td>
-        <td>USA → แอฟริกา ละตินอเมริกา</td>
-        <td>Blockchain supply chain เน้นบริษัทใหญ่</td>
-        <td>ไม่มี AI vision บนมือถือ ต้องเซ็นสัญญาขนาดองค์กร ไม่ได้ให้บริการ SE Asia</td>
-      </tr>
-      <tr>
-        <td><strong>Sucafina / Caravela</strong></td>
-        <td>สวิส / โคลอมเบีย</td>
-        <td>ผู้นำเข้า-ส่งออกกาแฟเขียวแบบดั้งเดิม</td>
-        <td>พึ่งความสัมพันธ์ส่วนตัว ขยายไม่ได้ มาร์จินไปอยู่ที่ผู้นำเข้า</td>
-      </tr>
-      <tr>
-        <td><strong>BeanGrader.com</strong></td>
-        <td>USA</td>
-        <td>AI ตรวจตำหนิแบบ web upload เท่านั้น</td>
-        <td>ไม่มี marketplace ไม่มีฝั่งชาวสวน เป็นแค่เครื่องมือลอยๆ</td>
-      </tr>
-      <tr>
-        <td><strong>Ricult</strong></td>
-        <td>ไทย + ปากีสถาน</td>
-        <td>Satellite + AI สำหรับข้าวและพืชทั่วไป</td>
-        <td>เน้นพืชไร่ทั่วไป ไม่มีความเชี่ยวชาญกาแฟเฉพาะทาง ไม่มี vision ไม่เข้าตลาด specialty</td>
-      </tr>
-      <tr>
-        <td><strong>OPTITRADE</strong></td>
-        <td>ไทย</td>
-        <td>Supply chain สินค้าเกษตรทั่วไป (เพิ่งระดม $15M)</td>
-        <td>เน้น commodity ไม่ใช่ specialty · ขายปริมาณ ไม่ใช่พรีเมียม</td>
-      </tr>
-      <tr>
-        <td><strong>ดอยตุง / ดอยช้าง</strong></td>
-        <td>ไทย</td>
-        <td>แบรนด์เดียวครบวงจร: ปลูก → คั่ว → ร้านคาเฟ่</td>
-        <td>เฉพาะชาวสวนของตนเอง ไม่ได้ช่วยให้ชุมชนอื่นใช้เทคโนโลยีได้</td>
-      </tr>
-      <tr style="background: var(--bg-callout-insight);">
-        <td><strong>DoiBean (เรา)</strong></td>
-        <td>ไทย → SEA coffee belt</td>
-        <td><strong>แอปครบวงจรจากฟาร์มถึง roaster · vision + LLM + marketplace</strong></td>
-        <td><em>นี่แหละช่องว่าง</em></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="callout insight">
-    <span class="callout-label">★ ช่องว่างที่ยังไม่มีใครครอบครอง</span>
-    <strong>ไม่มีใครครอบครองเส้นทางจากชาวสวนถึง roaster ครบวงจร พร้อม AI ที่รันบนมือถือ</strong> · คู่แข่งทุกรายครอบครองแค่ส่วนเดียวของห่วงโซ่ · การแข่งขันในตลาดถูกแบ่งแยกตามโครงสร้าง specialty coffee แบบตะวันตก ที่สมมติว่าชาวสวนมีช่องส่งออกอยู่แล้ว (เช่นในละตินอเมริกาและแอฟริกา) · ชาวสวนไทยและ SE Asia ไม่มีโครงสร้างนี้ — เลยต้องสร้างจากภายในภูมิภาคเอง
-  </div>
-</section>
-
-<!-- ============= ผลิตภัณฑ์ ============= -->
-<section id="product">
-  <h2><span class="num">SECTION 07</span>ผลิตภัณฑ์ — 6 โมดูล</h2>
-  <p class="lede">แต่ละโมดูลแก้ปัญหาขั้นเดียวของวงจร · รวมกันเป็นผลิตภัณฑ์เดียวที่แยกออกจากกันไม่ได้</p>
-
-  <!-- Module 1 -->
-  <div class="module-card">
-    <div class="module-header">
-      <div class="module-num">1</div>
+    <div class="moat">
+      <div class="moat-num">i.</div>
       <div>
-        <div class="module-tag">ก่อนปลูก · รายปี</div>
-        <h3 class="module-title">ที่ปรึกษาเรื่องพื้นที่และสายพันธุ์</h3>
+        <h3 class="moat-title">ระบบเก็บข้อมูลเฉพาะของไทย</h3>
+        <p class="moat-body">ทุกการสแกนเทรนตัวตรวจตำหนิที่ tune เฉพาะกับ Catimor, Typica, และ Geisha ที่ปลูกในดินภูเขาไฟดอยช้าง · ชุดข้อมูลต่างชาติ (บราซิล, เอธิโอเปีย) ทำงานได้ไม่ดีบนเมล็ดไทย · ความได้เปรียบจากปีที่ 1 จะทบต้นเพิ่มขึ้นทุกปี</p>
       </div>
     </div>
-    <p>ชาวสวนปักหมุด GPS ที่แปลง · แอปดึงข้อมูลระดับความสูง ความชัน ทิศทาง ดิน ประวัติอากาศ และพยากรณ์อนาคตจาก IPCC RCP4.5 · แสดงผลเป็นรายการสายพันธุ์ที่แนะนำ พร้อมเหตุผลที่ชาวสวนเข้าใจ</p>
-    <div class="io-grid">
-      <div class="io-block">
-        <div class="io-label">ข้อมูลที่ใช้</div>
-        พิกัด GPS → ระดับความสูงจาก DEM → ความชัน/ทิศทาง → ฐานข้อมูลดิน LDD → ประวัติอากาศ TMD ย้อนหลัง 20 ปี → พยากรณ์ IPCC ปี 2030/2040
-      </div>
-      <div class="io-block">
-        <div class="io-label">ตัวอย่างผลลัพธ์</div>
-        "แปลงคุณอยู่ที่ 1,420 ม. หันทิศ NE อุณหภูมิเฉลี่ย 22°C · แนะนำ Catimor 70% + Typica 30% · ปี 2035 Caturra แท้ๆ จะอยู่ไม่ได้แล้ว ปลูกล่างลงไป 200 ม. เผื่อไว้เป็นทางเลือก"
-      </div>
-    </div>
-    <div class="callout data">
-      <span class="callout-label">📊 ทำไมสำคัญ</span>
-      ต้นกาแฟใช้เวลา 3-4 ปีถึงเก็บเกี่ยวครั้งแรก และ 5+ ปีถึงให้ผลผลิตสูงสุด · เลือกสายพันธุ์ผิดวันนี้ = สูญเสียทางเศรษฐกิจ 7 ปี · ไม่มีชาวสวนคนไหนเข้าถึงข้อมูลรวมแบบนี้ได้ · เกษตรอำเภอก็ไม่มี · <strong>โมดูลนี้คือเครื่องมือสำหรับผู้บริโภคตัวเดียวที่สังเคราะห์ข้อมูลภูมิอากาศให้ชาวสวนบนดอยใช้ตัดสินใจ</strong>
-    </div>
-  </div>
-
-  <!-- Module 2 -->
-  <div class="module-card">
-    <div class="module-header">
-      <div class="module-num">2</div>
+    <div class="moat">
+      <div class="moat-num">ii.</div>
       <div>
-        <div class="module-tag">ฤดูปลูก · รายสัปดาห์</div>
-        <h3 class="module-title">ตรวจโรคและศัตรูพืช</h3>
+        <h3 class="moat-title">ความไว้ใจจากชาวเขาผ่านสายสัมพันธ์มูลนิธิ</h3>
+        <p class="moat-body">การร่วมมือกับมูลนิธิดอยตุงเลียนแบบไม่ได้ — เป็นมรดกของราชวงศ์ ทำงานชุมชนมา 30+ ปี · ผู้เล่นต่างชาติเข้าถึงไม่ได้ · ความไว้ใจใช้เวลาทศวรรษถึงจะสร้างได้ เราเริ่มต้นด้วย mind-share ของชาวสวนตั้งแต่วันแรก</p>
       </div>
     </div>
-    <p>ชาวสวนถ่ายรูปใบที่สงสัย · AI บนมือถือจำแนกศัตรูพืชกาแฟไทย: ใบสนิม (<em>roya</em>), มอดเจาะผล, anthracnose · มีแผนที่การระบาดระดับลุ่มน้ำ บอกว่าชาวสวนใกล้เคียงเจออะไร</p>
-    <div class="io-grid">
-      <div class="io-block">
-        <div class="io-label">เทคโนโลยี</div>
-        TFLite vision model ขนาด 4MB · ทำงานแบบ offline · เทรนจาก PlantVillage + ชุดข้อมูลไทยที่เก็บเองผ่านพันธมิตรในพื้นที่
-      </div>
-      <div class="io-block">
-        <div class="io-label">คำแนะนำการรักษา</div>
-        แนะนำที่เป็นมิตรกับใบรับรอง organic (สำคัญสำหรับราคาพรีเมียมส่งออก) · มีลิงก์ร้านเกษตรใกล้สุดที่มีของพร้อมขาย
-      </div>
-    </div>
-  </div>
-
-  <!-- Module 3 -->
-  <div class="module-card">
-    <div class="module-header">
-      <div class="module-num">3</div>
+    <div class="moat">
+      <div class="moat-num">iii.</div>
       <div>
-        <div class="module-tag">ช่วงเก็บ · รายวัน</div>
-        <h3 class="module-title">ตัวจับเวลาเก็บเกี่ยว</h3>
+        <h3 class="moat-title">เสียงและการเล่าเรื่องในหลายภาษา</h3>
+        <p class="moat-body">อาข่า, ม้ง, กะเหรี่ยง, คำเมือง, ลาว · ไม่มี SaaS ระดับโลกที่ localize ภาษาเหล่านี้ · ไม่มี LLM ทั่วไปที่จัดการ native ได้ · ได้เปรียบ 3–5 ปี</p>
       </div>
     </div>
-    <p>ถ่ายรูปเชอร์รี่ → AI วัดเปอร์เซ็นต์ความสุกจากสีและความแน่น · รวมกับพยากรณ์อากาศ 7 วัน → "เก็บวันอังคาร ไม่ใช่วันนี้ · ฝนวันพฤหัสจะลด Brix" · ระบบยังแนะนำได้ด้วยว่าควรทำ washed, honey หรือ natural ตามโปรไฟล์เมล็ด สภาพอากาศ และราคาพรีเมียมในตลาดตอนนั้น</p>
-  </div>
-
-  <!-- Module 4 -->
-  <div class="module-card" style="border-color: var(--gold); border-width: 2px;">
-    <div class="module-header">
-      <div class="module-num" style="background: var(--gold); color: var(--coffee-dark);">4</div>
+    <div class="moat">
+      <div class="moat-num">iv.</div>
       <div>
-        <div class="module-tag" style="color: var(--gold);">★ โมดูลฮีโร่ · หลังเก็บ</div>
-        <h3 class="module-title">เครื่องสแกนคุณภาพเมล็ด</h3>
+        <h3 class="moat-title">การรวมวงจรที่ผูกผู้ใช้</h3>
+        <p class="moat-body">เมื่อข้อมูลเลือกสายพันธุ์, ประวัติเก็บเกี่ยวหลายฤดู, และความสัมพันธ์ roaster ของชาวสวนอยู่ใน DoiBean แล้ว ต้นทุนการเปลี่ยนแพลตฟอร์มจะสูงมาก — ชาวสวนจะเสียประวัติ · roaster ก็ลงทุนกับ lot review และประวัติตัวอย่างไปแล้ว</p>
       </div>
     </div>
-    <p>โรยเมล็ดเขียว 50-100 เม็ดบนกระดาษ A4 ขาว (เราส่งชุดอุปกรณ์ฟรี) · ถ่ายด้วยกล้องมือถือ · <strong>MobileNetV3 ที่เทรนเฉพาะกับมาตรฐาน SCA</strong> จำแนกทุกเมล็ดที่เห็น</p>
-
-    <div class="scan-output">
-<span class="label">SCA Score Estimate:</span>  <span class="value">84.5</span>  <span class="pass">✓ Specialty Grade</span>
-<span class="label">Cat-1 Defects:</span>       <span class="pass">0  ✓</span>
-<span class="label">Cat-2 Defects:</span>       <span class="warn">3 (2 partial sour, 1 floater)</span>
-<span class="label">Bean Size:</span>           Screen 17 (87%), Screen 16 (13%)
-<span class="label">Predicted Cupping:</span>   floral, jasmine, citrus acidity
-<span class="label">Suggested Roast:</span>     light to medium-light
-<span class="label">Price Floor (suggested):</span>  <span class="value">฿1,400/กก. green</span>
-    </div>
-
-    <div class="callout warning">
-      <span class="callout-label">⚠ ขอบเขตทางกฎหมายและความน่าเชื่อถือ</span>
-      ผลลัพธ์ติดป้ายชัดเจนว่า "<strong>ประมาณการเบื้องต้น</strong>" — ไม่ใช่การรับรองโดย Q-grader · สำหรับการส่งออกเชิงพาณิชย์ lot ที่ได้คะแนนเกิน 80 SCA จะถูกส่งต่อให้ Q-grader รับรองในแอป (มีค่าใช้จ่าย) · ป้องกันความรับผิดทางกฎหมายและรักษาความเชื่อมั่นกับชุมชน specialty · <em>การไม่กล่าวอ้างเกินจริงคือกำแพงป้องกัน ไม่ใช่จุดอ่อน</em>
-    </div>
-  </div>
-
-  <!-- Module 5 -->
-  <div class="module-card" style="border-color: var(--gold); border-width: 2px;">
-    <div class="module-header">
-      <div class="module-num" style="background: var(--gold); color: var(--coffee-dark);">5</div>
+    <div class="moat">
+      <div class="moat-num">v.</div>
       <div>
-        <div class="module-tag" style="color: var(--gold);">★ โมดูลฮีโร่ · ขาย</div>
-        <h3 class="module-title">Marketplace ขายตรงให้ Roaster</h3>
-      </div>
-    </div>
-    <p>ผลผลิตแต่ละรอบจะกลายเป็น <strong>การ์ด lot</strong>: รูปถ่าย, วิดีโอเรื่องราว, รายงาน cupping ที่ AI ประเมิน, รายละเอียดวิธีแปรรูป, ใบรับรอง organic/fair-trade, จำนวนกิโลที่มี · roasters ทั่วโลกค้นหา ขอตัวอย่าง ต่อรอง และจ่ายเงินผ่าน escrow · Stripe Connect จัดการธุรกรรมข้ามประเทศ · การส่งออกในช่วงแรกร่วมมือกับ <em>Beanspire</em> หรือ <em>This Side Up</em></p>
-    <div class="callout money">
-      <span class="callout-label">💰 ระบบช่วยตั้งราคาอัจฉริยะ</span>
-      เปรียบเทียบ lot กับตลาดโลกล่าสุด: "Catimor honey คะแนน 84.5 จากอาเจะห์ขายให้ Onyx ที่ £14/กก. green เดือนที่แล้ว · แนะนำให้ตั้งราคา £11-13" · นี่คือฟีเจอร์ที่เปลี่ยนเกม — ชาวสวนที่พูดภาษาอังกฤษไม่ได้ ก็ต่อรองได้เหมือนผู้ส่งออกมืออาชีพ
-    </div>
-  </div>
-
-  <!-- Module 6 -->
-  <div class="module-card">
-    <div class="module-header">
-      <div class="module-num">6</div>
-      <div>
-        <div class="module-tag">การตลาด · ต่อเนื่อง</div>
-        <h3 class="module-title">นักเล่าเรื่องชาวสวน</h3>
-      </div>
-    </div>
-    <p>ชาวสวนอัดเสียง 30 วินาทีในภาษาอาข่า ม้ง กะเหรี่ยง หรือคำเมือง · Claude แปลและเรียบเรียงเป็นข้อความการตลาดในภาษาอังกฤษ จีน ญี่ปุ่น เกาหลี ที่ยังคงความเป็นของแท้ของวัฒนธรรม · สร้าง reel แนวตั้งที่มีหน้าชาวสวนและภาพประกอบฟาร์ม สำหรับลง IG/TikTok</p>
-    <div class="callout insight">
-      <span class="callout-label">★ ทำไมโมดูลนี้เติมเต็มกำแพงป้องกัน</span>
-      การขายตรงไม่ใช่แค่เรื่องราคา — มันคือ <strong>ความสัมพันธ์และเรื่องราว</strong> · ผู้ซื้อ specialty จ่ายเพิ่มเพื่อเรื่องเล่าที่มาที่ไป ("lot นี้จากครอบครัวชาวอาข่ารุ่นที่ 4") · การเป็นเจ้าของพื้นที่เล่าเรื่อง สร้างแบรนด์ของชาวสวนที่<em>อยู่ได้แม้นอกแพลตฟอร์ม</em> · ฟังดูย้อนแย้ง แต่นี่เป็นเรื่องสำคัญ: ชาวสวนจะไว้ใจแพลตฟอร์มมากขึ้น เมื่อเห็นว่าแบรนด์ส่วนตัวของเขาอยู่รอดได้แม้ออกจากแอปไป
-    </div>
-  </div>
-</section>
-
-<!-- ============= เทคโนโลยี ============= -->
-<section id="tech">
-  <h2><span class="num">SECTION 08</span>เทคโนโลยี — เหตุผลของทุกการเลือก</h2>
-  <p class="lede">การตัดสินใจทางเทคนิคที่อธิบายได้ ที่วิศวกรอาวุโสจะตั้งคำถามไม่ออก</p>
-
-  <table>
-    <thead>
-      <tr><th>ส่วน</th><th>เลือกใช้</th><th>ทำไมไม่ใช่ตัวอื่น</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>กรอบงานมือถือ</td>
-        <td><strong>Flutter</strong></td>
-        <td>เขียน codebase เดียวรันได้ทุก platform · รันบน Android Go (มือถือถูกที่ชาวสวนใช้จริง) · ประสิทธิภาพดีกว่า React Native สำหรับกล้องและ ML · hot reload ช่วยให้พัฒนาเร็วในช่วง hackathon</td>
-      </tr>
-      <tr>
-        <td>ML บนมือถือ</td>
-        <td><strong>TFLite, MobileNetV3 quantized</strong></td>
-        <td>ขนาดโมเดล 4MB · รัน offline ได้ · สำคัญเพราะฟาร์มมี 4G ไม่ทั่วถึง · การ quantize เป็น int8 ลดความแม่นยำแค่ ~2% จาก float32 แต่ลดขนาดได้ 4 เท่า</td>
-      </tr>
-      <tr>
-        <td>ตัวตรวจตำหนิ</td>
-        <td><strong>Transfer-learning จาก ImageNet</strong></td>
-        <td>500 รูปเมล็ดไทยที่ติดป้ายด้วยมือ + 5,000 ชุดข้อมูล SCA สาธารณะ พอให้ความแม่นยำเกิน 90% · เลี่ยงการเริ่มเก็บข้อมูลจากศูนย์ที่มีต้นทุนสูง</td>
-      </tr>
-      <tr>
-        <td>ตัวแนะนำสายพันธุ์</td>
-        <td><strong>XGBoost (ไม่ใช่ deep learning)</strong></td>
-        <td>ข้อมูลเป็นตาราง ฟีเจอร์ไม่เยอะ ต้องการ<em>การอธิบายได้</em>เพื่อให้ชาวสวนไว้ใจ · ค่า SHAP ช่วยแสดงได้ว่า "พันธุ์นี้เพราะระดับความสูง + ดิน + อุณหภูมิคาดการณ์ปี 2035" · โมเดลแบบ black-box ชาวสวนจะไม่เชื่อ</td>
-      </tr>
-      <tr>
-        <td>Backend</td>
-        <td><strong>Node + Postgres + S3</strong></td>
-        <td>เทคโนโลยีพื้นฐานที่ทำงานได้จริง · เวลา hackathon มีจำกัด ไม่มีรางวัลให้กับการใช้เทคโนโลยีใหม่ในส่วนพื้นฐาน · Postgres รองรับ marketplace และ S3 เก็บรูปสแกนสำหรับเทรนซ้ำ</td>
-      </tr>
-      <tr>
-        <td>LLM</td>
-        <td><strong>Claude Haiku 4.5</strong></td>
-        <td>ราคาถูก (~$0.25/1M input tokens) · เร็ว · คุณภาพภาษาไทยยอดเยี่ยม · จัดการภาษาชนกลุ่มน้อย (อาข่า/ม้ง) ได้ดีกว่า GPT สำหรับภาษาเอเชียที่มีข้อมูลฝึกน้อย · cache prompt ช่วยลดต้นทุนเพิ่มเติม</td>
-      </tr>
-      <tr>
-        <td>ระบบจ่ายเงิน</td>
-        <td><strong>Stripe Connect</strong></td>
-        <td>มี escrow ข้ามประเทศในตัว · จัดการอัตราแลกเปลี่ยน, KYC, และเอกสารภาษี · ถ้าไม่มีตัวนี้ MVP marketplace ข้ามประเทศใช้เวลา 6 เดือน · ถ้ามี ใช้แค่ 2 อาทิตย์</td>
-      </tr>
-      <tr>
-        <td>แผนที่และข้อมูลพื้นที่</td>
-        <td><strong>Mapbox + ชั้นข้อมูลดิน DOA</strong></td>
-        <td>Free tier ครอบคลุม MVP · Mapbox ปรับแต่งสไตล์ให้แสดงภูมิประเทศบนดอยได้ชัด (Google Maps จะกลืนรายละเอียดความสูง)</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="callout data">
-    <span class="callout-label">📊 การตัดสินใจ Offline-first (สำคัญสุด)</span>
-    ดอยช้างมี 4G ครอบคลุม 60% ของแปลง อีก 40% ไม่มีสัญญาณ · ถ้าเครื่องสแกนต้องใช้อินเทอร์เน็ต แอปจะตายในสนาม · <strong>ฟังก์ชันหลักทุกตัวต้องทำงาน offline ได้</strong>: สแกน, คำแนะนำสายพันธุ์ (cache ตามตำแหน่งชาวสวน), ตรวจศัตรูพืช, ร่างเรื่องเล่า (ส่ง LLM ทีหลัง) · มีแต่การเรียกดู marketplace ที่ต้องออนไลน์ · การออกแบบสำหรับสภาพสัญญาณที่แย่ที่สุดในกลุ่มผู้ใช้ คือสิ่งที่แยก "เทคโนโลยีเพื่อชาวสวน" ออกจาก "เทคโนโลยีท่องเที่ยว"
-  </div>
-</section>
-
-<!-- ============= PERSONAS ============= -->
-<section id="personas">
-  <h2><span class="num">SECTION 09</span>3 กลุ่มผู้ใช้หลัก</h2>
-  <p class="lede">การออกแบบให้ผู้ใช้ที่ชัดเจนช่วยให้ทีมเดินไปทางเดียวกัน · 3 คนนี้ครอบคลุมทุกกลุ่มผู้ใช้</p>
-
-  <div class="persona-card">
-    <div class="persona-avatar">P</div>
-    <div>
-      <h3 class="persona-name">ป๋อง · 35 · ชาวอาข่า · ดอยช้าง</h3>
-      <div class="persona-meta">3 ไร่ · มือถือ Android Go · 4G ขาดหาย · ขายให้สหกรณ์ที่ ~100฿/กก. green · อ่านไทยช้า ชอบใช้เสียงพูดมากกว่าพิมพ์</div>
-      <p><strong>ชีวิตประจำวัน:</strong> ตื่นตี 5 เดินดูแปลงเช็กความสุก · ฟังพ่อค้าบอกราคาตามคุณภาพ · จุดแรกที่เปิดใช้แอป: <em>โมดูลสแกนเมล็ด</em> · การสแกนครั้งแรกเปิดสายตา เห็นตำหนิ Cat-2 ที่ไม่เคยรู้ว่ามี · ภายใน 3 อาทิตย์เปลี่ยนมาขายผ่านการลงประกาศ lot</p>
-      <p><strong>ปลายทางที่อยากไปถึง:</strong> ดีลขายตรงครั้งแรกที่ 1,800฿/กก. แทน 100฿/กก. = ลูกได้เรียนมหาวิทยาลัย</p>
-    </div>
-  </div>
-
-  <div class="persona-card">
-    <div class="persona-avatar">N</div>
-    <div>
-      <h3 class="persona-name">นิตยา · 50 · ไทย-กะเหรี่ยง · แม่สลอง</h3>
-      <div class="persona-meta">รับช่วงฟาร์มอายุ 25 ปี · ผลผลิตลดลง · เก่งเรื่องเกษตร แต่ไม่รู้เรื่องวิทยาศาสตร์ภูมิอากาศ · ที่บ้านมี WiFi</div>
-      <p><strong>ชีวิตประจำวัน:</strong> ดูแล 8 ไร่ ผลผลิตลดลง 15% ต่อปี · ไม่รู้ว่าเพราะต้นแก่ อากาศ หรือทั้งคู่ · จุดแรกที่เปิดใช้แอป: <em>ที่ปรึกษาสายพันธุ์</em> · พบว่าแปลงตัวเองจะเก็บเกี่ยวได้แค่พอประมาณในอีก 10 ปี · เปลี่ยนมาวางแผนปลูกใหม่ 5 ปี ขอเงินอุดหนุนรัฐ</p>
-      <p><strong>ปลายทางที่อยากไปถึง:</strong> ผลผลิตเสถียร · มีแผนส่งต่อให้ลูก · ราคาพรีเมียมจากผลผลิตใหม่</p>
-    </div>
-  </div>
-
-  <div class="persona-card">
-    <div class="persona-avatar">M</div>
-    <div>
-      <h3 class="persona-name">Mark · 32 · Roaster · กรุงเทพ</h3>
-      <div class="persona-meta">เปิดคาเฟ่ 3 สาขา + โรงคั่วเล็ก · ซื้อ green 200 กก./เดือน · อยากซื้อ Thai single origin โดยตรง · เบื่อหน่ายกับคุณภาพที่ไม่คงที่จากพ่อค้าคนกลาง</div>
-      <p><strong>ชีวิตประจำวัน:</strong> เสียเวลา 6 ชม./อาทิตย์ตามตัวอย่างผ่านสหกรณ์ · จุดแรกที่เปิดใช้แอป: <em>เรียกดู marketplace</em> · เจอ lot ของป๋อง · ขอตัวอย่าง · ชิม · ปิดดีลตรง · เดือนแรกประหยัดเวลา 15 ชม. และต้นทุน sourcing 30%</p>
-      <p><strong>ปลายทางที่อยากไปถึง:</strong> มีไลน์ single-origin ที่เชื่อถือได้ · มีเรื่องเล่าให้ลูกค้าคาเฟ่ฟัง · มาร์จินสูงขึ้น</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============= ธุรกิจ ============= -->
-<section id="business">
-  <h2><span class="num">SECTION 10</span>โมเดลธุรกิจ — 3 สายรายได้</h2>
-  <p class="lede">รายได้กระจาย ไม่มีช่องทางเดียวที่ทำให้ธุรกิจล้มได้</p>
-
-  <h3>สาย 1: Freemium SaaS สำหรับชาวสวน (B2C)</h3>
-  <ul>
-    <li><strong>ฟรี:</strong> สแกน 5 ครั้ง/เดือน · คำแนะนำสายพันธุ์พื้นฐาน · เข้าถึงชุมชน</li>
-    <li><strong>Pro 99฿/เดือน:</strong> สแกนไม่จำกัด · ดูข้อมูลตลาด · ลงประกาศ lot ได้ priority · สร้างวิดีโอเรื่องเล่า · รองรับหลายภาษา</li>
-  </ul>
-  <p><em>เป้าหมายอัตราเปลี่ยน:</em> 30% จากฟรีเป็น Pro หลังขายสำเร็จครั้งแรก · เหตุผล: ดีลขายตรง 1 ครั้งจ่ายค่า Pro ได้ ~2 ปี</p>
-
-  <h3>สาย 2: ค่าสมาชิกและค่าธรรมเนียมจาก Roaster (B2B)</h3>
-  <ul>
-    <li><strong>ดูฟรี:</strong> เห็น lot · ติดต่อชาวสวน · ไม่มีข้อผูกมัด</li>
-    <li><strong>Source 990฿/เดือน:</strong> เข้าถึง API · แจ้งเตือน lot ที่ตรงเงื่อนไข · ส่ง RFP สำหรับสั่งใหญ่</li>
-    <li><strong>ค่าธรรมเนียมธุรกรรม:</strong> 8% จากดีลที่ปิด · มาตรฐานอุตสาหกรรมสำหรับ marketplace แบบนี้</li>
-  </ul>
-
-  <h3>สาย 3: ความร่วมมือกับภาครัฐและมูลนิธิ (B2G)</h3>
-  <ul>
-    <li><strong>ค่าออนบอร์ด:</strong> มูลนิธิดอยตุง, DOAE, TCEB จ่าย 200฿ ต่อชาวสวนที่ลงทะเบียนสำเร็จ เพื่อใช้รายงานผลกระทบ</li>
-    <li><strong>การรับรอง carbon credit:</strong> กาแฟใต้ร่มเงาเข้าเกณฑ์ตลาด carbon แบบสมัครใจ · เป็นรายได้แยก $50-200/ฟาร์ม/ปี</li>
-    <li><strong>ทุนวิจัยปรับตัวต่อสภาพอากาศ:</strong> ม.แม่ฟ้าหลวง / TSRI สนับสนุนงานวิจัยที่ปรึกษาสายพันธุ์</li>
-  </ul>
-
-  <div class="callout money">
-    <span class="callout-label">💰 Unit Economics (กลุ่มผู้ใช้ปี 2)</span>
-    <strong>ต้นทุนหาชาวสวนใหม่ (CAC):</strong> 200฿ ผ่าน youth ambassador ของดอยตุง<br>
-    <strong>มูลค่าตลอดชีวิตของชาวสวน (LTV):</strong> 99฿/เดือน × 24 เดือน × Pro 30% = 712฿ · <strong>LTV/CAC ≈ 3.5×</strong> · ดีสำหรับ vertical SaaS<br>
-    <strong>บวก marketplace:</strong> ชาวสวน 2 ดีล/ปี × $1,000 × 8% × 2 ปี = $320 เพิ่มต่อ Pro · LTV รวม ~$350<br>
-    <strong>Roaster LTV/CAC:</strong> 990฿/เดือน × 36 เดือน + ค่าธรรมเนียมธุรกรรม ≈ ฿80,000 vs CAC จากการตลาดดิจิทัล 3,000฿ · <strong>อัตราส่วน ~25×</strong>
-  </div>
-</section>
-
-<!-- ============= GTM ============= -->
-<section id="gtm">
-  <h2><span class="num">SECTION 11</span>กลยุทธ์ขยายตลาด — จากหัวหาดสู่ภูมิภาค</h2>
-  <p class="lede">ตั้งหลักที่กลุ่มเดียวที่ป้องกันได้ก่อน แล้วค่อยขยายออกไป</p>
-
-  <h3>เฟส 1: ตั้งหัวหาดที่ดอยช้าง (เดือน 0-6)</h3>
-  <ul>
-    <li>ร่วมมือกับ <strong>โครงการพัฒนาดอยตุง</strong> (มรดกของมูลนิธิแม่ฟ้าหลวง) — มีความสัมพันธ์กับชาวสวน 3,000+ รายและความน่าเชื่อถือพร้อม</li>
-    <li>จ้าง youth ambassador 3 คนต่อหมู่บ้าน (จ่าย 500฿ ต่อชาวสวนที่ลงทะเบียน) — ใช้ความไว้ใจในครอบครัว · เลี่ยงการระแวงคนนอก</li>
-    <li>เป้า: ชาวสวน 500 ราย, anchor roaster ในกรุงเทพ 5 ราย</li>
-    <li>ผลที่ต้องการ: พิสูจน์ unit economics + เก็บรูปสแกน 50,000 รูป</li>
-  </ul>
-
-  <h3>เฟส 2: ขยายภาคเหนือไทย (เดือน 6-18)</h3>
-  <ul>
-    <li>ดอยตุง → ดอยแม่สลอง → ดอยผาฮี้ → ชุมชนดอยเล็กๆ</li>
-    <li>เพิ่มแม่ฮ่องสอน (สภาพอากาศย่อยต่างกัน · ใช้ทดสอบที่ปรึกษาสายพันธุ์ในสภาพอื่น)</li>
-    <li>กลุ่ม roaster ต่างประเทศชุดแรก: โตเกียว, โซล, เมลเบิร์น, เบอร์ลิน — ทุกเมืองนำเข้า Thai specialty อยู่แล้ว</li>
-    <li>เป้า: 2,500 ชาวสวน · 50 international roasters</li>
-  </ul>
-
-  <h3>เฟส 3: เขตปลูกกาแฟ SE Asia (เดือน 18-36)</h3>
-  <ul>
-    <li>ลาวเหนือ (ที่ราบสูงโบลาเวน) — ที่ปรึกษาสายพันธุ์ใช้ได้เลย · ภาษาลาวกับคำเมืองทับซ้อนกัน</li>
-    <li>เวียดนาม Arabica ภาคเหนือ (Son La, Dien Bien) — วัฒนธรรมต่างกัน ต้องร่วมมือกับ NGO ในพื้นที่</li>
-    <li>Myanmar Shan State (เมื่อสถานการณ์การเมืองเอื้ออำนวย)</li>
-    <li>เป้า: 5,000+ ชาวสวน · ARR $1M · ระดมทุน Series A</li>
-  </ul>
-
-  <div class="callout insight">
-    <span class="callout-label">★ ดีลแรกที่สำคัญสุด</span>
-    หา roaster ดังในกรุงเทพ 1 ราย (เช่น Roots, Roast8ry, Brave) ให้ commit ซื้อ 100 กก./เดือน จากชาวสวน DoiBean · ใช้การการันตีนี้ในการชวนชาวสวนทุกราย · การส่งต่อความไว้ใจครั้งนี้เร่งการ adoption ได้ 5 เท่า · ถ้าไม่มี roaster anchor ที่น่าเชื่อถือ จะไม่มีชาวสวนเชื่อว่ามีคนซื้อจริงใน marketplace
-  </div>
-</section>
-
-<!-- ============= MOAT ============= -->
-<section id="moat">
-  <h2><span class="num">SECTION 12</span>5 ชั้นกำแพงป้องกัน</h2>
-  <p class="lede">แต่ละชั้นเป็นอิสระจากกัน · คู่แข่งต้องเจาะให้ครบทั้ง 5 ชั้นถึงจะแย่งลูกค้าได้</p>
-
-  <div class="moat-stack">
-    <div class="moat-layer">
-      <div class="moat-num">01</div>
-      <div>
-        <div class="moat-title">ระบบเก็บข้อมูลเฉพาะของไทย</div>
-        <div class="moat-desc">ทุกการสแกนเทรนตัวตรวจตำหนิที่ tune เฉพาะกับ Catimor + Typica + Geisha ที่ปลูกในดินภูเขาไฟดอยช้าง · ชุดข้อมูลต่างชาติ (บราซิล, เอธิโอเปีย) ทำงานได้ไม่ดีบนเมล็ดไทย · ความได้เปรียบจากปีที่ 1 จะทบต้นเพิ่มขึ้นทุกปี</div>
-      </div>
-    </div>
-    <div class="moat-layer">
-      <div class="moat-num">02</div>
-      <div>
-        <div class="moat-title">ความไว้ใจจากชาวเขาผ่านสายสัมพันธ์มูลนิธิ</div>
-        <div class="moat-desc">การร่วมมือกับมูลนิธิดอยตุงเลียนแบบไม่ได้ · เป็นมรดกของราชวงศ์ ทำงานชุมชนมา 30+ ปี · ผู้เล่นต่างชาติเข้าถึงไม่ได้ · ถ้าไม่มีความไว้ใจ ชาวสวนจะไม่ยอมใช้แอป — และความไว้ใจใช้เวลาทศวรรษถึงจะสร้างได้</div>
-      </div>
-    </div>
-    <div class="moat-layer">
-      <div class="moat-num">03</div>
-      <div>
-        <div class="moat-title">เสียงและการเล่าเรื่องในหลายภาษา</div>
-        <div class="moat-desc">อาข่า ม้ง กะเหรี่ยง คำเมือง ลาว — 5 ภาษาที่มีข้อมูลฝึก AI น้อย แต่สำคัญกับฐานผู้ใช้ · SaaS ระดับโลกจะไม่ลงทุนแปล · การสร้างเองได้เปรียบ 3-5 ปี เพราะบริษัท LLM ทั่วไปไม่จัดการตลาดเล็กแบบนี้</div>
-      </div>
-    </div>
-    <div class="moat-layer">
-      <div class="moat-num">04</div>
-      <div>
-        <div class="moat-title">การรวมวงจรที่ผูกผู้ใช้</div>
-        <div class="moat-desc">เมื่อข้อมูลเลือกสายพันธุ์ + ประวัติเก็บเกี่ยว + ความสัมพันธ์ roaster ของชาวสวนอยู่ใน DoiBean แล้ว ต้นทุนการเปลี่ยนแพลตฟอร์มจะสูงมาก · จะเสียประวัติหลายฤดู · roaster ก็ลงทุนกับ lot review และประวัติตัวอย่างไปแล้ว</div>
-      </div>
-    </div>
-    <div class="moat-layer">
-      <div class="moat-num">05</div>
-      <div>
-        <div class="moat-title">เครือข่ายสองด้านเสริมกัน</div>
-        <div class="moat-desc">ชาวสวนเยอะ → lot เยอะ → ดึง roaster เข้ามาเยอะ · roaster เยอะ → ราคาสูงขึ้น → ดึงชาวสวนเข้ามาเยอะ · เป็นปัญหาไก่กับไข่คลาสสิก แต่การร่วมมือกับดอยตุงทำให้เริ่มจากฝั่งชาวสวนได้ก่อน</div>
+        <h3 class="moat-title">เครือข่ายสองด้านเสริมกัน</h3>
+        <p class="moat-body">ชาวสวนเยอะขึ้น → ดึง roaster · roaster เยอะ → ราคาขึ้น ดึงชาวสวน · ดอยตุงทำให้แตกฝั่งซัพพลาย (ปัญหาไก่กับไข่) ก่อน — ไม่ใช่เรื่องปกติของ marketplace แต่นี่คือทางที่ใช่</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============= ความเสี่ยง ============= -->
-<section id="risks">
-  <h2><span class="num">SECTION 13</span>ความเสี่ยงและวิธีรับมือ</h2>
-  <p class="lede">การ pitch ที่ซื่อสัตย์ต้องระบุสิ่งที่อาจทำให้ธุรกิจล้มได้</p>
+<!-- ━━━ XIII — ความเสี่ยง ━━━ -->
+<section class="section" id="risks">
+  <div class="section-no">XIII.</div>
+  <div class="section-body">
+    <div class="section-eyebrow">ตอนที่ XIII &mdash; อะไรที่อาจพัง</div>
+    <h2 class="section-title">ความเสี่ยงและ<em>วิธีรับมือ</em></h2>
 
-  <div class="risk-row">
-    <div class="risk-name">ชาวสวนสูงอายุไม่ใช้แอป</div>
-    <div class="risk-score risk-high">สูง</div>
-    <div class="risk-mit">UI ที่ใช้เสียงเป็นหลัก · จ้าง youth ambassador ในแต่ละหมู่บ้าน · ร่วมมือกับช่องทางของดอยตุงที่มีอยู่ · มีโปรแกรมหลานสอนปู่ย่า</div>
-  </div>
-  <div class="risk-row">
-    <div class="risk-name">คุณภาพรูปสแกนไม่คงที่</div>
-    <div class="risk-score risk-med">กลาง</div>
-    <div class="risk-mit">ส่งชุดอุปกรณ์กระดาษ A4 ฟรีตอนสมัคร · แอปมีคู่มือถ่ายภาพและให้ feedback แบบ real-time · เทรนโมเดลด้วยข้อมูลที่จงใจให้ noisy (แสงไม่ดี, มุมเอียง)</div>
-  </div>
-  <div class="risk-row">
-    <div class="risk-name">Roaster ไม่เชื่อการประเมินจากระยะไกล</div>
-    <div class="risk-score risk-med">กลาง</div>
-    <div class="risk-mit">มีระบบ escrow ส่งตัวอย่างพร้อมรับประกันคืนเงิน · มีบริการ Q-grader รับรองสำหรับ lot พรีเมียม (มีค่าใช้จ่ายในแอป) · 100 ธุรกรรมแรกใช้ชื่อเสียง DoiBean ค้ำประกัน</div>
-  </div>
-  <div class="risk-row">
-    <div class="risk-name">การประเมิน cupping จากภาพอย่างเดียวยาก</div>
-    <div class="risk-score risk-med">กลาง</div>
-    <div class="risk-mit">ติดป้ายชัดว่าเป็น "ประมาณการ" ไม่ใช่ "คะแนนจริง" · ระดับพรีเมียมมีอุปกรณ์ NIR sensor ($50) เสริมเพื่อวัดเคมี · ร่วมมือกับ Q-grader สำหรับ lot ระดับสูง</div>
-  </div>
-  <div class="risk-row">
-    <div class="risk-name">กฎหมายการส่งออกข้ามชาติซับซ้อน</div>
-    <div class="risk-score risk-high">สูง</div>
-    <div class="risk-mit">100 ธุรกรรมแรกให้ผู้ส่งออกพันธมิตร (Beanspire, This Side Up) จัดการให้ · สร้างทีมส่งออกในบริษัทเอง เมื่อปริมาณคุ้มค่า · จ้างผู้เชี่ยวชาญด้าน compliance ในปี 2</div>
-  </div>
-  <div class="risk-row">
-    <div class="risk-name">Cropster หรือ Bext360 บุกตลาดไทย</div>
-    <div class="risk-score risk-low">ต่ำ</div>
-    <div class="risk-mit">เมื่อผู้เล่นระดับโลกตัดสินใจว่าควรลง localize ไทย · ระบบเก็บข้อมูลและความสัมพันธ์กับมูลนิธิของเราจะลึกหลายปีแล้ว · เขาจะเลือก acquisition แทนการสร้างเอง</div>
-  </div>
-  <div class="risk-row">
-    <div class="risk-name">ฤดูเผา PM2.5 รบกวนการทำฟาร์ม</div>
-    <div class="risk-score risk-med">กลาง</div>
-    <div class="risk-mit">ที่จริงแล้วเป็นข้อดี — ไฟผลักให้ชาวสวนหันมาเน้นรายได้แบบเพิ่มมูลค่า (พรีเมียม) แทนปริมาณ · สอดคล้องกับการ pitch: "ทางออกเดียวจากวงจรรายได้แบบเผาคือราคาพรีเมียม"</div>
-  </div>
-  <div class="risk-row">
-    <div class="risk-name">LLM แปลผิดหรือสร้างเรื่องผิด</div>
-    <div class="risk-score risk-low">ต่ำ</div>
-    <div class="risk-mit">แสดงเสียงต้นฉบับและคำแปล AI คู่กันเสมอ · ชาวสวนกดอนุมัติก่อนเผยแพร่ · ใช้ native speaker ตรวจ 1,000 ประกาศแรก (ผ่านเครือข่าย ambassador)</div>
+    <table class="data-table">
+      <thead><tr><th>ความเสี่ยง</th><th>ระดับ</th><th>วิธีรับมือ</th></tr></thead>
+      <tbody>
+        <tr><td><strong>ชาวสวนสูงอายุไม่ใช้แอป</strong></td><td class="num">สูง</td><td>UI ที่ใช้เสียงเป็นหลักในภาษาท้องถิ่น · จ้าง youth ambassador ฿500 ต่อชาวสวนที่ลงทะเบียนสำเร็จ · อบรมในศูนย์ของมูลนิธิ</td></tr>
+        <tr><td><strong>คุณภาพรูปสแกนไม่คงที่</strong></td><td class="num">กลาง</td><td>ส่งชุดอุปกรณ์กระดาษ A4 ขาวฟรีตอนสมัคร · มีคู่มือถ่ายภาพในกล้อง · flow ปฏิเสธ + ถ่ายใหม่เมื่อแสงไม่ดี</td></tr>
+        <tr><td><strong>Roaster ไม่เชื่อ AI cupping</strong></td><td class="num">สูง</td><td>มี escrow ส่งตัวอย่างพร้อมรับประกัน · มีบริการ Q-grader รับรองสำหรับ lot พรีเมียม · ติดป้าย "ประมาณการ" ชัดเจน</td></tr>
+        <tr><td><strong>กฎหมายส่งออก</strong></td><td class="num">กลาง</td><td>ร่วมมือกับผู้ส่งออกพันธมิตร (Beanspire) ใน 18 เดือนแรก · สร้างทีมส่งออกในบริษัทเอง เมื่อปริมาณคุ้มค่า</td></tr>
+        <tr><td><strong>โมเดลภูมิอากาศพยากรณ์ผิด</strong></td><td class="num">กลาง</td><td>แสดงเป็นช่วง ไม่ใช่จุดเดียว · อัปเดตทุกปีด้วยข้อมูล TMD ใหม่ · คำแนะนำสายพันธุ์รวมการ hedge เสมอ</td></tr>
+        <tr><td><strong>ความร่วมมือกับมูลนิธิล้ม</strong></td><td class="num">สูง</td><td>ทำคู่ขนานกับแม่ฟ้าหลวง + DOA + 2 NGO · ไม่พึ่งช่องเดียว</td></tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
-<!-- ============= DEMO ============= -->
-<section id="demo">
-  <h2><span class="num">SECTION 14</span>กลยุทธ์ Demo Day — 90 วินาทีที่ชนะ</h2>
-  <p class="lede">ทีม hackathon ส่วนใหญ่แพ้เพราะอ่าน slides · เราชนะด้วยการให้กรรมการสัมผัสผลิตภัณฑ์จริง</p>
+<!-- ━━━ XIV — DEMO ━━━ -->
+<section class="section" id="demo">
+  <div class="section-no">XIV.</div>
+  <div class="section-body has-dropcap">
+    <div class="section-eyebrow">ตอนที่ XIV &mdash; เวที</div>
+    <h2 class="section-title">กลยุทธ์ Demo Day &mdash; <em>เก้าสิบวินาที</em></h2>
+    <p class="section-lede">storyboard · ตัวเลขเป็นแค่ฉากหลัง · live scan ต่างหากคือหมัดที่เข้าหน้าอก</p>
 
-  <h3>Storyboard</h3>
-  <div class="storyboard">
-    <div class="scene">
-      <div class="scene-time">0:00–0:10</div>
-      <div class="scene-desc"><strong>เปิดด้วยควัน</strong> · ภาพดอยช้างในฤดูเผา · เสียงพูด: "ป๋องขายกาแฟ 100 บาท/กก. เมล็ดเดียวกันขายในกรุงเทพ 2,500 บาท เขาไม่รู้ว่าทำไม"</div>
-    </div>
-    <div class="scene">
-      <div class="scene-time">0:10–0:25</div>
-      <div class="scene-desc"><strong>สแกนสดบนเวที</strong> · เมล็ดเขียวดอยช้างจริง บนกระดาษ A4 ขาว · ใช้กล้องมือถือ · <em>ตำหนิขึ้น highlight แบบ real-time</em> · คะแนน SCA 84.5 ปรากฏ · เสียงผู้ฟังตอบสนอง</div>
-    </div>
-    <div class="scene">
-      <div class="scene-time">0:25–0:40</div>
-      <div class="scene-desc"><strong>ตัดไปฝั่ง roaster</strong> · Mark ในโรงคั่วกรุงเทพ · lot ของป๋องปรากฏ — คะแนน, วิดีโอเรื่องเล่า, มี 42 กก. · กดครั้งเดียว → ขอตัวอย่าง</div>
-    </div>
-    <div class="scene">
-      <div class="scene-time">0:40–0:55</div>
-      <div class="scene-desc"><strong>"3 วันต่อมา"</strong> · Mark ชิมตัวอย่าง · ดีลปิดที่ 1,800 บาท/กก. · ป๋องได้รับการแจ้งเตือนใน Line: "ขายแล้ว 75,600 บาท"</div>
-    </div>
-    <div class="scene">
-      <div class="scene-time">0:55–1:15</div>
-      <div class="scene-desc"><strong>ฉากสภาพอากาศ</strong> · เปลี่ยนไปโมดูล 1 · แสดงแปลงของนิตยาในฉากจำลองปี 2035 — สายพันธุ์เดิมตาย สายพันธุ์ที่ AI แนะนำเจริญงอกงาม · รายได้เพิ่ม 220%</div>
-    </div>
-    <div class="scene">
-      <div class="scene-time">1:15–1:30</div>
-      <div class="scene-desc"><strong>ปิด</strong> · "6 โมดูล · 1 วงจร · รายได้ชาวสวน 18 เท่า · 4 เมกะไบต์บนมือถือ 3,000 บาท" · โลโก้และตัวเลขผลกระทบ · เดินลงเวที</div>
-    </div>
-  </div>
+    <h3>Storyboard</h3>
+    <div class="demo-row"><div class="demo-time">0:00–0:10</div><div class="demo-action"><strong>เปิดด้วยควัน</strong> · ภาพดอยช้างฤดูเผา · "ทุกเดือนมีนาคม นี่คือออฟฟิศของชาวสวน" · หยุด 2 จังหวะ</div></div>
+    <div class="demo-row"><div class="demo-time">0:10–0:25</div><div class="demo-action"><strong>เลข 25 เท่าขึ้นจอ</strong> · เลขเดียว ไม่มีกราฟ · "เมล็ดเขาขายที่นี่ ฿100 · เมล็ดเดียวกันที่ Café Amazon ของพวกคุณ ฿2,500 · ส่วนต่างไปไหนหมด"</div></div>
+    <div class="demo-row"><div class="demo-time">0:25–0:50</div><div class="demo-action"><strong>สแกนสดบนเวที</strong> · เมล็ดจริง โทรศัพท์จริง ผลจริง · ยกจอขึ้น · อ่านคะแนน SCA ออกเสียง — <em>84.5, specialty grade</em> · ผู้ฟังได้ยินตัวเลข นั่นคือจังหวะที่ใช่</div></div>
+    <div class="demo-row"><div class="demo-time">0:50–1:10</div><div class="demo-action"><strong>ที่ปรึกษาสายพันธุ์</strong> · แสดงสภาพอากาศคาดการณ์ปี 2040 · "ถึงตอนลูกสาวเขารับช่วง แปลงนี้จะปลูก Caturra ไม่ได้แล้ว · เราบอกเขาวันนี้ว่าควรปลูกอะไร"</div></div>
+    <div class="demo-row"><div class="demo-time">1:10–1:25</div><div class="demo-action"><strong>Marketplace</strong> · กดผลสแกนเข้าเป็นการ์ด lot · roaster ในเบอร์ลินกำลัง browse · <em>"3 วันจากเชอร์รี่ถึงคำถาม"</em></div></div>
+    <div class="demo-row"><div class="demo-time">1:25–1:30</div><div class="demo-action"><strong>ประโยคปิด</strong> · "สิ่งเดียวที่ขวางระหว่างชาวสวนดอยช้างกับ roaster เบอร์ลิน คือแอปขนาด 4 เมกะไบต์" · ค้าง · จบ</div></div>
 
-  <h3>Checklist อุปกรณ์</h3>
-  <ul>
-    <li>เมล็ดเขียวดอยช้างของจริง 500 กรัม (เตรียมล่วงหน้า)</li>
-    <li>กระดาษ A4 ขาว + อุปกรณ์ตั้งกล้องสแกน</li>
-    <li>มือถือ 2 เครื่อง (ฝั่งชาวสวน + ฝั่ง roaster · มิเรอร์ขึ้น projector)</li>
-    <li>วิดีโอ backup ครบทั้ง flow เผื่อ live demo พัง</li>
-    <li>เมล็ดคั่วดอยช้าง 1 ถุง ให้กรรมการดมกลิ่น — เขาจะจำกลิ่นได้</li>
-  </ul>
-
-  <div class="callout warning">
-    <span class="callout-label">⚠ จุดที่ demo อาจล้มและวิธีรับมือ</span>
-    <strong>WiFi ตายบนเวที:</strong> demo ออกแบบให้รัน offline · เก็บภาพ marketplace ไว้ในเครื่องล่วงหน้า · <strong>กล้อง autofocus พัง:</strong> มีรูปสแกนเตรียมไว้เป็น fallback · <strong>กรรมการถาม "เป็น ML จริงหรือเขียนสคริปต์":</strong> เอา laptop พร้อม model weights · เสนอให้สแกนเมล็ดที่กรรมการเลือกเอง · <strong>เวลาเกิน:</strong> ตัดฉากสภาพอากาศก่อน — เป็นฉากที่ตัดได้
+    <h3>Checklist <em>อุปกรณ์</em></h3>
+    <ul>
+      <li>เมล็ดเขียวจริง 50–100 เม็ด โรยบนกระดาษ A4 ขาว</li>
+      <li>มือถือพร้อมแอป ชาร์จเต็ม โหมด airplane (พิสูจน์ offline)</li>
+      <li>มือถือสำรอง สถานะเหมือนกัน</li>
+      <li>ภาพดอยช้างฤดูเช้า — ที่ถ่ายเอง ไม่ใช่ stock</li>
+      <li>นามบัตรพิมพ์มี QR ของแอป · ยื่นให้กรรมการทุกคนหลังจบ</li>
+    </ul>
   </div>
 </section>
 
-<!-- ============= MVP ============= -->
-<section id="mvp">
-  <h2><span class="num">SECTION 15</span>แผน MVP 60 วัน</h2>
-  <p class="lede">สร้างเฉพาะที่พิสูจน์สมมติฐานหลัก · ตัดทุกอย่างที่เหลือ</p>
+<!-- ━━━ XV — MVP ━━━ -->
+<section class="section" id="mvp">
+  <div class="section-no">XV.</div>
+  <div class="section-body has-dropcap">
+    <div class="section-eyebrow">ตอนที่ XV &mdash; การสร้าง</div>
+    <h2 class="section-title">หกสิบวัน · <em>เก้าสัปดาห์</em></h2>
+    <p class="section-lede">ตัด 3 โมดูล · ปล่อย 2 · พิสูจน์ 1 ธุรกรรม · รูปร่างของ MVP คือสิ่งที่ทำให้ demo เป็นไปได้</p>
 
-  <div class="timeline">
-    <div class="week">
-      <div class="week-label">Week 1–2</div>
-      <div class="week-title">โมเดลตรวจตำหนิ</div>
-      <p>Fine-tune MobileNetV3 บน 500 รูปเมล็ดเขียวไทยที่ติดป้ายมือ + 5,000 ชุดข้อมูล SCA สาธารณะ · เป้า: ความแม่นยำ 85%+ บน Cat-1 · quantize เป็น int8 · package เป็น TFLite</p>
+    <div class="mvp-week">
+      <div class="mvp-window">Week 1–2</div>
+      <div class="mvp-task"><strong>โมเดลตรวจตำหนิ</strong> · Fine-tune MobileNetV3 บน 500 รูปเมล็ดเขียวไทยที่ติดป้ายมือ + 5,000 ชุด SCA สาธารณะ · เป้าความแม่นยำ 85%+ บน Cat-1 · quantize เป็น int8 · package เป็น TFLite</div>
     </div>
-    <div class="week">
-      <div class="week-label">Week 3–4</div>
-      <div class="week-title">โครง Flutter + สแกน offline</div>
-      <p>สร้าง UI กล้อง · ลูป inference บนมือถือ · การ์ดแสดงผลสแกน · ที่ปรึกษาสายพันธุ์ใน MVP เป็น rule-based ก่อน (ยังไม่ใช้ XGBoost — กฎและตารางครอบคลุม 80% ของกรณี)</p>
+    <div class="mvp-week">
+      <div class="mvp-window">Week 3–4</div>
+      <div class="mvp-task"><strong>โครง Flutter</strong> · UI กล้อง, ลูป inference บนมือถือ, การ์ดผลสแกน · ที่ปรึกษาสายพันธุ์เป็น rule-based ก่อน (lookup table ยังไม่ใช้ XGBoost)</div>
     </div>
-    <div class="week">
-      <div class="week-label">Week 5–6</div>
-      <div class="week-title">Marketplace + นักเล่าเรื่อง</div>
-      <p>Web frontend สำหรับ roaster (Django admin + view ที่ออกแบบเอง) · flow ลงประกาศ lot บนมือถือ · Claude Haiku integration สำหรับสร้างเรื่องเล่า · Stripe Connect ใน sandbox</p>
+    <div class="mvp-week">
+      <div class="mvp-window">Week 5–6</div>
+      <div class="mvp-task"><strong>Marketplace</strong> · Web frontend (Django + view ที่ออกแบบเอง) · flow ลงประกาศ lot บนมือถือ · Claude Haiku สร้างเรื่องเล่า · Stripe Connect ใน sandbox</div>
     </div>
-    <div class="week">
-      <div class="week-label">Week 7–8</div>
-      <div class="week-title">Pilot + ธุรกรรมแรก</div>
-      <p>ชาวสวน 3 ราย pilot ที่ดอยช้าง ผ่านแนะนำของดอยตุง · anchor roaster ในกรุงเทพ 1 ราย เซ็นซื้อ 1 lot · ธุรกรรมจริงครบ end-to-end · บันทึกทุกอย่างสำหรับวิดีโอ demo</p>
+    <div class="mvp-week">
+      <div class="mvp-window">Week 7–8</div>
+      <div class="mvp-task"><strong>Pilot</strong> · ชาวสวน 3 ราย ที่ดอยช้าง ผ่านดอยตุง · anchor roaster ในกรุงเทพ 1 ราย เซ็นซื้อ 1 lot · ธุรกรรมจริงครบ end-to-end · บันทึกทุกอย่างสำหรับวิดีโอ demo</div>
     </div>
-    <div class="week">
-      <div class="week-label">Week 9</div>
-      <div class="week-title">ขัดเกลา demo + pitch deck</div>
-      <p>ตัดวิดีโอ demo 90 วินาที · สร้าง deck 10 สไลด์ · ซ้อม demo บนเวที 20 รอบ · ทดสอบทุก failure mode ล่วงหน้า</p>
+    <div class="mvp-week">
+      <div class="mvp-window">Week 9</div>
+      <div class="mvp-task"><strong>ขัดเกลา</strong> · วิดีโอ demo 90 วินาที · deck 10 สไลด์ · ซ้อม 20 รอบ · ทดสอบทุก failure mode ล่วงหน้า (ไม่มีสัญญาณ, แสงไม่ดี, จำนวนเมล็ดผิด)</div>
     </div>
-  </div>
 
-  <div class="callout data">
-    <span class="callout-label">📊 อะไรที่<em>ไม่</em>สร้างใน MVP</span>
-    โมดูล 2 (ตรวจศัตรูพืช) · 3 (ตัวจับเวลาเก็บเกี่ยว) · 6 (สร้างวิดีโออัตโนมัติ) — <em>ตัดออกจาก MVP</em> · เก็บไว้เป็น product roadmap · MVP ต้องพิสูจน์สมมติฐานที่เสี่ยงที่สุด: <strong>lot ที่ประเมินด้วยกล้องจะปิดดีลขายตรงกับ roaster จริงได้หรือไม่?</strong> · ถ้าได้ ที่เหลือคือเรื่องการ execute · ถ้าไม่ได้ โมดูลสวยกว่านี้ก็ช่วยอะไรไม่ได้
+    <p class="pull">ตัดออกจาก MVP &mdash; ตรวจศัตรูพืช, ตัวจับเวลาเก็บเกี่ยว, สร้างวิดีโออัตโนมัติ · สมมติฐานที่เสี่ยงที่สุดคือ lot ที่ประเมินด้วยกล้องจะปิดดีลกับ roaster จริงได้หรือไม่ · <em>นอกจากนี้คือเครื่องประดับ จนกว่าตัวนั้นจะใช้งานได้</em><span class="pull-attribution">— วินัยขอบเขตงาน</span></p>
   </div>
 </section>
 
-<!-- ============= WHY WIN ============= -->
-<section id="wins">
-  <h2><span class="num">SECTION 16</span>ทำไมจะชนะ Hackathon</h2>
-  <p class="lede">เปรียบเทียบข้อเสนอกับเกณฑ์ที่กรรมการน่าจะใช้</p>
+<!-- ━━━ XVI — WHY THIS WINS ━━━ -->
+<section class="section" id="wins">
+  <div class="section-no">XVI.</div>
+  <div class="section-body has-dropcap">
+    <div class="section-eyebrow">ตอนที่ XVI &mdash; ปิดท้าย</div>
+    <h2 class="section-title">ทำไมจะ<em>ชนะ Hackathon</em></h2>
+    <p class="section-lede">หกเหตุผล หนึ่งลมหายใจต่อข้อ</p>
 
-  <table>
-    <thead>
-      <tr><th>เกณฑ์กรรมการ</th><th>เราตอบโจทย์ยังไง</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>ปัญหาจริงและเร่งด่วน</strong></td>
-        <td>ส่วนต่างราคา 25 เท่า + สภาพอากาศลดผลผลิต + ความยากจนของชาวเขา · ทั้ง 3 มีหลักฐานยืนยัน · ปฏิเสธไม่ได้ · มีกรอบเวลาบังคับ</td>
-      </tr>
-      <tr>
-        <td><strong>ความลึกทางเทคนิค</strong></td>
-        <td>Computer vision + gradient-boosted trees + LLM แปลภาษา + marketplace ข้ามประเทศ + สถาปัตยกรรม offline-first · 5 ชั้นเทคโนโลยีจริงจัง ไม่ใช่แค่ wrapper</td>
-      </tr>
-      <tr>
-        <td><strong>Demo บนเวที</strong></td>
-        <td>เมล็ดจริง · สแกนจริง · ตรวจตำหนิจริงบนเวทีใน 30 วินาที · เห็นภาพ จับต้องได้ จำได้</td>
-      </tr>
-      <tr>
-        <td><strong>ขนาดตลาด</strong></td>
-        <td>ไทย 25k ครัวเรือน specialty + ตลาดโลก $50B specialty coffee · SOM ที่เป็นจริงได้ 5,000 ชาวสวน / $1M ARR</td>
-      </tr>
-      <tr>
-        <td><strong>ผลกระทบทางสังคม</strong></td>
-        <td>รายได้ชาวเขาเพิ่ม · เครื่องมือปรับตัวต่อสภาพอากาศ · เปิดทางสู่ carbon credit · กรรมการชอบ social impact ที่ป้องกันคำถามได้ — นี่ของจริง ไม่ใช่ virtue-signal</td>
-      </tr>
-      <tr>
-        <td><strong>ขยายได้</strong></td>
-        <td>โมเดลเดียวขยายไปลาว เวียดนาม พม่า · พืชใกล้เคียง (โกโก้ ชา) ใช้โครงสร้างเดิมได้</td>
-      </tr>
-      <tr>
-        <td><strong>เรื่องเล่าสำหรับสื่อ</strong></td>
-        <td>"ลูกชาวอาข่าได้เรียนมหาวิทยาลัย เพราะกาแฟพ่อขายตรงเบอร์ลิน" · พาดหัวเขียนตัวเอง</td>
-      </tr>
-      <tr>
-        <td><strong>ความน่าเชื่อถือของผู้ก่อตั้ง</strong></td>
-        <td>ทีมไทย · อยู่ในพื้นที่ · มีความสัมพันธ์กับดอยตุง · ทีมต่างชาติเลียนแบบไม่ได้</td>
-      </tr>
-    </tbody>
-  </table>
+    <div class="reasons">
+      <div class="reason">
+        <div class="reason-no">01</div>
+        <div>
+          <h3 class="reason-title">ปัญหาจริงและเร่งด่วน</h3>
+          <p class="reason-body">ส่วนต่างราคา 25 เท่า · สภาพอากาศพังผลผลิต · ความยากจนของชาวเขา · ทุกคนในห้องดื่มกาแฟ</p>
+        </div>
+      </div>
+      <div class="reason">
+        <div class="reason-no">02</div>
+        <div>
+          <h3 class="reason-title">ความลึกทางเทคนิค 5 ชั้น</h3>
+          <p class="reason-body">CV บนมือถือ · ML เชิงพื้นที่ · LLM แปลภาษา · marketplace · ระบบจ่ายเงิน · ไม่ใช่แค่ wrapper</p>
+        </div>
+      </div>
+      <div class="reason">
+        <div class="reason-no">03</div>
+        <div>
+          <h3 class="reason-title">Demo บนเวที</h3>
+          <p class="reason-body">เครื่องสแกนคือ demo · เมล็ดจริง โทรศัพท์จริง ผลจริง · ไม่ต้องใช้ slide สำหรับ killshot</p>
+        </div>
+      </div>
+      <div class="reason">
+        <div class="reason-no">04</div>
+        <div>
+          <h3 class="reason-title">ตัวเลขที่เป็นจริง</h3>
+          <p class="reason-body">$50B TAM · 5,000-ชาวสวน SOM · $1M ARR ปี 3 · เลขนักลงทุน ไม่ใช่เลข hackathon</p>
+        </div>
+      </div>
+      <div class="reason">
+        <div class="reason-no">05</div>
+        <div>
+          <h3 class="reason-title">ผลกระทบทางสังคมที่ป้องกันได้</h3>
+          <p class="reason-body">รายได้ที่เพิ่มจริง · การปรับตัวต่อสภาพอากาศจริง · การรักษาภาษาและฝีมือจริง</p>
+        </div>
+      </div>
+      <div class="reason">
+        <div class="reason-no">06</div>
+        <div>
+          <h3 class="reason-title">เรื่องเล่าที่สื่อชอบ</h3>
+          <p class="reason-body">"ลูกชาวเขาเข้ามหาวิทยาลัย เพราะพ่อขายเมล็ดตรงไปเบอร์ลิน" · พาดหัวเขียนตัวเอง</p>
+        </div>
+      </div>
+    </div>
 
-  <div class="callout insight">
-    <span class="callout-label">★ ประโยคปิด pitch</span>
-    <em>"กาแฟเป็นสินค้าที่มีการซื้อขายเป็นอันดับ 2 ของโลก · ไทยมีเมล็ดระดับโลก ที่ปลูกโดยคนที่ได้ค่าจ้างยากจน · สิ่งเดียวที่ขาดระหว่างชาวสวนดอยช้างกับ roaster เบอร์ลิน คือแอปขนาด 4 เมกะไบต์"</em>
+    <p class="pull"><em>สิ่งเดียวที่ขวางระหว่างชาวสวนดอยช้างกับ roaster เบอร์ลิน คือแอปขนาด 4 เมกะไบต์</em><span class="pull-attribution">— ประโยคปิด</span></p>
   </div>
 </section>
 
-<!-- ============= WRAP UP ============= -->
-<section id="wrapup" class="tldr-box">
-  <h2><span class="num">★ จุดยืน 5 ข้อ</span>สรุปจบ</h2>
-  <p class="lede">ถ้าจำได้แค่ 5 อย่างจากรายงานนี้ ขอให้เป็น 5 ข้อนี้</p>
-
-  <div class="tldr-list">
-    <div class="tldr-item">
-      <div class="tldr-num">1</div>
-      <div class="tldr-text"><b>ปัญหาที่แก้:</b> ส่วนต่างราคา 25 เท่าระหว่างชาวสวนดอยช้างกับผู้บริโภคปลายทาง · ปัญหามีหลักฐานยืนยัน ไม่ใช่ทฤษฎี</div>
-    </div>
-    <div class="tldr-item">
-      <div class="tldr-num">2</div>
-      <div class="tldr-text"><b>วิธีแก้ที่ต่างจากคนอื่น:</b> ครอบคลุมวงจรทั้ง 7 ขั้นในแอปเดียว ไม่ใช่แค่ slice เดียวแบบ Cropster, BeanGrader หรือ Bext360 · ผูกผู้ใช้ด้วยการใช้งานต่อเนื่องตลอดปี</div>
-    </div>
-    <div class="tldr-item">
-      <div class="tldr-num">3</div>
-      <div class="tldr-text"><b>กำแพงป้องกันที่คู่แข่งสร้างไม่ได้:</b> ชุดข้อมูลเฉพาะเมล็ดไทยที่ทบต้นทุกปี + ความไว้ใจจากชาวเขาผ่านมูลนิธิดอยตุง + การรองรับ 5 ภาษาท้องถิ่น</div>
-    </div>
-    <div class="tldr-item">
-      <div class="tldr-num">4</div>
-      <div class="tldr-text"><b>ตลาดและรายได้:</b> SOM ปี 3 = 5,000 ชาวสวน · ARR $1M · มูลค่าซื้อขายในระบบ $5M · ขยายไป SE Asia coffee belt ได้</div>
-    </div>
-    <div class="tldr-item">
-      <div class="tldr-num">5</div>
-      <div class="tldr-text"><b>ทำไมชนะวันที่ pitch:</b> Demo สแกนเมล็ดสดบนเวที + เรื่องเล่าที่ทำให้กรรมการน้ำตาคลอ ("ลูกชาวอาข่าได้เรียนมหาลัย") + ทีมไทยที่ทุนความน่าเชื่อถือต่างชาติเลียนแบบไม่ได้</div>
+<!-- ━━━ SOURCES ━━━ -->
+<section class="section" id="sources">
+  <div class="section-no">·</div>
+  <div class="section-body">
+    <div class="section-eyebrow">หมายเหตุบรรณานุกรม</div>
+    <h2 class="section-title">แหล่ง<em>อ้างอิง</em></h2>
+    <div class="citations">
+      <p>มาตรฐาน SCA 2018 — เกณฑ์ตำหนิ specialty grade · <a href="https://sca.coffee">sca.coffee</a></p>
+      <p>Heinrich Böll Foundation — ครัวเรือน specialty เชียงราย 2025</p>
+      <p>World Coffee Research — ผลกระทบสภาพอากาศต่อ Arabica สถานการณ์ +2°C</p>
+      <p>Springer 2025 — MobileNetV3 ตรวจตำหนิ ความแม่นยำ 98%</p>
+      <p>Drip Roast — ราคา specialty รีเทลในไทย</p>
+      <p>IPCC AR6 RCP4.5 — พยากรณ์สภาพอากาศ SE Asia</p>
+      <p>กรมอุตุนิยมวิทยา (TMD) — ประวัติอากาศย้อนหลัง 20 ปี</p>
+      <p>กรมพัฒนาที่ดิน (LDD) — ชั้นข้อมูล GIS ดิน</p>
+      <p>Stripe Connect — escrow ข้ามประเทศ, KYC flow</p>
+      <p>Bangkok Post 2025 — การเปิดสัญชาติชาวเขา; สกู๊ป specialty coffee</p>
     </div>
   </div>
-
-  <p style="margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(201, 169, 110, 0.3); color: var(--cream-dark); font-size: 14px;">
-    <strong style="color: var(--gold);">ขั้นต่อไป:</strong> ถ้าสนใจ ติดต่อทีมเพื่อขอ pitch deck 10 สไลด์ · demo script เต็ม · หรือร่วมพูดคุยเรื่องการลงทุน/ร่วมก่อตั้ง
-  </p>
 </section>
 
-<!-- ============= SOURCES ============= -->
-<footer id="sources">
-  <h3>แหล่งอ้างอิง</h3>
-  <ul>
-    <li>มาตรฐาน SCA: <a href="https://static1.squarespace.com/static/584f6bbef5e23149e5522201/t/5d936fa1e29d4d5342049d74/1569943487417/Coffee+Standards-compressed.pdf">SCA Coffee Standards Revised 2018</a></li>
-    <li>ความแม่นยำ AI สแกน 98%: <a href="https://link.springer.com/article/10.1007/s12161-025-02961-1">Springer 2025 — Specialty Coffee Vision Grading</a></li>
-    <li>การเติบโตของ specialty coffee ไทย: <a href="https://th.boell.org/en/2025/12/05/brewing-change-in-thailand">Heinrich Böll Foundation</a></li>
-    <li>สายพันธุ์ Catimor: <a href="https://varieties.worldcoffeeresearch.org/varieties/catimor-129">World Coffee Research</a></li>
-    <li>สายพันธุ์ Caturra: <a href="https://varieties.worldcoffeeresearch.org/varieties/caturra">World Coffee Research</a></li>
-    <li>ผลกระทบสภาพอากาศต่อ Arabica: <a href="https://43factory.coffee/en/news/can-catimor-coffee-help-farmers/">43 Factory Coffee</a></li>
-    <li>วิธีแปรรูปกาแฟดอยช้าง: <a href="https://coffeeculture.asia/product/honey-processed-coffee-doi-chang/">Coffee Culture Thailand</a></li>
-    <li>ราคาขายปลีกกาแฟไทย: <a href="https://www.driproast.com/best-coffee-beans-thailand/">Drip Roast 2026</a></li>
-    <li>BeanGrader AI pre-screening: <a href="https://beangrader.com/sca-grading-guide">BeanGrader</a></li>
-    <li>วิจัยสุขภาพชาวเขา: <a href="https://pubmed.ncbi.nlm.nih.gov/40315248/">PubMed Stigma Study 2025</a></li>
-  </ul>
-
-  <p style="margin-top: 32px; font-size: 12px; color: var(--coffee-light);">
-    สร้างเป็นรายงานเจาะลึกสำหรับ hackathon · ตัวเลขอ้างอิงจากงานวิจัยที่ระบุไว้ · กลยุทธ์ผลิตภัณฑ์และ unit economics จำลองจากกรณีศึกษาที่มีเอกสารอ้างอิง · ไม่ใช่คำแนะนำการลงทุน
-  </p>
+<footer>
+  <div>
+    <div class="colophon">รายงานเจาะลึก DoiBean — <em>fascicle ii</em><br>เซ็ตด้วย Fraunces และ Noto Serif Thai · พฤษภาคม 2026</div>
+  </div>
+  <div style="text-align:right">
+    <div class="links" style="margin-bottom:8px"><a href="index.html">English</a> &middot; <a href="pitch-th.html">Pitch deck</a> &middot; <a href="brand.html">Standards</a></div>
+    <div>DoiBean Vol. 01 &middot; <span class="end">&hairsp;∎&hairsp;</span></div>
+  </div>
 </footer>
 
 </main>
-</div>
 </body>
 </html>

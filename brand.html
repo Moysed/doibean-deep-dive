@@ -3,506 +3,597 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DoiBean — Brand</title>
+<title>DoiBean — Standards Manual</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,30..100,0..1;1,9..144,300..900,30..100,0..1&family=Noto+Sans+Thai:wght@400;500;600;700&family=Noto+Serif+Thai:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
 <style>
-  :root {
-    --coffee-dark: #2C1810;
-    --coffee-mid: #5D3A1F;
-    --coffee-light: #8B6F47;
-    --cream: #FAF6F0;
-    --cream-dark: #F0E6D2;
-    --bean-green: #5C7A3F;
-    --terracotta: #C66E4E;
-    --gold: #C9A96E;
-    --gold-bright: #E5C896;
-    --slate: #2C2416;
-    --slate-mid: #5A4D3F;
-    --border: #D4C5A9;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: "Sukhumvit Set", "IBM Plex Sans Thai", "Noto Sans Thai", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: var(--cream);
-    color: var(--slate);
-    line-height: 1.6;
-    font-size: 15px;
-  }
-  main {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 60px 40px 120px;
+  /* ─────────── DoiBean editorial system ─────────── */
+  :root{
+    --bone:#F4EFE6;
+    --paper:#FBF7EE;
+    --espresso:#2A1810;
+    --ink:#1A0F08;
+    --crema:#C8A268;
+    --crema-dim:#A88C4F;
+    --brick:#B8543A;
+    --moss:#5C6B3F;
+    --stone:#C9C0B0;
+    --stone-soft:#E4DDCB;
+    --slate:#5A4D3F;
+
+    --serif:"Fraunces",ui-serif,Georgia,serif;
+    --serif-th:"Noto Serif Thai","Fraunces",ui-serif,serif;
+    --sans-th:"Noto Sans Thai","Fraunces",-apple-system,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+
+    --gutter:clamp(20px,3.5vw,56px);
+    --col-narrow:62ch;
+    --col-wide:78ch;
   }
 
-  /* Header */
-  .top {
-    border-bottom: 3px solid var(--coffee-dark);
-    padding-bottom: 32px;
-    margin-bottom: 60px;
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--serif-th);
+    font-feature-settings:"kern","liga","onum","pnum","ss01";
+    font-variation-settings:"opsz" 14,"SOFT" 50,"WONK" 0;
+    background:var(--bone);
+    color:var(--espresso);
+    font-size:clamp(15px,1.05vw,17px);
+    line-height:1.55;
+    text-rendering:optimizeLegibility;
+    -webkit-font-smoothing:antialiased;
   }
-  .eyebrow {
-    font-size: 11px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--coffee-mid);
-    font-weight: 700;
-    margin-bottom: 12px;
-  }
-  h1 {
-    font-size: 48px;
-    font-weight: 800;
-    letter-spacing: -1.5px;
-    color: var(--coffee-dark);
-    margin-bottom: 12px;
-    line-height: 1.1;
-  }
-  .top-desc {
-    font-size: 18px;
-    color: var(--slate-mid);
-    max-width: 700px;
-  }
-  .lang-switch {
-    position: fixed;
-    top: 20px;
-    right: 24px;
-    z-index: 100;
-    background: var(--coffee-dark);
-    color: var(--gold);
-    padding: 10px 18px;
-    border-radius: 24px;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    box-shadow: 0 4px 12px rgba(44, 24, 16, 0.25);
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .lang-switch:hover { background: var(--gold); color: var(--coffee-dark); }
-  .lang-switch::before { content: "←"; }
+  ::selection{background:var(--espresso);color:var(--bone)}
 
-  /* --- Site Nav (cross-page navigation) --- */
-  .site-nav-btn {
-    position: fixed;
-    top: 20px;
-    left: 24px;
-    z-index: 100;
-    background: var(--coffee-dark);
-    color: var(--gold);
-    padding: 10px 18px;
-    border-radius: 24px;
-    border: 1px solid rgba(201, 169, 110, 0.3);
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: inherit;
-    transition: all 0.2s;
-  }
-  .site-nav-btn:hover {
-    background: var(--gold);
-    color: var(--coffee-dark);
-    transform: translateY(-2px);
-  }
-  .site-nav-btn::before { content: "▦"; font-size: 14px; opacity: 0.85; }
-  .site-nav-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(44, 24, 16, 0.55);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    z-index: 200;
-    display: none;
-    padding: 80px 24px 24px;
-  }
-  .site-nav-overlay.show { display: block; }
-  .site-nav-panel {
-    background: white;
-    border-radius: 16px;
-    border: 2px solid var(--gold);
-    box-shadow: 0 16px 48px rgba(0,0,0,0.35);
-    width: 380px;
-    max-width: calc(100% - 48px);
-    padding: 8px;
-    margin-left: 24px;
-  }
-  .site-nav-panel-title {
-    padding: 16px 20px 12px;
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: var(--coffee-mid);
-    text-transform: uppercase;
-    font-weight: 800;
-    border-bottom: 1px solid var(--cream-dark);
-    margin-bottom: 4px;
-  }
-  .site-nav-link {
-    display: grid;
-    grid-template-columns: 36px 1fr;
-    gap: 12px;
-    padding: 12px 16px;
-    text-decoration: none;
-    border-radius: 10px;
-    align-items: center;
-    margin-top: 2px;
-    transition: background 0.15s;
-    position: relative;
-  }
-  .site-nav-link:hover { background: var(--cream); }
-  .site-nav-link.current { background: linear-gradient(90deg, #FFF8E7, white); }
-  .site-nav-link.current::before {
-    content: "";
-    position: absolute;
-    left: 4px;
-    top: 12px;
-    bottom: 12px;
-    width: 3px;
-    background: var(--gold);
-    border-radius: 2px;
-  }
-  .site-nav-link-icon { font-size: 22px; text-align: center; }
-  .site-nav-link-name {
-    color: var(--coffee-dark);
-    font-weight: 700;
-    font-size: 15px;
-    margin-bottom: 2px;
-    font-family: inherit;
-  }
-  .site-nav-link-meta {
-    color: var(--slate-mid);
-    font-size: 12px;
-    font-family: inherit;
-  }
-  @media print { .site-nav-btn, .site-nav-overlay { display: none !important; } }
-
-  /* Section */
-  section { margin-bottom: 80px; }
-  h2 {
-    font-size: 28px;
-    color: var(--coffee-dark);
-    margin-bottom: 6px;
-    font-weight: 700;
-    letter-spacing: -0.3px;
-  }
-  .sec-num {
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: var(--gold);
-    font-weight: 800;
-    text-transform: uppercase;
-  }
-  .sec-desc {
-    font-size: 15px;
-    color: var(--slate-mid);
-    margin-bottom: 28px;
-    max-width: 700px;
+  /* paper texture — subtle, optional */
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background:
+      radial-gradient(circle at 30% 20%,rgba(200,162,104,0.04),transparent 60%),
+      radial-gradient(circle at 80% 70%,rgba(184,84,58,0.03),transparent 50%);
+    pointer-events:none;
+    z-index:0;
   }
 
-  /* Hero logo display */
-  .hero-logo {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 80px 40px;
-    text-align: center;
-    margin-bottom: 24px;
-    position: relative;
-    overflow: hidden;
+  /* ─────────── folio (running header) ─────────── */
+  .folio{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    align-items:baseline;
+    padding:14px clamp(20px,3vw,40px) 12px;
+    background:linear-gradient(to bottom,var(--bone) 0%,var(--bone) 70%,rgba(244,239,230,0.0));
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--slate);
   }
-  .hero-logo::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--gold), var(--gold-bright), var(--gold));
-  }
-  .hero-logo svg { max-width: 460px; height: auto; }
-
-  /* Variants grid */
-  .variants {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 16px;
-  }
-  .variant {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 32px 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
-  .variant.dark { background: var(--coffee-dark); border-color: var(--coffee-mid); }
-  .variant.dark .variant-name { color: var(--gold); }
-  .variant.dark .variant-meta { color: var(--cream-dark); }
-  .variant.gold-bg { background: var(--gold); border-color: var(--gold-bright); }
-  .variant.gold-bg .variant-name { color: var(--coffee-dark); }
-  .variant.gold-bg .variant-meta { color: var(--coffee-mid); }
-  .variant-display {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 120px;
-    width: 100%;
-  }
-  .variant-display svg { max-width: 100%; max-height: 140px; }
-  .variant-display.icon-only svg { max-width: 100px; }
-  .variant-name {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--coffee-dark);
-    text-align: center;
-    letter-spacing: 0.3px;
-  }
-  .variant-meta {
-    font-size: 11px;
-    color: var(--coffee-mid);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 600;
-  }
-  .variant-download {
-    background: var(--coffee-dark);
-    color: var(--gold);
-    padding: 8px 16px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    transition: all 0.15s;
-  }
-  .variant-download:hover { background: var(--gold); color: var(--coffee-dark); }
-  .variant.dark .variant-download { background: var(--gold); color: var(--coffee-dark); }
-  .variant.dark .variant-download:hover { background: var(--cream); }
-
-  /* Color palette */
-  .palette {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 12px;
-  }
-  .swatch {
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-  }
-  .swatch-color {
-    height: 100px;
-  }
-  .swatch-info {
-    padding: 14px 16px;
-  }
-  .swatch-name {
-    font-weight: 700;
-    color: var(--coffee-dark);
-    font-size: 14px;
-    margin-bottom: 4px;
-  }
-  .swatch-hex {
-    font-family: "SF Mono", Monaco, monospace;
-    font-size: 12px;
-    color: var(--slate-mid);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  .swatch-use {
-    font-size: 11px;
-    color: var(--slate-mid);
-    margin-top: 4px;
+  .folio-l{justify-self:start}
+  .folio-c{justify-self:center;color:var(--espresso);font-weight:500}
+  .folio-r{justify-self:end;display:flex;gap:18px;align-items:baseline}
+  .folio-r a{color:var(--slate);text-decoration:none;border-bottom:1px solid transparent;padding-bottom:1px;transition:border-color .2s,color .2s}
+  .folio-r a:hover{color:var(--espresso);border-bottom-color:var(--crema)}
+  .folio-divider{
+    position:fixed;top:46px;left:0;right:0;
+    height:1px;background:var(--stone);z-index:49;
   }
 
-  /* Typography spec */
-  .type-spec {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 28px 32px;
+  /* ─────────── index drawer (cross-page) ─────────── */
+  .idx-btn{
+    background:none;border:none;cursor:pointer;
+    font:inherit;font-family:var(--mono);
+    font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
+    color:var(--slate);
+    padding:0;border-bottom:1px solid transparent;
+    transition:color .2s,border-color .2s;
   }
-  .type-row {
-    padding: 16px 0;
-    border-bottom: 1px solid var(--cream-dark);
+  .idx-btn:hover{color:var(--espresso);border-bottom-color:var(--crema)}
+  .idx-overlay{
+    position:fixed;inset:0;background:rgba(26,15,8,0.4);
+    z-index:200;display:none;
+    backdrop-filter:blur(2px);
   }
-  .type-row:last-child { border-bottom: none; }
-  .type-label {
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: var(--coffee-mid);
-    text-transform: uppercase;
-    font-weight: 700;
-    margin-bottom: 6px;
+  .idx-overlay.show{display:block}
+  .idx-panel{
+    position:absolute;top:0;right:0;bottom:0;
+    width:min(440px,90vw);
+    background:var(--paper);
+    border-left:1px solid var(--stone);
+    padding:80px 40px 40px;
+    overflow-y:auto;
   }
-  .type-sample {
-    color: var(--coffee-dark);
-    margin-bottom: 6px;
+  .idx-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--slate);margin-bottom:8px}
+  .idx-title{font-family:var(--serif);font-size:34px;font-weight:300;letter-spacing:-0.02em;line-height:1.05;color:var(--espresso);margin-bottom:32px;font-variation-settings:"opsz" 144}
+  .idx-list{list-style:none;border-top:1px solid var(--stone)}
+  .idx-list li{border-bottom:1px solid var(--stone)}
+  .idx-list a{
+    display:grid;grid-template-columns:auto 1fr;gap:20px;
+    padding:18px 0;text-decoration:none;align-items:baseline;
+    transition:padding .2s;
   }
-  .type-meta {
-    font-family: "SF Mono", Monaco, monospace;
-    font-size: 11px;
-    color: var(--slate-mid);
-    letter-spacing: 0.5px;
-  }
-  .type-h1 { font-size: 56px; font-weight: 800; letter-spacing: -2px; line-height: 1; }
-  .type-h2 { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; }
-  .type-body { font-size: 16px; font-weight: 400; }
-  .type-mono { font-family: "SF Mono", Monaco, monospace; font-size: 14px; }
+  .idx-list a:hover{padding-left:8px}
+  .idx-num{font-family:var(--mono);font-size:11px;letter-spacing:0.15em;color:var(--crema-dim)}
+  .idx-name{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--espresso);font-variation-settings:"opsz" 36}
+  .idx-meta{font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--slate);margin-top:4px}
+  .idx-list a.current .idx-name{font-style:italic;font-variation-settings:"opsz" 36,"SOFT" 100}
+  .idx-list a.current .idx-num{color:var(--brick)}
 
-  /* Usage do/don't */
-  .usage {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-  .usage-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px 28px;
-  }
-  .usage-card.do { border-left: 5px solid var(--bean-green); }
-  .usage-card.dont { border-left: 5px solid var(--terracotta); }
-  .usage-tag {
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-  .usage-card.do .usage-tag { color: var(--bean-green); }
-  .usage-card.dont .usage-tag { color: var(--terracotta); }
-  .usage-card ul { margin-left: 20px; font-size: 14px; color: var(--slate); }
-  .usage-card li { margin-bottom: 8px; line-height: 1.55; }
-
-  /* Concept story box */
-  .concept {
-    background: linear-gradient(135deg, var(--coffee-dark), var(--coffee-mid));
-    color: var(--cream);
-    padding: 40px 48px;
-    border-radius: 16px;
-    margin-bottom: 24px;
-  }
-  .concept h3 {
-    color: var(--gold);
-    font-size: 22px;
-    margin-bottom: 16px;
-  }
-  .concept p {
-    font-size: 16px;
-    line-height: 1.65;
-    color: var(--cream-dark);
-    max-width: 700px;
-  }
-  .concept p + p { margin-top: 12px; }
-  .concept strong { color: var(--gold); }
-
-  /* Footer */
-  footer {
-    border-top: 1px solid var(--border);
-    margin-top: 80px;
-    padding-top: 32px;
-    font-size: 13px;
-    color: var(--slate-mid);
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-  footer a {
-    color: var(--coffee-mid);
-    text-decoration: none;
-    border-bottom: 1px dotted var(--coffee-light);
-  }
-  footer a:hover { color: var(--terracotta); }
-
-  @media print {
-    .lang-switch, .variant-download { display: none; }
+  /* ─────────── shell ─────────── */
+  main{
+    position:relative;z-index:1;
+    max-width:1280px;margin:0 auto;
+    padding:120px var(--gutter) 160px;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
+  /* ─────────── cover ─────────── */
+  .cover{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:48px;
+    padding-bottom:64px;
+    margin-bottom:96px;
+    border-bottom:1px solid var(--stone);
+    position:relative;
+  }
+  .cover-meta{
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-family:var(--mono);font-size:11px;letter-spacing:0.18em;
+    text-transform:uppercase;color:var(--slate);
+    padding-bottom:24px;border-bottom:1px solid var(--stone);
+  }
+  .cover-meta b{color:var(--espresso);font-weight:500}
+  .cover-eyebrow{
+    font-family:var(--mono);font-size:12px;letter-spacing:0.32em;
+    text-transform:uppercase;color:var(--brick);font-weight:500;
+  }
+  .cover-title{
+    font-family:var(--serif);
+    font-size:clamp(72px,12vw,200px);
+    font-weight:300;
+    letter-spacing:-0.04em;
+    line-height:0.88;
+    color:var(--espresso);
+    font-variation-settings:"opsz" 144,"SOFT" 30;
+    margin-top:24px;
+  }
+  .cover-title .it{font-style:italic;font-variation-settings:"opsz" 144,"SOFT" 100,"WONK" 1;color:var(--brick)}
+  .cover-sub{
+    font-family:var(--serif-th);
+    font-size:clamp(20px,2.2vw,32px);
+    font-weight:400;
+    line-height:1.3;
+    color:var(--slate);
+    max-width:34ch;
+    margin-top:32px;
+  }
+  .cover-foot{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:32px;
+    padding-top:32px;margin-top:24px;
+    border-top:1px solid var(--stone);
+    font-family:var(--mono);font-size:11px;letter-spacing:0.15em;
+    text-transform:uppercase;color:var(--slate);
+  }
+  .cover-foot dt{color:var(--espresso);font-weight:500;margin-bottom:6px}
+  .cover-foot dd{font-family:var(--serif);font-size:15px;letter-spacing:0;text-transform:none;color:var(--espresso);font-weight:400}
+
+  /* ─────────── section primitives ─────────── */
+  .section{
+    margin-bottom:120px;
+    display:grid;
+    grid-template-columns:80px 1fr;
+    gap:clamp(24px,4vw,72px);
+    align-items:start;
+  }
+  .section-no{
+    font-family:var(--serif);
+    font-size:36px;
+    font-weight:300;
+    font-style:italic;
+    color:var(--brick);
+    line-height:1;
+    font-variation-settings:"opsz" 36,"SOFT" 100;
+    padding-top:12px;
+    position:sticky;top:80px;
+  }
+  .section-body{min-width:0}
+  .section-eyebrow{
+    font-family:var(--mono);
+    font-size:11px;letter-spacing:0.28em;
+    text-transform:uppercase;color:var(--brick);
+    margin-bottom:16px;
+  }
+  .section-title{
+    font-family:var(--serif-th);
+    font-size:clamp(38px,5vw,68px);
+    font-weight:300;
+    letter-spacing:-0.025em;
+    line-height:1.0;
+    color:var(--espresso);
+    margin-bottom:24px;
+    max-width:18ch;
+    font-variation-settings:"opsz" 144,"SOFT" 50;
+  }
+  .section-lede{
+    font-family:var(--serif-th);
+    font-size:clamp(18px,1.5vw,22px);
+    font-weight:400;
+    line-height:1.5;
+    color:var(--slate);
+    max-width:48ch;
+    margin-bottom:48px;
+  }
+  .section-body p{
+    max-width:var(--col-narrow);
+    margin-bottom:1em;
+  }
+  .ornament{
+    margin:80px auto 0;
+    text-align:center;
+    color:var(--crema);
+    font-family:var(--serif);
+    letter-spacing:0.5em;
+    font-size:14px;
+    user-select:none;
+  }
+
+  /* ─────────── concept (manifesto) ─────────── */
+  .manifesto{
+    background:var(--ink);
+    color:var(--bone);
+    padding:clamp(56px,7vw,96px) clamp(40px,6vw,96px);
+    margin-bottom:24px;
+    position:relative;
+  }
+  .manifesto::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:1px;
+    background:var(--crema);
+  }
+  .manifesto-eyebrow{
+    font-family:var(--mono);font-size:11px;letter-spacing:0.32em;
+    text-transform:uppercase;color:var(--crema);margin-bottom:32px;
+  }
+  .manifesto h3{
+    font-family:var(--serif-th);
+    font-size:clamp(32px,3.6vw,52px);
+    font-weight:400;
+    letter-spacing:-0.02em;
+    line-height:1.1;
+    margin-bottom:32px;
+    max-width:24ch;
+    color:var(--bone);
+    font-variation-settings:"opsz" 96,"SOFT" 50;
+  }
+  .manifesto h3 em{font-style:italic;color:var(--crema);font-variation-settings:"opsz" 96,"SOFT" 100,"WONK" 1}
+  .manifesto p{
+    font-family:var(--serif-th);
+    font-size:clamp(17px,1.3vw,20px);
+    font-weight:400;
+    line-height:1.6;
+    color:var(--stone-soft);
+    max-width:60ch;
+  }
+  .manifesto p+p{margin-top:18px}
+  .manifesto strong{color:var(--crema);font-weight:500}
+
+  /* ─────────── plate (showcase) ─────────── */
+  .plate{
+    background:var(--paper);
+    border:1px solid var(--stone);
+    padding:clamp(56px,7vw,120px) 32px;
+    display:flex;justify-content:center;align-items:center;
+    min-height:380px;
+    position:relative;
+  }
+  .plate-caption{
+    position:absolute;left:24px;bottom:18px;
+    font-family:var(--mono);font-size:10px;letter-spacing:0.18em;
+    text-transform:uppercase;color:var(--slate);
+  }
+  .plate-fig{
+    position:absolute;right:24px;top:18px;
+    font-family:var(--mono);font-size:10px;letter-spacing:0.18em;
+    text-transform:uppercase;color:var(--brick);
+  }
+  .plate svg{max-width:min(560px,90%);height:auto}
+
+  /* ─────────── variants grid ─────────── */
+  .variants{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:1px;
+    background:var(--stone);
+    border:1px solid var(--stone);
+  }
+  .variant{
+    background:var(--paper);
+    padding:48px 32px 24px;
+    display:flex;flex-direction:column;
+    gap:24px;min-height:320px;
+    position:relative;
+  }
+  .variant.dark{background:var(--ink);color:var(--bone)}
+  .variant.crema{background:var(--crema)}
+  .variant-fig{
+    font-family:var(--mono);font-size:10px;letter-spacing:0.2em;
+    text-transform:uppercase;color:var(--slate);
+    position:absolute;top:16px;left:24px;
+  }
+  .variant.dark .variant-fig{color:var(--crema)}
+  .variant.crema .variant-fig{color:var(--ink)}
+  .variant-display{
+    flex:1;display:flex;align-items:center;justify-content:center;
+    min-height:140px;padding:20px 0;
+  }
+  .variant-display svg{max-width:100%;max-height:140px}
+  .variant-display.icon-only svg{max-width:90px}
+  .variant-info{
+    border-top:1px solid var(--stone);padding-top:16px;
+    display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  }
+  .variant.dark .variant-info{border-color:rgba(244,239,230,0.15)}
+  .variant.crema .variant-info{border-color:rgba(26,15,8,0.18)}
+  .variant-name{
+    font-family:var(--serif-th);font-size:18px;font-weight:400;
+    color:inherit;font-variation-settings:"opsz" 36;
+  }
+  .variant-name em{font-style:italic;color:var(--brick)}
+  .variant.dark .variant-name em{color:var(--crema)}
+  .variant.crema .variant-name em{color:var(--ink)}
+  .variant-dl{
+    font-family:var(--mono);font-size:10px;letter-spacing:0.15em;
+    text-transform:uppercase;color:inherit;text-decoration:none;
+    border-bottom:1px solid currentColor;padding-bottom:1px;opacity:0.65;
+    transition:opacity .2s;
+  }
+  .variant-dl:hover{opacity:1}
+  .variant-meta{
+    font-family:var(--mono);font-size:10px;letter-spacing:0.18em;
+    text-transform:uppercase;color:var(--slate);margin-top:2px;
+  }
+  .variant.dark .variant-meta{color:var(--stone-soft);opacity:0.7}
+  .variant.crema .variant-meta{color:var(--ink);opacity:0.65}
+
+  /* ─────────── palette ─────────── */
+  .palette{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:1px;
+    background:var(--stone);
+    border:1px solid var(--stone);
+  }
+  .swatch{background:var(--paper)}
+  .swatch-color{height:140px;position:relative}
+  .swatch-color::after{
+    content:attr(data-fig);
+    position:absolute;top:12px;left:14px;
+    font-family:var(--mono);font-size:10px;letter-spacing:0.2em;
+    text-transform:uppercase;color:rgba(255,255,255,0.85);
+    mix-blend-mode:difference;
+  }
+  .swatch-info{padding:18px 18px 22px}
+  .swatch-name{
+    font-family:var(--serif-th);font-size:20px;font-weight:400;
+    color:var(--espresso);margin-bottom:4px;
+    font-variation-settings:"opsz" 36;
+  }
+  .swatch-hex{
+    font-family:var(--mono);font-size:11px;letter-spacing:0.1em;
+    color:var(--slate);text-transform:uppercase;margin-bottom:8px;
+  }
+  .swatch-use{
+    font-family:var(--serif-th);font-size:13px;color:var(--slate);
+    font-style:italic;line-height:1.4;
+    font-variation-settings:"opsz" 14,"SOFT" 100;
+  }
+
+  /* ─────────── type spec ─────────── */
+  .type-spec{
+    border-top:1px solid var(--stone);
+  }
+  .type-row{
+    display:grid;
+    grid-template-columns:140px 1fr 200px;
+    gap:32px;
+    padding:36px 0;
+    border-bottom:1px solid var(--stone);
+    align-items:baseline;
+  }
+  .type-tag{
+    font-family:var(--mono);font-size:11px;letter-spacing:0.22em;
+    text-transform:uppercase;color:var(--brick);font-weight:500;
+  }
+  .type-tag span{display:block;color:var(--slate);margin-top:3px;font-weight:400;letter-spacing:0.18em}
+  .type-sample{color:var(--espresso);min-width:0}
+  .type-meta{
+    font-family:var(--mono);font-size:11px;letter-spacing:0.1em;
+    color:var(--slate);line-height:1.6;
+  }
+  .type-meta b{color:var(--espresso);font-weight:500}
+
+  .type-display{
+    font-family:var(--serif-th);font-size:clamp(56px,7vw,108px);
+    font-weight:300;letter-spacing:-0.04em;line-height:0.95;
+    font-variation-settings:"opsz" 144,"SOFT" 30;
+  }
+  .type-display em{font-style:italic;color:var(--brick);font-variation-settings:"opsz" 144,"SOFT" 100,"WONK" 1}
+  .type-h1{
+    font-family:var(--serif-th);font-size:clamp(40px,4.4vw,64px);
+    font-weight:400;letter-spacing:-0.02em;line-height:1.05;
+    font-variation-settings:"opsz" 96;
+  }
+  .type-h2{
+    font-family:var(--serif-th);font-size:clamp(26px,2.5vw,36px);
+    font-weight:500;letter-spacing:-0.01em;line-height:1.15;
+    font-variation-settings:"opsz" 36;
+  }
+  .type-body{
+    font-family:var(--serif-th);font-size:18px;font-weight:400;line-height:1.65;
+    font-variation-settings:"opsz" 14;max-width:48ch;
+  }
+  .type-mono{font-family:var(--mono);font-size:14px;letter-spacing:0.04em;color:var(--brick)}
+
+  /* ─────────── usage rules ─────────── */
+  .rules{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(360px,1fr));
+    gap:48px;
+  }
+  .rule{
+    border-top:2px solid var(--espresso);
+    padding-top:24px;
+  }
+  .rule.dont{border-top-color:var(--brick)}
+  .rule-tag{
+    font-family:var(--mono);font-size:11px;letter-spacing:0.28em;
+    text-transform:uppercase;color:var(--espresso);font-weight:500;
+    margin-bottom:24px;
+  }
+  .rule.dont .rule-tag{color:var(--brick)}
+  .rule ol{
+    list-style:none;counter-reset:r;
+  }
+  .rule ol li{
+    counter-increment:r;
+    padding:18px 0 18px 56px;
+    border-bottom:1px solid var(--stone-soft);
+    position:relative;
+    font-family:var(--serif-th);font-size:17px;line-height:1.55;
+    color:var(--espresso);
+  }
+  .rule ol li::before{
+    content:counter(r,decimal-leading-zero);
+    position:absolute;left:0;top:18px;
+    font-family:var(--mono);font-size:11px;letter-spacing:0.1em;
+    color:var(--brick);font-weight:500;
+  }
+  .rule ol li:last-child{border-bottom:none}
+  .rule strong{font-weight:500;font-variation-settings:"opsz" 14,"SOFT" 30}
+  .rule em{font-style:italic;color:var(--brick);font-variation-settings:"opsz" 14,"SOFT" 100,"WONK" 1}
+
+  /* ─────────── footer ─────────── */
+  footer{
+    margin-top:120px;
+    padding-top:32px;
+    border-top:1px solid var(--stone);
+    display:grid;
+    grid-template-columns:1fr 1fr;gap:32px;
+    font-family:var(--mono);font-size:11px;letter-spacing:0.15em;
+    text-transform:uppercase;color:var(--slate);
+    align-items:end;
+  }
+  footer .colophon{font-family:var(--serif-th);font-size:14px;letter-spacing:0;text-transform:none;color:var(--espresso);font-style:italic;line-height:1.5;font-variation-settings:"opsz" 14,"SOFT" 100}
+  footer a{color:var(--espresso);text-decoration:none;border-bottom:1px solid var(--crema);padding-bottom:1px;transition:border-color .2s}
+  footer a:hover{border-bottom-color:var(--brick)}
+  footer .end-mark{font-family:var(--serif);font-size:18px;color:var(--brick);font-style:italic}
+
+  /* ─────────── responsive ─────────── */
+  @media (max-width:760px){
+    .section{grid-template-columns:1fr;gap:16px}
+    .section-no{position:static;font-size:24px}
+    .cover-meta{flex-direction:column;gap:8px;align-items:flex-start}
+    .cover-foot{grid-template-columns:1fr 1fr}
+    .type-row{grid-template-columns:1fr;gap:12px}
+    .folio-r .folio-edition{display:none}
+  }
+
+  @media print{
+    .folio,.folio-divider,.idx-btn,.idx-overlay,.variant-dl{display:none!important}
+    body{background:white}
+    main{padding:40px}
+    .manifesto{break-inside:avoid}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{
+      animation-duration:.01ms!important;
+      transition-duration:.01ms!important;
+      scroll-behavior:auto!important;
     }
   }
 </style>
 </head>
 <body>
 
-<a class="lang-switch" href="index-th.html" title="กลับสู่รายงาน">รายงาน</a>
-<button class="site-nav-btn" onclick="window.toggleSiteNav()" title="หน้าทั้งหมด">หน้า</button>
-
-<div class="site-nav-overlay" id="siteNavOverlay" onclick="if(event.target===this)window.toggleSiteNav()">
-  <div class="site-nav-panel">
-    <div class="site-nav-panel-title">หน้าในโครงการ DoiBean</div>
-    <a href="index.html" class="site-nav-link" data-page="index">
-      <span class="site-nav-link-icon">📊</span>
-      <div>
-        <div class="site-nav-link-name">Deep Dive Report</div>
-        <div class="site-nav-link-meta">English · 16 sections · ~18 min</div>
-      </div>
-    </a>
-    <a href="index-th.html" class="site-nav-link" data-page="index-th">
-      <span class="site-nav-link-icon">📊</span>
-      <div>
-        <div class="site-nav-link-name">รายงานเจาะลึก</div>
-        <div class="site-nav-link-meta">ภาษาไทย · 16 sections · ~18 นาที</div>
-      </div>
-    </a>
-    <a href="pitch-th.html" class="site-nav-link" data-page="pitch-th">
-      <span class="site-nav-link-icon">🎤</span>
-      <div>
-        <div class="site-nav-link-name">Pitch Deck</div>
-        <div class="site-nav-link-meta">10 สไลด์ · navigate ด้วย arrow keys</div>
-      </div>
-    </a>
-    <a href="brand.html" class="site-nav-link" data-page="brand">
-      <span class="site-nav-link-icon">🎨</span>
-      <div>
-        <div class="site-nav-link-name">Brand Guidelines</div>
-        <div class="site-nav-link-meta">โลโก้ · สี · typography · การใช้งาน</div>
-      </div>
-    </a>
-    <a href="chiangmai-research.html" class="site-nav-link" data-page="chiangmai-research">
-      <span class="site-nav-link-icon">🔍</span>
-      <div>
-        <div class="site-nav-link-name">CM Pain Points Research</div>
-        <div class="site-nav-link-meta">9 หมวด hackathon · user voice</div>
-      </div>
-    </a>
+<!-- ━━━━━━━━━ folio ━━━━━━━━━ -->
+<header class="folio">
+  <div class="folio-l">DoiBean &nbsp;·&nbsp; Vol. 01</div>
+  <div class="folio-c">Standards Manual</div>
+  <div class="folio-r">
+    <a class="folio-edition" href="index-th.html">รายงาน ↗</a>
+    <button class="idx-btn" onclick="window.toggleIndex()">Index</button>
   </div>
-</div>
+</header>
+<div class="folio-divider"></div>
 
+<!-- ━━━━━━━━━ index drawer ━━━━━━━━━ -->
+<div class="idx-overlay" id="idxOverlay" onclick="if(event.target===this)window.toggleIndex()">
+  <aside class="idx-panel" role="dialog" aria-label="หน้าทั้งหมด">
+    <div class="idx-eyebrow">Doibean · Vol. 01</div>
+    <h2 class="idx-title">หน้าในเล่ม</h2>
+    <ul class="idx-list">
+      <li><a href="index.html" data-page="index">
+        <span class="idx-num">I</span>
+        <span>
+          <span class="idx-name">Deep Dive Report</span>
+          <span class="idx-meta">English · 16 sections · 18 min</span>
+        </span>
+      </a></li>
+      <li><a href="index-th.html" data-page="index-th">
+        <span class="idx-num">II</span>
+        <span>
+          <span class="idx-name">รายงานเจาะลึก</span>
+          <span class="idx-meta">ภาษาไทย · 16 ตอน · 18 นาที</span>
+        </span>
+      </a></li>
+      <li><a href="pitch-th.html" data-page="pitch-th">
+        <span class="idx-num">III</span>
+        <span>
+          <span class="idx-name">Pitch Deck</span>
+          <span class="idx-meta">10 สไลด์ · arrow keys</span>
+        </span>
+      </a></li>
+      <li><a href="brand.html" data-page="brand">
+        <span class="idx-num">IV</span>
+        <span>
+          <span class="idx-name">Standards Manual</span>
+          <span class="idx-meta">โลโก้ · สี · ฟอนต์ · กฎ</span>
+        </span>
+      </a></li>
+      <li><a href="chiangmai-research.html" data-page="chiangmai-research">
+        <span class="idx-num">V</span>
+        <span>
+          <span class="idx-name">Field Notes &mdash; Chiang Mai</span>
+          <span class="idx-meta">9 หมวด · เสียงผู้ใช้ · สถิติ</span>
+        </span>
+      </a></li>
+    </ul>
+  </aside>
+</div>
 <script>
 (function(){
-  function toggle() {
-    var o = document.getElementById('siteNavOverlay');
-    var willShow = !o.classList.contains('show');
+  function toggle(){
+    var o=document.getElementById('idxOverlay');
+    var willShow=!o.classList.contains('show');
     o.classList.toggle('show');
-    if (willShow) {
-      var path = window.location.pathname.split('/').pop() || 'index.html';
-      var cur = path.replace('.html', '') || 'index';
-      o.querySelectorAll('.site-nav-link').forEach(function(a){
-        a.classList.toggle('current', a.dataset.page === cur);
+    if(willShow){
+      var path=window.location.pathname.split('/').pop()||'index.html';
+      var cur=path.replace('.html','')||'index';
+      o.querySelectorAll('.idx-list a').forEach(function(a){
+        a.classList.toggle('current',a.dataset.page===cur);
       });
     }
   }
-  window.toggleSiteNav = toggle;
-  document.addEventListener('keydown', function(e){
-    if (e.key === 'Escape') {
-      var o = document.getElementById('siteNavOverlay');
-      if (o) o.classList.remove('show');
+  window.toggleIndex=toggle;
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){
+      var o=document.getElementById('idxOverlay');
+      if(o)o.classList.remove('show');
     }
   });
 })();
@@ -510,373 +601,397 @@
 
 <main>
 
-<header class="top">
-  <div class="eyebrow">DOIBEAN · BRAND IDENTITY</div>
-  <h1>เครื่องมือแบรนด์</h1>
-  <p class="top-desc">โลโก้ · สี · typography · แนวทางการใช้ · สำหรับทีมและพันธมิตร</p>
-</header>
+<!-- ━━━━━━━━━ cover ━━━━━━━━━ -->
+<section class="cover">
+  <div class="cover-meta">
+    <span><b>Volume 01</b> &middot; Issue No. IV</span>
+    <span>Standards Manual</span>
+    <span>เผยแพร่ พฤษภาคม 2026</span>
+  </div>
 
-<!-- ============= CONCEPT ============= -->
-<section>
-  <p class="sec-num">SECTION 01</p>
-  <h2>แนวคิดโลโก้</h2>
-  <div class="concept">
-    <h3>เมล็ดกาแฟที่เป็นภูเขา</h3>
-    <p>โลโก้ DoiBean ผสมสองสิ่งเข้าด้วยกัน: <strong>เมล็ดกาแฟ</strong> (Bean) และ <strong>ภูเขา</strong> (Doi · ดอย ในภาษาเหนือแปลว่าภูเขา)</p>
-    <p>รอยกลางของเมล็ดกาแฟตามปกติเป็นเส้นโค้ง S — เราเปลี่ยนเป็น<strong>สันเขา 3 ยอด</strong>เพื่อให้เห็นทั้งสองสัญลักษณ์ในรูปเดียว · จุดสีส้มเหนือยอดสูงสุดคือ<strong>พระอาทิตย์</strong>ที่ขึ้นเหนือดอยช้าง</p>
-    <p>ทุกครั้งที่เห็นโลโก้ จะนึกถึงทั้ง<strong>ที่มา</strong> (ดอย) และ<strong>สิ่งที่ทำ</strong> (กาแฟ)</p>
+  <div>
+    <div class="cover-eyebrow">Brand &middot; Identity &middot; Voice</div>
+    <h1 class="cover-title">Standards <span class="it">Manual</span></h1>
+    <p class="cover-sub">คู่มือเสียง สี รูป และมารยาทการใช้สัญลักษณ์ของ DoiBean &mdash; สำหรับทีม นักออกแบบ และพันธมิตรที่นำแบรนด์ไปใช้ต่อ</p>
+  </div>
+
+  <dl class="cover-foot">
+    <div>
+      <dt>Subject</dt>
+      <dd>Visual identity for an AI co-pilot serving Doi Chang coffee farmers.</dd>
+    </div>
+    <div>
+      <dt>Audience</dt>
+      <dd>Internal designers, partner roasters, foundation collaborators, press.</dd>
+    </div>
+    <div>
+      <dt>Edition</dt>
+      <dd>v1.0 &mdash; supersedes none. Revisions logged in colophon.</dd>
+    </div>
+  </dl>
+</section>
+
+<!-- ━━━━━━━━━ I &mdash; concept ━━━━━━━━━ -->
+<section class="section">
+  <div class="section-no">I.</div>
+  <div class="section-body">
+    <div class="section-eyebrow">Origin &mdash; the Mark</div>
+    <h2 class="section-title">เมล็ดที่กลายเป็น<em style="font-style:italic;color:var(--brick);font-variation-settings:'opsz' 144,'SOFT' 100,'WONK' 1">ภูเขา</em></h2>
+
+    <article class="manifesto">
+      <div class="manifesto-eyebrow">A Note on the Logo</div>
+      <h3>โลโก้สองความหมายในรูปเดียว — <em>เมล็ดกาแฟ</em> และ <em>ดอย</em></h3>
+      <p>รอยกลางของเมล็ดกาแฟตามธรรมชาติเป็นเส้นโค้งรูป S เราเปลี่ยนเส้นนี้ให้เป็น <strong>สันเขาสามยอด</strong> — เพื่อให้สัญลักษณ์ทั้งสองซ้อนอยู่ในรูปเดียวกัน</p>
+      <p>จุดสีดินเผาเหนือยอดสูงสุดคือ <strong>พระอาทิตย์</strong>ที่ขึ้นเหนือดอยช้าง สัญลักษณ์ของวันใหม่ และของชาวสวนที่ลุกขึ้นเก็บผลก่อนรุ่ง</p>
+      <p>ทุกครั้งที่เห็นโลโก้ จะนึกถึงทั้ง <strong>ที่มา</strong> (ดอย) และ <strong>สิ่งที่เราทำ</strong> (กาแฟ) — ในเครื่องหมายเดียว ไม่ต้องอธิบาย</p>
+    </article>
+
+    <div class="ornament">▲ &nbsp; △ &nbsp; ▲</div>
   </div>
 </section>
 
-<!-- ============= PRIMARY LOGO ============= -->
-<section>
-  <p class="sec-num">SECTION 02</p>
-  <h2>โลโก้หลัก</h2>
-  <p class="sec-desc">ใช้ในกรณีปกติ · พื้นหลังขาวหรือครีม · มีพื้นที่กว้างพอ</p>
+<!-- ━━━━━━━━━ II &mdash; primary mark ━━━━━━━━━ -->
+<section class="section">
+  <div class="section-no">II.</div>
+  <div class="section-body">
+    <div class="section-eyebrow">Plate &mdash; Primary Mark</div>
+    <h2 class="section-title">โลโก้หลัก</h2>
+    <p class="section-lede">ใช้ในกรณีปกติ พื้นหลังขาวหรือครีม มีพื้นที่กว้างพอ — โลโก้แนวนอนเป็นรูปแบบมาตรฐานที่ใช้ในเว็บไซต์ หัวจดหมาย และสื่อทุกประเภทเมื่อมีพื้นที่เพียงพอ</p>
 
-  <div class="hero-logo">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 160">
-      <defs>
-        <linearGradient id="bg1" x1="20%" y1="10%" x2="85%" y2="95%">
-          <stop offset="0%" stop-color="#E5C896"/>
-          <stop offset="60%" stop-color="#C9A96E"/>
-          <stop offset="100%" stop-color="#A88C58"/>
-        </linearGradient>
-        <radialGradient id="bs1" cx="35%" cy="30%" r="55%">
-          <stop offset="0%" stop-color="#FFF6E0" stop-opacity="0.45"/>
-          <stop offset="100%" stop-color="#FFF6E0" stop-opacity="0"/>
-        </radialGradient>
-      </defs>
-      <g transform="translate(20, 20) scale(0.6)">
-        <g transform="rotate(-12 100 100)">
-          <ellipse cx="100" cy="100" rx="78" ry="56" fill="url(#bg1)" stroke="#2C1810" stroke-width="4.5"/>
-          <ellipse cx="100" cy="100" rx="78" ry="56" fill="url(#bs1)"/>
-          <path d="M 30 110 L 56 78 L 76 100 L 100 60 L 124 95 L 148 75 L 170 110"
-                stroke="#2C1810" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="100" cy="44" r="6" fill="#C66E4E"/>
-        </g>
-      </g>
-      <text x="160" y="105"
-            font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
-            font-size="76" font-weight="800" letter-spacing="-2" fill="#2C1810">Doi<tspan fill="#C9A96E">Bean</tspan></text>
-    </svg>
-  </div>
-</section>
-
-<!-- ============= VARIANTS ============= -->
-<section>
-  <p class="sec-num">SECTION 03</p>
-  <h2>เวอร์ชันต่างๆ</h2>
-  <p class="sec-desc">เลือกใช้ตามบริบท · ทุกไฟล์เป็น SVG ขยายได้ไม่แตก</p>
-
-  <div class="variants">
-    <!-- Horizontal -->
-    <div class="variant">
-      <div class="variant-display">
-        <svg viewBox="0 0 520 160">
-          <defs>
-            <linearGradient id="bg2" x1="20%" y1="10%" x2="85%" y2="95%">
-              <stop offset="0%" stop-color="#E5C896"/>
-              <stop offset="60%" stop-color="#C9A96E"/>
-              <stop offset="100%" stop-color="#A88C58"/>
-            </linearGradient>
-          </defs>
-          <g transform="translate(20, 20) scale(0.6)">
-            <g transform="rotate(-12 100 100)">
-              <ellipse cx="100" cy="100" rx="78" ry="56" fill="url(#bg2)" stroke="#2C1810" stroke-width="4.5"/>
-              <path d="M 30 110 L 56 78 L 76 100 L 100 60 L 124 95 L 148 75 L 170 110"
-                    stroke="#2C1810" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="100" cy="44" r="6" fill="#C66E4E"/>
-            </g>
-          </g>
-          <text x="160" y="105" font-family="sans-serif" font-size="76" font-weight="800" letter-spacing="-2" fill="#2C1810">Doi<tspan fill="#C9A96E">Bean</tspan></text>
-        </svg>
-      </div>
-      <div>
-        <div class="variant-name">Primary Horizontal</div>
-        <div class="variant-meta">โลโก้หลัก · พื้นขาว/ครีม</div>
-      </div>
-      <a class="variant-download" href="logo.svg" download>↓ logo.svg</a>
-    </div>
-
-    <!-- Stacked -->
-    <div class="variant">
-      <div class="variant-display">
-        <svg viewBox="0 0 320 320">
-          <defs>
-            <linearGradient id="bg3" x1="20%" y1="10%" x2="85%" y2="95%">
-              <stop offset="0%" stop-color="#E5C896"/>
-              <stop offset="60%" stop-color="#C9A96E"/>
-              <stop offset="100%" stop-color="#A88C58"/>
-            </linearGradient>
-          </defs>
-          <g transform="translate(60, 30)">
-            <g transform="rotate(-12 100 100)">
-              <ellipse cx="100" cy="100" rx="78" ry="56" fill="url(#bg3)" stroke="#2C1810" stroke-width="4.5"/>
-              <path d="M 30 110 L 56 78 L 76 100 L 100 60 L 124 95 L 148 75 L 170 110"
-                    stroke="#2C1810" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="100" cy="44" r="6" fill="#C66E4E"/>
-            </g>
-          </g>
-          <text x="160" y="285" text-anchor="middle" font-family="sans-serif" font-size="56" font-weight="800" letter-spacing="-1.5" fill="#2C1810">Doi<tspan fill="#C9A96E">Bean</tspan></text>
-        </svg>
-      </div>
-      <div>
-        <div class="variant-name">Stacked</div>
-        <div class="variant-meta">รูปจัตุรัส · social avatar</div>
-      </div>
-      <a class="variant-download" href="logo-stacked.svg" download>↓ logo-stacked.svg</a>
-    </div>
-
-    <!-- Icon only -->
-    <div class="variant">
-      <div class="variant-display icon-only">
-        <svg viewBox="0 0 200 200">
-          <defs>
-            <linearGradient id="bg4" x1="20%" y1="10%" x2="85%" y2="95%">
-              <stop offset="0%" stop-color="#E5C896"/>
-              <stop offset="60%" stop-color="#C9A96E"/>
-              <stop offset="100%" stop-color="#A88C58"/>
-            </linearGradient>
-          </defs>
+    <div class="plate">
+      <span class="plate-fig">Plate 01</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 160">
+        <defs>
+          <linearGradient id="bg1" x1="20%" y1="10%" x2="85%" y2="95%">
+            <stop offset="0%" stop-color="#E5C896"/>
+            <stop offset="60%" stop-color="#C8A268"/>
+            <stop offset="100%" stop-color="#A88C58"/>
+          </linearGradient>
+          <radialGradient id="bs1" cx="35%" cy="30%" r="55%">
+            <stop offset="0%" stop-color="#FFF6E0" stop-opacity="0.45"/>
+            <stop offset="100%" stop-color="#FFF6E0" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <g transform="translate(20, 20) scale(0.6)">
           <g transform="rotate(-12 100 100)">
-            <ellipse cx="100" cy="100" rx="78" ry="56" fill="url(#bg4)" stroke="#2C1810" stroke-width="4.5"/>
-            <path d="M 30 110 L 56 78 L 76 100 L 100 60 L 124 95 L 148 75 L 170 110"
-                  stroke="#2C1810" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="100" cy="44" r="6" fill="#C66E4E"/>
+            <ellipse cx="100" cy="100" rx="78" ry="56" fill="url(#bg1)" stroke="#2A1810" stroke-width="4.5"/>
+            <ellipse cx="100" cy="100" rx="78" ry="56" fill="url(#bs1)"/>
+            <path d="M 30 110 L 56 78 L 76 100 L 100 60 L 124 95 L 148 75 L 170 110" stroke="#2A1810" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="100" cy="44" r="6" fill="#B8543A"/>
           </g>
-        </svg>
-      </div>
-      <div>
-        <div class="variant-name">Icon Only</div>
-        <div class="variant-meta">app icon · favicon · stamp</div>
-      </div>
-      <a class="variant-download" href="logo-icon.svg" download>↓ logo-icon.svg</a>
-    </div>
-
-    <!-- Dark background -->
-    <div class="variant dark">
-      <div class="variant-display">
-        <svg viewBox="0 0 520 160">
-          <defs>
-            <linearGradient id="bg5" x1="20%" y1="10%" x2="85%" y2="95%">
-              <stop offset="0%" stop-color="#E5C896"/>
-              <stop offset="60%" stop-color="#C9A96E"/>
-              <stop offset="100%" stop-color="#A88C58"/>
-            </linearGradient>
-          </defs>
-          <g transform="translate(20, 20) scale(0.6)">
-            <g transform="rotate(-12 100 100)">
-              <ellipse cx="100" cy="100" rx="78" ry="56" fill="url(#bg5)" stroke="#2C1810" stroke-width="4.5"/>
-              <path d="M 30 110 L 56 78 L 76 100 L 100 60 L 124 95 L 148 75 L 170 110"
-                    stroke="#2C1810" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="100" cy="44" r="6" fill="#C66E4E"/>
-            </g>
-          </g>
-          <text x="160" y="105" font-family="sans-serif" font-size="76" font-weight="800" letter-spacing="-2" fill="#FAF6F0">Doi<tspan fill="#C9A96E">Bean</tspan></text>
-        </svg>
-      </div>
-      <div>
-        <div class="variant-name">บนพื้นดำ/coffee dark</div>
-        <div class="variant-meta">deck · keynote · poster</div>
-      </div>
-      <a class="variant-download" href="logo.svg" download>↓ ใช้ logo.svg + พื้น dark</a>
-    </div>
-
-    <!-- Mono -->
-    <div class="variant">
-      <div class="variant-display">
-        <svg viewBox="0 0 520 160">
-          <g transform="translate(20, 20) scale(0.6)">
-            <g transform="rotate(-12 100 100)">
-              <ellipse cx="100" cy="100" rx="78" ry="56" fill="none" stroke="#2C1810" stroke-width="6"/>
-              <path d="M 30 110 L 56 78 L 76 100 L 100 60 L 124 95 L 148 75 L 170 110"
-                    stroke="#2C1810" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="100" cy="44" r="7" fill="#2C1810"/>
-            </g>
-          </g>
-          <text x="160" y="105" font-family="sans-serif" font-size="76" font-weight="800" letter-spacing="-2" fill="#2C1810">DoiBean</text>
-        </svg>
-      </div>
-      <div>
-        <div class="variant-name">Monochrome</div>
-        <div class="variant-meta">stamp · ฉลาก · ขาวดำ · fax</div>
-      </div>
-      <a class="variant-download" href="logo-mono.svg" download>↓ logo-mono.svg</a>
-    </div>
-
-    <!-- Gold background -->
-    <div class="variant gold-bg">
-      <div class="variant-display">
-        <svg viewBox="0 0 520 160">
-          <g transform="translate(20, 20) scale(0.6)">
-            <g transform="rotate(-12 100 100)">
-              <ellipse cx="100" cy="100" rx="78" ry="56" fill="none" stroke="#2C1810" stroke-width="6"/>
-              <path d="M 30 110 L 56 78 L 76 100 L 100 60 L 124 95 L 148 75 L 170 110"
-                    stroke="#2C1810" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="100" cy="44" r="7" fill="#2C1810"/>
-            </g>
-          </g>
-          <text x="160" y="105" font-family="sans-serif" font-size="76" font-weight="800" letter-spacing="-2" fill="#2C1810">DoiBean</text>
-        </svg>
-      </div>
-      <div>
-        <div class="variant-name">บนพื้นทอง</div>
-        <div class="variant-meta">accent banner · sticker</div>
-      </div>
-      <a class="variant-download" href="logo-mono.svg" download>↓ ใช้ logo-mono.svg</a>
+        </g>
+        <text x="160" y="108" font-family="Fraunces, Georgia, serif" font-size="76" font-weight="400" letter-spacing="-3" fill="#2A1810">Doi<tspan fill="#B8543A" font-style="italic">Bean</tspan></text>
+      </svg>
+      <span class="plate-caption">fig. 1 &mdash; logo.svg &middot; 520 &times; 160</span>
     </div>
   </div>
 </section>
 
-<!-- ============= COLOR PALETTE ============= -->
-<section>
-  <p class="sec-num">SECTION 04</p>
-  <h2>จานสี</h2>
-  <p class="sec-desc">8 สี · ใช้คงเส้นคงวาทุกจุดติดต่อ</p>
+<!-- ━━━━━━━━━ III &mdash; variants ━━━━━━━━━ -->
+<section class="section">
+  <div class="section-no">III.</div>
+  <div class="section-body">
+    <div class="section-eyebrow">Catalogue &mdash; Variants</div>
+    <h2 class="section-title">เวอร์ชัน <em style="font-style:italic;color:var(--brick);font-variation-settings:'opsz' 144,'SOFT' 100,'WONK' 1">ทั้งหก</em></h2>
+    <p class="section-lede">เลือกตามบริบท ทุกไฟล์เป็น SVG ขยายได้ไม่แตก ความสว่างของพื้นหลังกำหนดเวอร์ชันที่ใช้ — ไม่ใช่ความชอบส่วนตัว</p>
 
-  <div class="palette">
-    <div class="swatch">
-      <div class="swatch-color" style="background: #2C1810;"></div>
-      <div class="swatch-info">
-        <div class="swatch-name">Coffee Dark</div>
-        <div class="swatch-hex">#2C1810</div>
-        <div class="swatch-use">ตัวหนังสือหลัก · พื้นหลังหรู</div>
+    <div class="variants">
+      <div class="variant">
+        <span class="variant-fig">No. 01</span>
+        <div class="variant-display">
+          <svg viewBox="0 0 520 160">
+            <defs><linearGradient id="bg2" x1="20%" y1="10%" x2="85%" y2="95%"><stop offset="0%" stop-color="#E5C896"/><stop offset="60%" stop-color="#C8A268"/><stop offset="100%" stop-color="#A88C58"/></linearGradient></defs>
+            <g transform="translate(20, 20) scale(0.6)"><g transform="rotate(-12 100 100)">
+              <ellipse cx="100" cy="100" rx="78" ry="56" fill="url(#bg2)" stroke="#2A1810" stroke-width="4.5"/>
+              <path d="M 30 110 L 56 78 L 76 100 L 100 60 L 124 95 L 148 75 L 170 110" stroke="#2A1810" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="100" cy="44" r="6" fill="#B8543A"/>
+            </g></g>
+            <text x="160" y="108" font-family="Fraunces,serif" font-size="76" font-weight="400" letter-spacing="-3" fill="#2A1810">Doi<tspan fill="#B8543A" font-style="italic">Bean</tspan></text>
+          </svg>
+        </div>
+        <div class="variant-info">
+          <div>
+            <div class="variant-name"><em>Primary</em>, horizontal</div>
+            <div class="variant-meta">พื้นขาว · ครีม</div>
+          </div>
+          <a class="variant-dl" href="logo.svg" download>logo.svg ↓</a>
+        </div>
       </div>
-    </div>
-    <div class="swatch">
-      <div class="swatch-color" style="background: #5D3A1F;"></div>
-      <div class="swatch-info">
-        <div class="swatch-name">Coffee Mid</div>
-        <div class="swatch-hex">#5D3A1F</div>
-        <div class="swatch-use">accent · gradient คู่</div>
+
+      <div class="variant">
+        <span class="variant-fig">No. 02</span>
+        <div class="variant-display">
+          <svg viewBox="0 0 320 320">
+            <defs><linearGradient id="bg3" x1="20%" y1="10%" x2="85%" y2="95%"><stop offset="0%" stop-color="#E5C896"/><stop offset="60%" stop-color="#C8A268"/><stop offset="100%" stop-color="#A88C58"/></linearGradient></defs>
+            <g transform="translate(60, 30)"><g transform="rotate(-12 100 100)">
+              <ellipse cx="100" cy="100" rx="78" ry="56" fill="url(#bg3)" stroke="#2A1810" stroke-width="4.5"/>
+              <path d="M 30 110 L 56 78 L 76 100 L 100 60 L 124 95 L 148 75 L 170 110" stroke="#2A1810" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="100" cy="44" r="6" fill="#B8543A"/>
+            </g></g>
+            <text x="160" y="290" text-anchor="middle" font-family="Fraunces,serif" font-size="56" font-weight="400" letter-spacing="-2" fill="#2A1810">Doi<tspan fill="#B8543A" font-style="italic">Bean</tspan></text>
+          </svg>
+        </div>
+        <div class="variant-info">
+          <div>
+            <div class="variant-name">Stacked</div>
+            <div class="variant-meta">รูปจัตุรัส · avatar</div>
+          </div>
+          <a class="variant-dl" href="logo-stacked.svg" download>↓</a>
+        </div>
       </div>
-    </div>
-    <div class="swatch">
-      <div class="swatch-color" style="background: #C9A96E;"></div>
-      <div class="swatch-info">
-        <div class="swatch-name">Gold</div>
-        <div class="swatch-hex">#C9A96E</div>
-        <div class="swatch-use">brand accent · highlight</div>
+
+      <div class="variant">
+        <span class="variant-fig">No. 03</span>
+        <div class="variant-display icon-only">
+          <svg viewBox="0 0 200 200">
+            <defs><linearGradient id="bg4" x1="20%" y1="10%" x2="85%" y2="95%"><stop offset="0%" stop-color="#E5C896"/><stop offset="60%" stop-color="#C8A268"/><stop offset="100%" stop-color="#A88C58"/></linearGradient></defs>
+            <g transform="rotate(-12 100 100)">
+              <ellipse cx="100" cy="100" rx="78" ry="56" fill="url(#bg4)" stroke="#2A1810" stroke-width="4.5"/>
+              <path d="M 30 110 L 56 78 L 76 100 L 100 60 L 124 95 L 148 75 L 170 110" stroke="#2A1810" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="100" cy="44" r="6" fill="#B8543A"/>
+            </g>
+          </svg>
+        </div>
+        <div class="variant-info">
+          <div>
+            <div class="variant-name">Icon only</div>
+            <div class="variant-meta">app · favicon · stamp</div>
+          </div>
+          <a class="variant-dl" href="logo-icon.svg" download>↓</a>
+        </div>
       </div>
-    </div>
-    <div class="swatch">
-      <div class="swatch-color" style="background: #E5C896;"></div>
-      <div class="swatch-info">
-        <div class="swatch-name">Gold Bright</div>
-        <div class="swatch-hex">#E5C896</div>
-        <div class="swatch-use">gradient คู่กับ Gold</div>
+
+      <div class="variant dark">
+        <span class="variant-fig">No. 04</span>
+        <div class="variant-display">
+          <svg viewBox="0 0 520 160">
+            <defs><linearGradient id="bg5" x1="20%" y1="10%" x2="85%" y2="95%"><stop offset="0%" stop-color="#E5C896"/><stop offset="60%" stop-color="#C8A268"/><stop offset="100%" stop-color="#A88C58"/></linearGradient></defs>
+            <g transform="translate(20, 20) scale(0.6)"><g transform="rotate(-12 100 100)">
+              <ellipse cx="100" cy="100" rx="78" ry="56" fill="url(#bg5)" stroke="#F4EFE6" stroke-width="4.5"/>
+              <path d="M 30 110 L 56 78 L 76 100 L 100 60 L 124 95 L 148 75 L 170 110" stroke="#F4EFE6" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="100" cy="44" r="6" fill="#B8543A"/>
+            </g></g>
+            <text x="160" y="108" font-family="Fraunces,serif" font-size="76" font-weight="400" letter-spacing="-3" fill="#F4EFE6">Doi<tspan fill="#C8A268" font-style="italic">Bean</tspan></text>
+          </svg>
+        </div>
+        <div class="variant-info">
+          <div>
+            <div class="variant-name">บนพื้นมืด</div>
+            <div class="variant-meta">deck · keynote · poster</div>
+          </div>
+          <a class="variant-dl" href="logo.svg" download>↓</a>
+        </div>
       </div>
-    </div>
-    <div class="swatch">
-      <div class="swatch-color" style="background: #FAF6F0;"></div>
-      <div class="swatch-info">
-        <div class="swatch-name">Cream</div>
-        <div class="swatch-hex">#FAF6F0</div>
-        <div class="swatch-use">พื้นหลัง · soft white</div>
+
+      <div class="variant">
+        <span class="variant-fig">No. 05</span>
+        <div class="variant-display">
+          <svg viewBox="0 0 520 160">
+            <g transform="translate(20, 20) scale(0.6)"><g transform="rotate(-12 100 100)">
+              <ellipse cx="100" cy="100" rx="78" ry="56" fill="none" stroke="#2A1810" stroke-width="6"/>
+              <path d="M 30 110 L 56 78 L 76 100 L 100 60 L 124 95 L 148 75 L 170 110" stroke="#2A1810" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="100" cy="44" r="7" fill="#2A1810"/>
+            </g></g>
+            <text x="160" y="108" font-family="Fraunces,serif" font-size="76" font-weight="400" letter-spacing="-3" fill="#2A1810">DoiBean</text>
+          </svg>
+        </div>
+        <div class="variant-info">
+          <div>
+            <div class="variant-name">Monochrome</div>
+            <div class="variant-meta">stamp · ฉลาก · fax</div>
+          </div>
+          <a class="variant-dl" href="logo-mono.svg" download>↓</a>
+        </div>
       </div>
-    </div>
-    <div class="swatch">
-      <div class="swatch-color" style="background: #C66E4E;"></div>
-      <div class="swatch-info">
-        <div class="swatch-name">Terracotta</div>
-        <div class="swatch-hex">#C66E4E</div>
-        <div class="swatch-use">เตือน · จุดเด่นแสดงข้อมูลด้านลบ</div>
-      </div>
-    </div>
-    <div class="swatch">
-      <div class="swatch-color" style="background: #5C7A3F;"></div>
-      <div class="swatch-info">
-        <div class="swatch-name">Bean Green</div>
-        <div class="swatch-hex">#5C7A3F</div>
-        <div class="swatch-use">success · ข้อมูลเชิงบวก</div>
-      </div>
-    </div>
-    <div class="swatch">
-      <div class="swatch-color" style="background: #5A4D3F;"></div>
-      <div class="swatch-info">
-        <div class="swatch-name">Slate Mid</div>
-        <div class="swatch-hex">#5A4D3F</div>
-        <div class="swatch-use">ตัวหนังสือรอง · meta</div>
+
+      <div class="variant crema">
+        <span class="variant-fig">No. 06</span>
+        <div class="variant-display">
+          <svg viewBox="0 0 520 160">
+            <g transform="translate(20, 20) scale(0.6)"><g transform="rotate(-12 100 100)">
+              <ellipse cx="100" cy="100" rx="78" ry="56" fill="none" stroke="#2A1810" stroke-width="6"/>
+              <path d="M 30 110 L 56 78 L 76 100 L 100 60 L 124 95 L 148 75 L 170 110" stroke="#2A1810" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="100" cy="44" r="7" fill="#2A1810"/>
+            </g></g>
+            <text x="160" y="108" font-family="Fraunces,serif" font-size="76" font-weight="400" letter-spacing="-3" fill="#2A1810">DoiBean</text>
+          </svg>
+        </div>
+        <div class="variant-info">
+          <div>
+            <div class="variant-name">บนพื้นทอง</div>
+            <div class="variant-meta">accent banner · sticker</div>
+          </div>
+          <a class="variant-dl" href="logo-mono.svg" download>↓</a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============= TYPOGRAPHY ============= -->
-<section>
-  <p class="sec-num">SECTION 05</p>
-  <h2>Typography</h2>
-  <p class="sec-desc">Stack ฟอนต์ที่รองรับทั้งไทยและอังกฤษ · ทุกเครื่องเปิดได้</p>
+<!-- ━━━━━━━━━ IV &mdash; palette ━━━━━━━━━ -->
+<section class="section">
+  <div class="section-no">IV.</div>
+  <div class="section-body">
+    <div class="section-eyebrow">Pigments &mdash; Palette</div>
+    <h2 class="section-title">จานสี — แปดเฉด</h2>
+    <p class="section-lede">สีของเรามาจากดอย ดิน และเมล็ดที่ผ่านการคั่วแล้ว ไม่มีสีนีออน ไม่มี gradient ฟ้า-ม่วง — ใช้คงเส้นคงวาทุกจุดติดต่อ</p>
 
-  <div class="type-spec">
-    <div class="type-row">
-      <div class="type-label">Display · H1</div>
-      <div class="type-sample type-h1">DoiBean</div>
-      <div class="type-meta">76px / 800 / letter-spacing -2 / line-height 1</div>
-    </div>
-    <div class="type-row">
-      <div class="type-label">Heading · H2</div>
-      <div class="type-sample type-h2">เครื่องมือเปลี่ยนชีวิตชาวสวน</div>
-      <div class="type-meta">32px / 700 / letter-spacing -0.5</div>
-    </div>
-    <div class="type-row">
-      <div class="type-label">Body</div>
-      <div class="type-sample type-body">DoiBean คือ AI co-pilot สำหรับชาวสวนกาแฟไทย ดูแลทั้งวงจรตั้งแต่เลือกสายพันธุ์ปลูก จนถึง roaster ชิมแล้วซื้อ ทำให้รายได้เพิ่มขึ้น 18 เท่า</div>
-      <div class="type-meta">16px / 400 / line-height 1.6</div>
-    </div>
-    <div class="type-row">
-      <div class="type-label">Mono · Code</div>
-      <div class="type-sample type-mono">SCA Score: 84.5 · Specialty Grade ✓</div>
-      <div class="type-meta">"SF Mono" / Monaco / Cascadia Mono</div>
-    </div>
-    <div class="type-row">
-      <div class="type-label">Font Stack</div>
-      <div class="type-meta" style="color: var(--coffee-dark); font-size: 13px; line-height: 1.7;">
-        "Sukhumvit Set", "IBM Plex Sans Thai", "Noto Sans Thai",<br>
-        -apple-system, BlinkMacSystemFont, "Segoe UI",<br>
-        "Helvetica Neue", Arial, sans-serif
+    <div class="palette">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#2A1810" data-fig="01"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Espresso</div>
+          <div class="swatch-hex">#2A1810</div>
+          <div class="swatch-use">ตัวหนังสือหลัก พื้นหลังหรู</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#5D3A1F" data-fig="02"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Coffee Mid</div>
+          <div class="swatch-hex">#5D3A1F</div>
+          <div class="swatch-use">accent คู่ gradient</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#C8A268" data-fig="03"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Crema</div>
+          <div class="swatch-hex">#C8A268</div>
+          <div class="swatch-use">brand accent · highlight</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#E5C896" data-fig="04"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Crema Light</div>
+          <div class="swatch-hex">#E5C896</div>
+          <div class="swatch-use">gradient คู่กับ Crema</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#F4EFE6" data-fig="05"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Bone</div>
+          <div class="swatch-hex">#F4EFE6</div>
+          <div class="swatch-use">พื้นหลังหลัก soft white</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#B8543A" data-fig="06"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Brick</div>
+          <div class="swatch-hex">#B8543A</div>
+          <div class="swatch-use">accent · ตัวเลขเด่น · เตือน</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#5C6B3F" data-fig="07"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Moss</div>
+          <div class="swatch-hex">#5C6B3F</div>
+          <div class="swatch-use">success · ข้อมูลเชิงบวก</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#5A4D3F" data-fig="08"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Slate</div>
+          <div class="swatch-hex">#5A4D3F</div>
+          <div class="swatch-use">ตัวหนังสือรอง · meta</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============= USAGE ============= -->
-<section>
-  <p class="sec-num">SECTION 06</p>
-  <h2>การใช้งาน</h2>
-  <p class="sec-desc">หลักการพื้นฐาน · เพื่อรักษาความสง่าและจดจำได้</p>
+<!-- ━━━━━━━━━ V &mdash; typography ━━━━━━━━━ -->
+<section class="section">
+  <div class="section-no">V.</div>
+  <div class="section-body">
+    <div class="section-eyebrow">Voice &mdash; Typography</div>
+    <h2 class="section-title">ฟอนต์ <em style="font-style:italic;color:var(--brick);font-variation-settings:'opsz' 144,'SOFT' 100,'WONK' 1">เสียง</em>ของแบรนด์</h2>
+    <p class="section-lede">Fraunces (variable serif) สำหรับภาษาอังกฤษ Noto Serif Thai สำหรับภาษาไทย ผสมกันได้อย่างกลมกลืน — ตัวเอียงคือเสียงเน้น ไม่ใช่การประดับ</p>
 
-  <div class="usage">
-    <div class="usage-card do">
-      <div class="usage-tag">✓ ทำได้</div>
-      <ul>
-        <li>เว้น clear space รอบโลโก้อย่างน้อย <strong>เท่ากับความสูงของตัว "B"</strong></li>
-        <li>ใช้บนพื้นหลังที่ contrast ชัด (ขาว, ครีม, coffee dark, ทอง)</li>
-        <li>ใช้ SVG เพื่อรักษาความคมชัดทุกขนาด</li>
-        <li>โลโก้ขนาดเล็กสุดที่อ่านได้: <strong>32px (icon)</strong> · <strong>120px (horizontal)</strong></li>
-        <li>มืดบนสว่าง · สว่างบนมืด · ทอง accent จุดเดียว</li>
-      </ul>
+    <div class="type-spec">
+      <div class="type-row">
+        <div class="type-tag">Display<span>cover · hero</span></div>
+        <div class="type-sample type-display">Doi<em>Bean</em></div>
+        <div class="type-meta"><b>Fraunces 300</b> &middot; opsz 144 &middot; soft 30 &middot; tracking &minus;0.04em &middot; line 0.95</div>
+      </div>
+      <div class="type-row">
+        <div class="type-label-stub"></div>
+        <div class="type-tag" style="grid-column:1">Heading 1<span>section title</span></div>
+        <div class="type-sample type-h1">เครื่องมือเปลี่ยนชีวิตชาวสวน</div>
+        <div class="type-meta"><b>Fraunces 400</b> &middot; opsz 96 &middot; tracking &minus;0.02em &middot; line 1.05</div>
+      </div>
+      <div class="type-row">
+        <div class="type-tag">Heading 2<span>subsection</span></div>
+        <div class="type-sample type-h2">ห้าโมเสก เก้าหมวด</div>
+        <div class="type-meta"><b>Fraunces 500</b> &middot; opsz 36 &middot; tracking &minus;0.01em &middot; line 1.15</div>
+      </div>
+      <div class="type-row">
+        <div class="type-tag">Body<span>reading</span></div>
+        <div class="type-sample type-body">DoiBean คือ AI co-pilot สำหรับชาวสวนกาแฟดอยช้าง — ดูแลทั้งวงจรตั้งแต่การเลือกสายพันธุ์ปลูก จนถึงโรงคั่วในเบอร์ลินที่ชิมแล้วซื้อ ขายตรง รายได้ขึ้น 18 เท่า</div>
+        <div class="type-meta"><b>Fraunces 400</b> &middot; opsz 14 &middot; line 1.65 &middot; max-width 48ch</div>
+      </div>
+      <div class="type-row">
+        <div class="type-tag">Mono<span>figures · code</span></div>
+        <div class="type-sample type-mono">SCA Score 84.5 &middot; Specialty Grade ✓ &middot; ฿1,800/kg</div>
+        <div class="type-meta"><b>JetBrains Mono</b> &middot; tabular nums &middot; for prices &middot; SKUs &middot; refs</div>
+      </div>
+      <div class="type-row">
+        <div class="type-tag">Stack</div>
+        <div class="type-sample" style="font-family:var(--mono);font-size:13px;line-height:1.7;color:var(--espresso)">"Fraunces", "Noto Serif Thai",<br>"Noto Sans Thai", ui-serif, Georgia, serif</div>
+        <div class="type-meta">Variable axes: <b>opsz 9–144</b> &middot; <b>SOFT 30–100</b> &middot; <b>WONK 0–1</b></div>
+      </div>
     </div>
-    <div class="usage-card dont">
-      <div class="usage-tag">✗ อย่าทำ</div>
-      <ul>
-        <li><strong>อย่าบีบ ยืด หมุน</strong> โลโก้ — รักษาสัดส่วนเดิม</li>
-        <li><strong>อย่าเปลี่ยนสี</strong> ไปเป็นสีอื่นนอก palette</li>
-        <li><strong>อย่าใส่เงา ขอบเรือง</strong> หรือ effect บน wordmark</li>
-        <li><strong>อย่าวางบนพื้นยุ่ง</strong> หรือพื้นที่ contrast ต่ำ</li>
-        <li><strong>อย่าแยกไอคอนกับชื่อ</strong> ในระยะใกล้กัน — ใช้ stacked แทน</li>
-      </ul>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━ VI &mdash; rules ━━━━━━━━━ -->
+<section class="section">
+  <div class="section-no">VI.</div>
+  <div class="section-body">
+    <div class="section-eyebrow">Mores &mdash; House Rules</div>
+    <h2 class="section-title">การใช้งาน</h2>
+    <p class="section-lede">หลักพื้นฐานเพื่อรักษาความสง่าและจดจำของแบรนด์ — กฎสั้น ความยืดหยุ่นยาว</p>
+
+    <div class="rules">
+      <div class="rule">
+        <div class="rule-tag">Comportment &mdash; ทำได้</div>
+        <ol>
+          <li>เว้น <strong>clear space</strong> รอบโลโก้อย่างน้อยเท่ากับความสูงของตัวอักษร <em>"B"</em></li>
+          <li>ใช้บนพื้นหลังที่มี contrast ชัด — ขาว ครีม espresso หรือทอง เท่านั้น</li>
+          <li>ใช้ไฟล์ <strong>SVG</strong> เพื่อรักษาความคมชัดทุกขนาด</li>
+          <li>โลโก้เล็กสุดที่อ่านได้ — <em>32px</em> สำหรับ icon และ <em>120px</em> สำหรับแนวนอน</li>
+          <li>มืดบนสว่าง สว่างบนมืด — และทอง <strong>accent จุดเดียว</strong></li>
+        </ol>
+      </div>
+      <div class="rule dont">
+        <div class="rule-tag">Faux pas &mdash; ห้าม</div>
+        <ol>
+          <li>อย่า <strong>บีบ ยืด หมุน</strong> โลโก้ — รักษาสัดส่วนเดิมเสมอ</li>
+          <li>อย่า <strong>เปลี่ยนสี</strong> ไปนอก palette ทั้งแปดเฉด</li>
+          <li>อย่าใส่ <strong>เงา ขอบเรือง หรือ effect</strong> บน wordmark</li>
+          <li>อย่าวางบน <em>พื้นที่ยุ่ง</em> หรือพื้นที่ contrast ต่ำ</li>
+          <li>อย่า <strong>แยกไอคอน</strong> ออกจากชื่อในระยะใกล้ — ใช้ <em>stacked</em> แทน</li>
+        </ol>
+      </div>
     </div>
   </div>
 </section>
 
 <footer>
   <div>
-    <strong style="color: var(--coffee-dark);">DoiBean Brand v1.0</strong> · <a href="index.html">EN report</a> · <a href="index-th.html">รายงานไทย</a> · <a href="pitch-th.html">Pitch deck</a>
+    <div class="colophon">
+      Standards Manual &mdash; <em>fascicle iv</em><br>
+      Set in Fraunces and Noto Serif Thai. Printed in pixels, May 2026.
+    </div>
   </div>
-  <div>
-    Live: <a href="https://moysed.github.io/doibean-deep-dive/">moysed.github.io/doibean-deep-dive</a>
+  <div style="text-align:right">
+    <div style="margin-bottom:8px"><a href="index.html">EN report</a> &middot; <a href="index-th.html">รายงานไทย</a> &middot; <a href="pitch-th.html">Pitch deck</a></div>
+    <div style="font-style:normal">DoiBean Vol. 01 &middot; <span class="end-mark">&hairsp;∎&hairsp;</span></div>
   </div>
 </footer>
 

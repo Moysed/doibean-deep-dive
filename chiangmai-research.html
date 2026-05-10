@@ -3,1301 +3,1134 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chiang Mai — Pain Points × Hackathon Categories</title>
+<title>Field Notes — Chiang Mai · DoiBean Vol. 01 / V</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,30..100,0..1;1,9..144,300..900,30..100,0..1&family=Noto+Sans+Thai:wght@400;500;600;700&family=Noto+Serif+Thai:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
 <style>
-  :root {
-    --coffee-dark: #2C1810;
-    --coffee-mid: #5D3A1F;
-    --coffee-light: #8B6F47;
-    --cream: #FAF6F0;
-    --cream-dark: #F0E6D2;
-    --bean-green: #5C7A3F;
-    --terracotta: #C66E4E;
-    --gold: #C9A96E;
-    --gold-bright: #E5C896;
-    --slate: #2C2416;
-    --slate-mid: #5A4D3F;
-    --border: #D4C5A9;
-    /* Category accents */
-    --agri: #5C7A3F;
-    --enterprise: #C9A96E;
-    --manuf: #6B5B4D;
-    --tourism: #C66E4E;
-    --health: #B23A48;
-    --edu: #4A6FA5;
-    --gov: #6B4E8B;
-    --city: #2C7873;
-    --other: #8B6F47;
+  :root{
+    --bone:#F4EFE6;--paper:#FBF7EE;--espresso:#2A1810;--ink:#1A0F08;
+    --crema:#C8A268;--crema-dim:#A88C4F;--crema-light:#E5C896;
+    --brick:#B8543A;--moss:#5C6B3F;--stone:#C9C0B0;--stone-soft:#E4DDCB;--slate:#5A4D3F;
+    --serif:"Fraunces",ui-serif,Georgia,serif;
+    --serif-th:"Noto Serif Thai","Fraunces",ui-serif,serif;
+    --sans-th:"Noto Sans Thai",ui-sans-serif,system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+    --gutter:clamp(20px,3.5vw,56px);--col:62ch;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: "Sukhumvit Set", "IBM Plex Sans Thai", "Noto Sans Thai", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-    line-height: 1.75;
-    color: var(--slate);
-    background: var(--cream);
-    font-size: 16px;
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--serif-th);font-feature-settings:"kern","liga","onum","pnum","ss01";
+    font-variation-settings:"opsz" 14,"SOFT" 50,"WONK" 0;
+    background:var(--bone);color:var(--espresso);
+    font-size:clamp(15px,1.05vw,17px);line-height:1.7;
+    text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;
   }
-  .layout {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-  nav.toc {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow-y: auto;
-    padding: 28px 16px;
-    background: var(--coffee-dark);
-    color: var(--cream);
-    font-size: 12.5px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--coffee-light) transparent;
-  }
-  nav.toc::-webkit-scrollbar { width: 4px; }
-  nav.toc::-webkit-scrollbar-thumb { background: var(--coffee-light); border-radius: 2px; }
-  nav.toc h2 {
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 2.5px;
-    color: var(--gold);
-    margin-bottom: 14px;
-    padding: 0 10px;
-    font-weight: 700;
-  }
-  nav.toc ol { list-style: none; counter-reset: section; }
-  nav.toc li { counter-increment: section; margin: 1px 0; }
-  nav.toc a {
-    color: rgba(240, 230, 210, 0.72);
-    text-decoration: none;
-    display: block;
-    padding: 8px 12px 8px 10px;
-    border-radius: 6px;
-    transition: all 0.15s;
-    border-left: 2px solid transparent;
-    line-height: 1.4;
-  }
-  nav.toc a:hover {
-    background: rgba(255,255,255,0.04);
-    color: white;
-  }
-  nav.toc a.active {
-    background: rgba(201, 169, 110, 0.12);
-    border-left-color: var(--gold);
-    color: white;
-  }
-  nav.toc a::before {
-    content: counter(section, decimal-leading-zero);
-    color: rgba(139, 111, 71, 0.7);
-    margin-right: 12px;
-    font-size: 10px;
-    font-variant-numeric: tabular-nums;
-  }
-  nav.toc a.special {
-    background: rgba(201, 169, 110, 0.08);
-    color: var(--gold);
-    font-weight: 600;
-  }
-  main {
-    padding: 60px 80px;
-    max-width: 1080px;
+  ::selection{background:var(--espresso);color:var(--bone)}
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(circle at 30% 20%,rgba(200,162,104,0.04),transparent 60%),radial-gradient(circle at 80% 70%,rgba(184,84,58,0.03),transparent 50%);
   }
 
-  header.hero {
-    margin-bottom: 60px;
-    padding-bottom: 40px;
-    border-bottom: 3px solid var(--coffee-dark);
-  }
-  .eyebrow {
-    font-size: 11px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 700;
-    margin-bottom: 16px;
-  }
-  h1 {
-    font-size: 56px;
-    font-weight: 800;
-    line-height: 1.05;
-    letter-spacing: -1.5px;
-    color: var(--coffee-dark);
-    margin-bottom: 20px;
-  }
-  .tagline {
-    font-size: 22px;
-    color: var(--slate-mid);
-    line-height: 1.5;
-    max-width: 760px;
-  }
-  .meta {
-    margin-top: 24px;
-    display: flex;
-    gap: 24px;
-    font-size: 13px;
-    color: var(--slate-mid);
-    flex-wrap: wrap;
-  }
-  .meta strong { color: var(--coffee-dark); }
+  /* folio */
+  .folio{position:fixed;top:0;left:0;right:0;z-index:50;display:grid;
+    grid-template-columns:1fr auto 1fr;align-items:baseline;
+    padding:14px clamp(20px,3vw,40px) 12px;
+    background:linear-gradient(to bottom,var(--bone) 0%,var(--bone) 70%,rgba(244,239,230,0));
+    font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--slate)}
+  .folio-l{justify-self:start}.folio-c{justify-self:center;color:var(--espresso);font-weight:500}
+  .folio-r{justify-self:end;display:flex;gap:18px;align-items:baseline}
+  .folio-r a,.folio-r button{color:var(--slate);text-decoration:none;font:inherit;
+    font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
+    background:none;border:none;border-bottom:1px solid transparent;padding:0 0 1px;cursor:pointer;transition:color .2s,border-color .2s}
+  .folio-r a:hover,.folio-r button:hover{color:var(--espresso);border-bottom-color:var(--crema)}
+  .folio-divider{position:fixed;top:46px;left:0;right:0;height:1px;background:var(--stone);z-index:49}
 
-  /* Sections */
-  section {
-    margin-bottom: 72px;
-    scroll-margin-top: 20px;
-  }
-  main section[id] {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 1400px;
-  }
-  h2 {
-    font-size: 36px;
-    font-weight: 800;
-    color: var(--coffee-dark);
-    letter-spacing: -0.5px;
-    line-height: 1.2;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 8px;
-  }
-  h2 .icon {
-    font-size: 40px;
-    line-height: 1;
-  }
-  h2 .num {
-    color: var(--gold);
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    display: block;
-    margin-bottom: 4px;
-  }
-  .cat-th {
-    font-size: 15px;
-    color: var(--slate-mid);
-    margin-bottom: 24px;
-    margin-left: 56px;
-  }
-  h3 {
-    font-size: 18px;
-    color: var(--coffee-dark);
-    margin: 28px 0 12px;
-    font-weight: 700;
-    padding-bottom: 6px;
-    border-bottom: 2px solid var(--cream-dark);
-    letter-spacing: -0.2px;
-  }
+  /* index drawer */
+  .idx-overlay{position:fixed;inset:0;background:rgba(26,15,8,.4);z-index:200;display:none;backdrop-filter:blur(2px)}
+  .idx-overlay.show{display:block}
+  .idx-panel{position:absolute;top:0;right:0;bottom:0;width:min(440px,90vw);
+    background:var(--paper);border-left:1px solid var(--stone);padding:80px 40px 40px;overflow-y:auto}
+  .idx-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--slate);margin-bottom:8px}
+  .idx-title{font-size:34px;font-weight:300;letter-spacing:-.02em;line-height:1.1;margin-bottom:32px;font-family:var(--serif-th);font-variation-settings:"opsz" 144}
+  .idx-list{list-style:none;border-top:1px solid var(--stone)}
+  .idx-list li{border-bottom:1px solid var(--stone)}
+  .idx-list a{display:grid;grid-template-columns:auto 1fr;gap:20px;padding:18px 0;text-decoration:none;align-items:baseline;transition:padding .2s}
+  .idx-list a:hover{padding-left:8px}
+  .idx-num{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--crema-dim)}
+  .idx-name{font-size:20px;font-weight:400;color:var(--espresso);font-family:var(--serif-th);font-variation-settings:"opsz" 36}
+  .idx-meta{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);margin-top:4px}
+  .idx-list a.current .idx-name{font-style:italic;font-variation-settings:"opsz" 36,"SOFT" 100}
+  .idx-list a.current .idx-num{color:var(--brick)}
 
-  p { margin-bottom: 14px; }
-  ul, ol { margin-left: 22px; margin-bottom: 16px; }
-  li { margin-bottom: 8px; }
-  strong { color: var(--coffee-dark); font-weight: 700; }
-  em { color: var(--coffee-mid); font-style: normal; font-weight: 600; background: #FFF8E7; padding: 1px 5px; border-radius: 3px; }
+  /* shell */
+  main{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:120px var(--gutter) 160px}
 
-  /* Stat grid for impact */
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
-    margin: 16px 0 20px;
-  }
-  .stat-card {
-    background: white;
-    padding: 16px 18px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    border-left: 5px solid var(--gold);
-  }
-  .stat-num {
-    font-size: 28px;
-    font-weight: 900;
-    color: var(--coffee-dark);
-    line-height: 1;
-    letter-spacing: -1px;
-    font-variant-numeric: tabular-nums;
-  }
-  .stat-label {
-    font-size: 12px;
-    color: var(--slate-mid);
-    margin-top: 6px;
-    line-height: 1.4;
-  }
+  /* cover */
+  .cover{display:grid;gap:48px;padding-bottom:64px;margin-bottom:96px;border-bottom:1px solid var(--stone)}
+  .cover-meta{display:flex;justify-content:space-between;align-items:baseline;
+    font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--slate);
+    padding-bottom:24px;border-bottom:1px solid var(--stone);flex-wrap:wrap;gap:12px}
+  .cover-meta b{color:var(--espresso);font-weight:500}
+  .cover-eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--brick);font-weight:500}
+  .cover-title{font-family:var(--serif);font-size:clamp(64px,11vw,180px);font-weight:300;letter-spacing:-.04em;line-height:.9;
+    font-variation-settings:"opsz" 144,"SOFT" 30;margin-top:24px}
+  .cover-title .it{font-style:italic;font-variation-settings:"opsz" 144,"SOFT" 100,"WONK" 1;color:var(--brick)}
+  .cover-sub{font-size:clamp(20px,2.2vw,30px);font-weight:400;line-height:1.5;color:var(--slate);max-width:36ch;margin-top:32px}
+  .cover-foot{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;padding-top:32px;margin-top:24px;
+    border-top:1px solid var(--stone);font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--slate)}
+  .cover-foot dt{color:var(--espresso);font-weight:500;margin-bottom:6px}
+  .cover-foot dd{font-family:var(--serif-th);font-size:15px;letter-spacing:0;text-transform:none;color:var(--espresso);font-weight:400;line-height:1.55}
 
-  /* User voice quotes */
-  .quote-block {
-    background: linear-gradient(135deg, var(--cream-dark), white);
-    border-left: 5px solid var(--coffee-mid);
-    padding: 20px 24px 20px 28px;
-    border-radius: 10px;
-    margin: 16px 0;
-    position: relative;
-  }
-  .quote-block::before {
-    content: '"';
-    position: absolute;
-    top: 8px;
-    left: 12px;
-    font-size: 36px;
-    color: var(--gold);
-    font-family: Georgia, serif;
-    line-height: 1;
-    opacity: 0.5;
-  }
-  .quote-text {
-    font-size: 15px;
-    color: var(--slate);
-    line-height: 1.65;
-    font-style: italic;
-    padding-left: 20px;
-  }
-  .quote-attr {
-    font-size: 12px;
-    color: var(--coffee-mid);
-    margin-top: 8px;
-    padding-left: 20px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-weight: 700;
-  }
+  /* TOC */
+  .toc{display:grid;grid-template-columns:80px 1fr;gap:clamp(24px,4vw,72px);margin-bottom:120px;align-items:start}
+  .toc-no{font-family:var(--serif);font-size:36px;font-weight:300;font-style:italic;color:var(--brick);line-height:1;font-variation-settings:"opsz" 36,"SOFT" 100;padding-top:8px}
+  .toc-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);margin-bottom:16px}
+  .toc-title{font-size:clamp(38px,5vw,68px);font-weight:300;letter-spacing:-.025em;line-height:1.05;margin-bottom:48px;font-variation-settings:"opsz" 144,"SOFT" 50}
+  .toc-title em{font-family:var(--serif);font-style:italic;color:var(--brick);font-variation-settings:"opsz" 144,"SOFT" 100,"WONK" 1}
+  .toc-list{list-style:none;border-top:1px solid var(--stone);max-width:760px}
+  .toc-list li{border-bottom:1px solid var(--stone-soft)}
+  .toc-list a{display:grid;grid-template-columns:48px 1fr auto;gap:24px;padding:14px 0;text-decoration:none;color:var(--espresso);align-items:baseline;transition:padding .2s,color .2s}
+  .toc-list a:hover{padding-left:6px;color:var(--brick)}
+  .toc-list .toc-i{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--brick)}
+  .toc-list .toc-t{font-size:18px;font-weight:400}
+  .toc-list .toc-p{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--slate)}
 
-  /* Solution chips */
-  .solutions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 8px;
-  }
-  .chip {
-    background: var(--coffee-dark);
-    color: var(--gold);
-    padding: 6px 14px;
-    border-radius: 100px;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-  }
-  .chip.star { background: var(--gold); color: var(--coffee-dark); }
-  .chip.star::before { content: "★ "; }
+  /* section */
+  .section{margin-bottom:128px;display:grid;grid-template-columns:80px 1fr;gap:clamp(24px,4vw,72px);align-items:start}
+  .section-no{font-family:var(--serif);font-size:36px;font-weight:300;font-style:italic;color:var(--brick);line-height:1;font-variation-settings:"opsz" 36,"SOFT" 100;padding-top:12px;position:sticky;top:80px}
+  .section-body{min-width:0}
+  .section-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);margin-bottom:16px}
+  .section-title{font-size:clamp(36px,5vw,60px);font-weight:300;letter-spacing:-.02em;line-height:1.1;margin-bottom:24px;max-width:22ch;font-variation-settings:"opsz" 144,"SOFT" 50}
+  .section-title em{font-family:var(--serif);font-style:italic;color:var(--brick);font-variation-settings:"opsz" 144,"SOFT" 100,"WONK" 1}
+  .section-lede{font-size:clamp(18px,1.5vw,22px);font-weight:400;line-height:1.6;color:var(--slate);max-width:54ch;margin-bottom:48px}
+  .section-body p{max-width:var(--col);margin-bottom:1em;font-size:17px;line-height:1.75}
+  .section-body h3{font-family:var(--serif-th);font-size:clamp(20px,1.7vw,26px);font-weight:500;letter-spacing:-.005em;line-height:1.3;margin:48px 0 16px;font-variation-settings:"opsz" 36;max-width:30ch}
+  .section-body h3 em{font-family:var(--serif);font-style:italic;color:var(--brick);font-variation-settings:"opsz" 36,"SOFT" 100,"WONK" 1}
+  .section-body h3::before{content:attr(data-fig);font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--crema-dim);display:block;margin-bottom:6px;font-weight:500}
+  .section-body ul{list-style:none;margin:16px 0 24px;max-width:var(--col)}
+  .section-body ul li{padding:12px 0 12px 28px;border-bottom:1px solid var(--stone-soft);font-size:16px;line-height:1.7;position:relative}
+  .section-body ul li::before{content:"—";position:absolute;left:0;color:var(--crema-dim)}
+  .section-body strong{font-weight:600;color:var(--espresso)}
+  .section-body em{font-family:var(--serif);font-style:italic;color:var(--brick);font-variation-settings:"opsz" 14,"SOFT" 100,"WONK" 1;background:none;padding:0}
+  .section-body mark{background:linear-gradient(transparent 60%,rgba(200,162,104,.4) 60%);padding:0 2px}
 
-  /* Category badge color override */
-  section[data-cat] h2 .icon { color: inherit; }
-  section[data-cat="agri"] .stat-card { border-left-color: var(--agri); }
-  section[data-cat="enterprise"] .stat-card { border-left-color: var(--enterprise); }
-  section[data-cat="manuf"] .stat-card { border-left-color: var(--manuf); }
-  section[data-cat="tourism"] .stat-card { border-left-color: var(--tourism); }
-  section[data-cat="health"] .stat-card { border-left-color: var(--health); }
-  section[data-cat="edu"] .stat-card { border-left-color: var(--edu); }
-  section[data-cat="gov"] .stat-card { border-left-color: var(--gov); }
-  section[data-cat="city"] .stat-card { border-left-color: var(--city); }
-  section[data-cat="other"] .stat-card { border-left-color: var(--other); }
+  .ornament{margin:64px auto 0;text-align:center;color:var(--crema);font-family:var(--serif);letter-spacing:.5em;font-size:14px;user-select:none}
 
-  /* TL;DR mega box */
-  .tldr {
-    background: linear-gradient(135deg, var(--coffee-dark), var(--coffee-mid));
-    color: var(--cream);
-    padding: 36px 40px;
-    border-radius: 16px;
-    margin-bottom: 60px;
-    box-shadow: 0 8px 24px rgba(44, 24, 16, 0.2);
-  }
-  .tldr h2 {
-    color: var(--gold);
-    margin-bottom: 8px;
-    font-size: 28px;
-  }
-  .tldr h2 .num { color: var(--cream-dark); }
-  .tldr-intro {
-    color: var(--cream-dark);
-    font-size: 16px;
-    line-height: 1.6;
-    margin-bottom: 24px;
-    max-width: 720px;
-  }
-  .themes {
-    display: grid;
-    gap: 16px;
-  }
-  .theme {
-    background: rgba(255,255,255,0.06);
-    padding: 20px 24px;
-    border-radius: 12px;
-    border-left: 5px solid var(--gold);
-  }
-  .theme-tag {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 100px;
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-weight: 800;
-    margin-bottom: 8px;
-  }
-  .theme-tag.red { background: var(--terracotta); color: white; }
-  .theme-tag.orange { background: var(--gold); color: var(--coffee-dark); }
-  .theme-tag.green { background: var(--bean-green); color: white; }
-  .theme-title {
-    font-size: 19px;
-    font-weight: 800;
-    color: white;
-    margin-bottom: 8px;
-    letter-spacing: -0.3px;
-  }
-  .theme-desc {
-    font-size: 14px;
-    color: var(--cream-dark);
-    line-height: 1.6;
-  }
-  .theme-desc b { color: var(--gold); }
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--stone);border:1px solid var(--stone);margin:32px 0 48px}
+  .stat{background:var(--paper);padding:32px 28px 28px;display:flex;flex-direction:column;gap:10px;min-height:220px;position:relative}
+  .stat::before{content:attr(data-fig);position:absolute;top:14px;right:18px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--crema-dim)}
+  .stat-value{font-family:var(--serif);font-size:clamp(48px,5.4vw,80px);font-weight:300;letter-spacing:-.04em;line-height:.95;color:var(--brick);font-variation-settings:"opsz" 144,"SOFT" 30;margin-bottom:0}
+  .stat-label{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--espresso);font-weight:500}
+  .stat-context{font-size:13.5px;color:var(--slate);line-height:1.6;font-family:var(--serif-th)}
 
-  /* Summary matrix table */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 16px 0;
-    font-size: 13.5px;
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  /* pull quote */
+  .pull{
+    font-family:var(--serif-th);
+    font-size:clamp(24px,2.6vw,36px);font-weight:300;line-height:1.4;color:var(--espresso);
+    font-variation-settings:"opsz" 96,"SOFT" 50;letter-spacing:-.01em;
+    max-width:28ch;margin:48px 0;padding:32px 0 32px 32px;
+    border-left:1px solid var(--brick);
   }
-  thead { background: var(--coffee-dark); color: var(--cream); }
-  th {
-    text-align: left;
-    padding: 12px 14px;
-    font-weight: 700;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-  }
-  td {
-    padding: 14px;
-    border-bottom: 1px solid var(--cream-dark);
-    vertical-align: top;
-    line-height: 1.6;
-  }
-  tr:last-child td { border-bottom: none; }
-  tr:hover td { background: var(--cream); }
+  .pull em{font-family:var(--serif);font-style:italic;color:var(--brick);font-variation-settings:"opsz" 96,"SOFT" 100,"WONK" 1}
+  .pull-attribution{display:block;margin-top:14px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--slate);font-weight:500}
 
-  /* How to use box */
-  .howto {
-    background: var(--bg-callout-money, #F5EEDF);
-    border-radius: 12px;
-    padding: 28px 32px;
-    margin: 24px 0;
-    border-left: 5px solid var(--gold);
+  /* note (user voice) */
+  .note{
+    background:var(--paper);border:1px solid var(--stone);padding:28px 32px;margin:24px 0;max-width:760px;
+    position:relative;
   }
-  .howto h3 {
-    border: none;
-    padding: 0;
-    margin-bottom: 12px;
-    color: var(--coffee-dark);
+  .note-tag{font-family:var(--mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);font-weight:500;margin-bottom:12px}
+  .note p{font-size:16px;line-height:1.7;margin:0;font-family:var(--serif-th)}
+  .note p.quote{font-style:italic;font-family:var(--serif);font-variation-settings:"opsz" 36,"SOFT" 100;font-size:17px;line-height:1.55}
+  .note p.gloss{margin-top:10px;font-size:14px;color:var(--slate);font-style:normal}
+  .note.thesis{background:var(--ink);color:var(--bone);border-color:var(--ink)}
+  .note.thesis .note-tag{color:var(--crema)}
+  .note.thesis p{color:var(--stone-soft)}
+  .note.thesis strong{color:var(--crema)}
+  .note.thesis em{color:var(--crema-light)}
+
+  /* solutions list (chips, but editorial — not pills) */
+  .solutions{margin:16px 0 8px;border-top:1px solid var(--stone);max-width:var(--col)}
+  .solutions li{display:grid;grid-template-columns:24px 1fr;gap:14px;padding:12px 0 12px 0;border-bottom:1px solid var(--stone-soft);align-items:baseline;font-size:16px;line-height:1.6;list-style:none;position:relative}
+  .solutions li::before{content:"·";position:absolute;left:8px;color:var(--crema-dim);font-weight:700;font-size:18px;line-height:1}
+  .solutions li.star::before{content:"★";color:var(--brick);font-size:14px;left:6px}
+  .solutions li.star{font-weight:500}
+  .solutions li.star strong{color:var(--brick)}
+  .sol-name{font-family:var(--serif-th);font-weight:500;color:var(--espresso)}
+  .sol-tail{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);margin-left:8px}
+
+  /* hero treatment for AgriTech / DoiBean */
+  .hero-strip{
+    background:var(--ink);color:var(--bone);padding:36px 40px;margin:32px 0 32px;
+    display:grid;grid-template-columns:1fr;gap:18px;border-left:3px solid var(--brick)
+  }
+  @media (min-width:880px){.hero-strip{grid-template-columns:1fr auto;align-items:center}}
+  .hero-strip .hs-tag{font-family:var(--mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--crema);font-weight:500;margin-bottom:8px}
+  .hero-strip .hs-text{font-family:var(--serif-th);font-size:18px;line-height:1.55;color:var(--stone-soft);max-width:54ch}
+  .hero-strip .hs-text em{font-family:var(--serif);font-style:italic;color:var(--crema-light);font-variation-settings:"opsz" 36,"SOFT" 100,"WONK" 1}
+  .hero-strip a.hs-cta{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--bone);text-decoration:none;border:1px solid var(--crema);padding:14px 20px;display:inline-block;transition:background .2s,color .2s;white-space:nowrap}
+  .hero-strip a.hs-cta:hover{background:var(--crema);color:var(--ink)}
+
+  /* tables */
+  .data-table{width:100%;border-collapse:collapse;margin:32px 0 24px;font-size:14px;font-family:var(--serif-th)}
+  .data-table th{text-align:left;padding:14px 16px 12px;border-bottom:1.5px solid var(--espresso);font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--espresso);font-weight:500;background:transparent}
+  .data-table td{padding:18px 16px;border-bottom:1px solid var(--stone-soft);vertical-align:top;line-height:1.6}
+  .data-table tr:last-child td{border-bottom:1px solid var(--stone)}
+  .data-table .num{font-family:var(--mono);font-size:13px;letter-spacing:.04em;color:var(--brick);font-weight:500;white-space:nowrap}
+  .data-table .row-highlight{background:linear-gradient(90deg,rgba(200,162,104,.12),transparent 80%)}
+  .data-table .row-highlight td{font-weight:500}
+  .data-table strong{font-weight:500;color:var(--espresso)}
+  .data-table em{font-family:var(--serif);font-style:italic;color:var(--brick);font-variation-settings:"opsz" 14,"SOFT" 100,"WONK" 1}
+  .data-table .cat-icon{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--crema-dim);display:block;margin-bottom:4px}
+
+  /* themes — three pre-flight observations */
+  .themes{margin:32px 0 48px;border-top:1.5px solid var(--espresso)}
+  .theme{padding:32px 0;border-bottom:1px solid var(--stone);display:grid;grid-template-columns:60px 1fr;gap:32px;align-items:start}
+  @media (max-width:680px){.theme{grid-template-columns:1fr;gap:12px}}
+  .theme-no{font-family:var(--serif);font-size:36px;font-weight:300;font-style:italic;color:var(--brick);line-height:1;font-variation-settings:"opsz" 96,"SOFT" 100}
+  .theme-tag{font-family:var(--mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);font-weight:500;margin-bottom:8px}
+  .theme-title{font-size:24px;font-weight:500;color:var(--espresso);margin-bottom:10px;line-height:1.3;font-variation-settings:"opsz" 36;font-family:var(--serif-th)}
+  .theme-body{font-size:15px;line-height:1.7;color:var(--slate);max-width:60ch;font-family:var(--serif-th)}
+  .theme-body strong{color:var(--espresso);font-weight:500}
+  .theme-body em{font-family:var(--serif);font-style:italic;color:var(--brick);font-variation-settings:"opsz" 14,"SOFT" 100,"WONK" 1}
+
+  /* category glyph in section eyebrow */
+  .section-eyebrow .gly{display:inline-block;margin-right:10px;color:var(--crema-dim);font-family:var(--mono)}
+
+  /* citations */
+  .citations{font-family:var(--mono);font-size:12px;line-height:1.85;color:var(--slate);columns:2;column-gap:48px;column-rule:1px solid var(--stone-soft);margin-top:32px}
+  @media (max-width:680px){.citations{columns:1}}
+  .citations a{color:var(--espresso);text-decoration:none;border-bottom:1px solid var(--crema);padding-bottom:1px;display:inline-block;margin-bottom:6px}
+  .citations a:hover{border-bottom-color:var(--brick);color:var(--brick)}
+
+  /* footer */
+  footer{margin-top:120px;padding-top:32px;border-top:1px solid var(--stone);
+    display:grid;grid-template-columns:1fr 1fr;gap:32px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--slate);align-items:end}
+  footer .colophon{font-family:var(--serif-th);font-size:14px;letter-spacing:0;text-transform:none;color:var(--espresso);font-style:italic;line-height:1.6;font-variation-settings:"opsz" 14,"SOFT" 100}
+  footer .colophon em{font-family:var(--serif);color:var(--brick)}
+  footer a{color:var(--espresso);text-decoration:none;border-bottom:1px solid var(--crema);padding-bottom:1px}
+  footer a:hover{border-bottom-color:var(--brick)}
+  footer .end{font-family:var(--serif);font-size:18px;color:var(--brick);font-style:italic}
+
+  @media (max-width:760px){
+    .section,.toc{grid-template-columns:1fr;gap:16px}
+    .section-no,.toc-no{position:static;font-size:24px}
+    .cover-foot{grid-template-columns:1fr 1fr}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .stat{min-height:180px}
+    footer{grid-template-columns:1fr}
   }
 
-  /* Footer */
-  footer {
-    margin-top: 80px;
-    padding-top: 40px;
-    border-top: 1px solid var(--border);
-    font-size: 13px;
-    color: var(--slate-mid);
-  }
-  footer h3 { font-size: 14px; color: var(--coffee-dark); margin-bottom: 12px; border: none; padding: 0; }
-  footer ul { list-style: none; margin-left: 0; columns: 2; column-gap: 32px; }
-  footer li { margin-bottom: 6px; break-inside: avoid; }
-  footer a {
-    color: var(--coffee-mid);
-    text-decoration: none;
-    border-bottom: 1px dotted var(--coffee-light);
-  }
-  footer a:hover { color: var(--terracotta); }
-
-  /* Lang switch */
-  .lang-switch {
-    position: fixed;
-    top: 20px;
-    right: 24px;
-    z-index: 100;
-    background: var(--coffee-dark);
-    color: var(--gold);
-    padding: 10px 18px;
-    border-radius: 24px;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    box-shadow: 0 4px 12px rgba(44, 24, 16, 0.25);
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .lang-switch:hover { background: var(--gold); color: var(--coffee-dark); }
-  .lang-switch::before { content: "→"; }
-
-  /* Site nav */
-  .site-nav-btn {
-    position: fixed;
-    top: 20px;
-    left: 24px;
-    z-index: 100;
-    background: var(--coffee-dark);
-    color: var(--gold);
-    padding: 10px 18px;
-    border-radius: 24px;
-    border: 1px solid rgba(201, 169, 110, 0.3);
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: inherit;
-    transition: all 0.2s;
-  }
-  .site-nav-btn:hover {
-    background: var(--gold);
-    color: var(--coffee-dark);
-    transform: translateY(-2px);
-  }
-  .site-nav-btn::before { content: "▦"; font-size: 14px; opacity: 0.85; }
-  .site-nav-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(44, 24, 16, 0.55);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    z-index: 200;
-    display: none;
-    padding: 80px 24px 24px;
-  }
-  .site-nav-overlay.show { display: block; }
-  .site-nav-panel {
-    background: white;
-    border-radius: 16px;
-    border: 2px solid var(--gold);
-    box-shadow: 0 16px 48px rgba(0,0,0,0.35);
-    width: 380px;
-    max-width: calc(100% - 48px);
-    padding: 8px;
-    margin-left: 24px;
-  }
-  .site-nav-panel-title {
-    padding: 16px 20px 12px;
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: var(--coffee-mid);
-    text-transform: uppercase;
-    font-weight: 800;
-    border-bottom: 1px solid var(--cream-dark);
-    margin-bottom: 4px;
-  }
-  .site-nav-link {
-    display: grid;
-    grid-template-columns: 36px 1fr;
-    gap: 12px;
-    padding: 12px 16px;
-    text-decoration: none;
-    border-radius: 10px;
-    align-items: center;
-    margin-top: 2px;
-    transition: background 0.15s;
-    position: relative;
-  }
-  .site-nav-link:hover { background: var(--cream); }
-  .site-nav-link.current { background: linear-gradient(90deg, #FFF8E7, white); }
-  .site-nav-link.current::before {
-    content: "";
-    position: absolute;
-    left: 4px; top: 12px; bottom: 12px;
-    width: 3px;
-    background: var(--gold);
-    border-radius: 2px;
-  }
-  .site-nav-link-icon { font-size: 22px; text-align: center; }
-  .site-nav-link-name { color: var(--coffee-dark); font-weight: 700; font-size: 15px; margin-bottom: 2px; }
-  .site-nav-link-meta { color: var(--slate-mid); font-size: 12px; }
-
-  @media (max-width: 1024px) {
-    .layout { grid-template-columns: 1fr; }
-    nav.toc { position: relative; height: auto; max-height: 320px; }
-    main { padding: 40px 24px; }
-    h1 { font-size: 36px; }
-    h2 { font-size: 28px; }
-    h2 .icon { font-size: 32px; }
-    .cat-th { margin-left: 48px; }
-    footer ul { columns: 1; }
-  }
-  @media print {
-    nav.toc, .lang-switch, .site-nav-btn, .site-nav-overlay { display: none !important; }
-    .layout { grid-template-columns: 1fr; }
-    main { padding: 20px; max-width: 100%; }
-    section { break-inside: avoid; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
-  }
+  @media print{.folio,.folio-divider,.idx-overlay{display:none!important}body{background:white}.section{break-inside:avoid;margin-bottom:48px}.section-no{position:static}}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
 
-<a class="lang-switch" href="index-th.html" title="กลับสู่รายงานหลัก">รายงาน</a>
-<button class="site-nav-btn" onclick="window.toggleSiteNav()" title="หน้าทั้งหมด">หน้า</button>
-
-<div class="site-nav-overlay" id="siteNavOverlay" onclick="if(event.target===this)window.toggleSiteNav()">
-  <div class="site-nav-panel">
-    <div class="site-nav-panel-title">หน้าในโครงการ DoiBean</div>
-    <a href="index.html" class="site-nav-link" data-page="index">
-      <span class="site-nav-link-icon">📊</span>
-      <div>
-        <div class="site-nav-link-name">Deep Dive Report</div>
-        <div class="site-nav-link-meta">English · 16 sections</div>
-      </div>
-    </a>
-    <a href="index-th.html" class="site-nav-link" data-page="index-th">
-      <span class="site-nav-link-icon">📊</span>
-      <div>
-        <div class="site-nav-link-name">รายงานเจาะลึก</div>
-        <div class="site-nav-link-meta">ภาษาไทย · 16 sections</div>
-      </div>
-    </a>
-    <a href="pitch-th.html" class="site-nav-link" data-page="pitch-th">
-      <span class="site-nav-link-icon">🎤</span>
-      <div>
-        <div class="site-nav-link-name">Pitch Deck</div>
-        <div class="site-nav-link-meta">10 สไลด์</div>
-      </div>
-    </a>
-    <a href="brand.html" class="site-nav-link" data-page="brand">
-      <span class="site-nav-link-icon">🎨</span>
-      <div>
-        <div class="site-nav-link-name">Brand Guidelines</div>
-        <div class="site-nav-link-meta">Logo · color · typography</div>
-      </div>
-    </a>
-    <a href="chiangmai-research.html" class="site-nav-link" data-page="chiangmai-research">
-      <span class="site-nav-link-icon">🔍</span>
-      <div>
-        <div class="site-nav-link-name">CM Pain Points Research</div>
-        <div class="site-nav-link-meta">9 หมวด hackathon · user voice</div>
-      </div>
-    </a>
+<header class="folio">
+  <div class="folio-l">DoiBean &nbsp;·&nbsp; Vol. 01 / V</div>
+  <div class="folio-c">Field Notes — Chiang Mai</div>
+  <div class="folio-r">
+    <a href="index-th.html">รายงานเจาะลึก ↗</a>
+    <button onclick="window.toggleIndex()">Index</button>
   </div>
+</header>
+<div class="folio-divider"></div>
+
+<div class="idx-overlay" id="idxOverlay" onclick="if(event.target===this)window.toggleIndex()">
+  <aside class="idx-panel">
+    <div class="idx-eyebrow">Doibean · Vol. 01</div>
+    <h2 class="idx-title">หน้าในเล่ม</h2>
+    <ul class="idx-list">
+      <li><a href="index.html" data-page="index"><span class="idx-num">I</span><span><span class="idx-name">Deep Dive Report</span><span class="idx-meta">English · 16 sections · 18 min</span></span></a></li>
+      <li><a href="index-th.html" data-page="index-th"><span class="idx-num">II</span><span><span class="idx-name">รายงานเจาะลึก</span><span class="idx-meta">ภาษาไทย · 16 ตอน · 18 นาที</span></span></a></li>
+      <li><a href="pitch-th.html" data-page="pitch-th"><span class="idx-num">III</span><span><span class="idx-name">Pitch Deck</span><span class="idx-meta">10 สไลด์ · arrow keys</span></span></a></li>
+      <li><a href="brand.html" data-page="brand"><span class="idx-num">IV</span><span><span class="idx-name">Standards Manual</span><span class="idx-meta">โลโก้ · สี · ฟอนต์</span></span></a></li>
+      <li><a href="chiangmai-research.html" data-page="chiangmai-research"><span class="idx-num">V</span><span><span class="idx-name">Field Notes — Chiang Mai</span><span class="idx-meta">9 หมวด · เสียงผู้ใช้</span></span></a></li>
+    </ul>
+  </aside>
 </div>
-
-<div class="layout">
-
-<nav class="toc">
-  <h2>สารบัญ</h2>
-  <ol>
-    <li><a class="special" href="#tldr">TL;DR · 3 Themes</a></li>
-    <li><a href="#agri">AgriTech</a></li>
-    <li><a href="#enterprise">Enterprise Tech</a></li>
-    <li><a href="#manuf">Manufacturing Tech</a></li>
-    <li><a href="#tourism">Tourism Tech</a></li>
-    <li><a href="#health">HealthTech</a></li>
-    <li><a href="#edu">EduTech</a></li>
-    <li><a href="#gov">GovTech</a></li>
-    <li><a href="#city">Smart City Tech</a></li>
-    <li><a href="#other">Other</a></li>
-    <li><a class="special" href="#summary">Summary Matrix</a></li>
-    <li><a class="special" href="#howto">How to use this report</a></li>
-    <li><a href="#sources">Sources</a></li>
-  </ol>
-</nav>
+<script>
+(function(){function t(){var o=document.getElementById('idxOverlay');var s=!o.classList.contains('show');o.classList.toggle('show');if(s){var p=window.location.pathname.split('/').pop()||'index.html';var c=p.replace('.html','')||'index';o.querySelectorAll('.idx-list a').forEach(function(a){a.classList.toggle('current',a.dataset.page===c)})}}window.toggleIndex=t;document.addEventListener('keydown',function(e){if(e.key==='Escape'){var o=document.getElementById('idxOverlay');if(o)o.classList.remove('show')}})})();
+</script>
 
 <main>
 
-<header class="hero">
-  <div class="eyebrow">CHIANG MAI · HACKATHON RESEARCH 2026</div>
-  <h1>ปัญหาเชียงใหม่<br>กับ 9 หมวด Hackathon</h1>
-  <p class="tagline">รวบรวมปัญหาจริง · impact ที่วัดได้ · เสียงผู้ใช้จากฟอรั่ม/ข่าว/วิจัย · เพื่อหาจุดที่ AI แก้ได้คุ้มที่สุด</p>
-  <div class="meta">
-    <span><strong>กลุ่มเป้าหมาย:</strong> ทีม hackathon · ผู้เลือกหัวข้อ</span>
-    <span><strong>เวลาอ่าน:</strong> ~12 นาที (อ่านเฉพาะหมวดสนใจ ~3 นาที)</span>
-    <span><strong>หมวด:</strong> 9 หมวด · 30+ ปัญหา · 50+ ตัวเลข impact</span>
+<!-- ━━━ COVER ━━━ -->
+<section class="cover">
+  <div class="cover-meta">
+    <span><b>เล่มที่ 01</b> &middot; ฉบับ V</span>
+    <span>Field Research &middot; Chiang Mai</span>
+    <span>พฤษภาคม 2026 &middot; เชียงใหม่ / กรุงเทพ</span>
   </div>
-</header>
-
-<!-- ============= TL;DR ============= -->
-<section id="tldr" class="tldr">
-  <h2><span class="icon">★</span> สรุป 3 Theme หลักก่อนอ่านลึก</h2>
-  <p class="tldr-intro">ปัญหาเชียงใหม่ในทั้ง 9 หมวด มี pattern ร่วมกัน 3 อย่าง · ถ้าออกแบบ AI โซลูชันให้แตะ pattern เหล่านี้ จะได้ impact สูงสุด</p>
-
-  <div class="themes">
-    <div class="theme">
-      <span class="theme-tag red">Theme 1</span>
-      <div class="theme-title">รัฐช้า · เอกชนผูกขาด · ประชาชนรอ</div>
-      <div class="theme-desc">
-        Government queue 4 ชม. · ภาษาไทยเท่านั้น · Restaurant Grab/LineMan 35% commission · Healthcare รอจิตแพทย์ 6 เดือน · Immigration "the Zoo" จาก 7 โมงเช้า<br>
-        <b>AI โซลูชัน:</b> shortcut ระบบราชการ + monopoly · queue prediction · alternative direct channels
-      </div>
-    </div>
-    <div class="theme">
-      <span class="theme-tag orange">Theme 2</span>
-      <div class="theme-title">ภาคเหนือถูก systemic neglect</div>
-      <div class="theme-desc">
-        ครู 8 ชม.ขึ้นดอย · จิตแพทย์ครึ่งของกรุงเทพ · ไม่มี mass transit จนปี 2031 · ชาวเขา stigma จาก HCW · 169,047 เด็กไม่อยู่ในระบบในจังหวัดชายแดน<br>
-        <b>AI โซลูชัน:</b> democratize access — offline-first · multilingual (Karen/Hmong/Akha/คำเมือง) · voice-first · lightweight
-      </div>
-    </div>
-    <div class="theme">
-      <span class="theme-tag green">Theme 3</span>
-      <div class="theme-title">ขาด trust + verification</div>
-      <div class="theme-desc">
-        Sanctuary fake · Cooking class fake · ตำรวจตั้งด่านขอ 500-1000฿ · Loan shark 186%/ปี · Tenant scam · Yi Peng "events" $100s ให้แค่โคม 50฿<br>
-        <b>AI โซลูชัน:</b> verification layer · reputation score · transparency map · authentic vs fake detector
-      </div>
-    </div>
+  <div>
+    <div class="cover-eyebrow">Hackathon &middot; Pain Points &middot; Northern Thailand</div>
+    <h1 class="cover-title">Field Notes<br><span class="it">Chiang Mai</span></h1>
+    <p class="cover-sub">บันทึกภาคสนาม 9 หมวด hackathon × ปัญหาจริงในเชียงใหม่ — รวบรวมจากข่าว ฟอรั่ม วิจัย และเสียงผู้ใช้ที่ถูกอ้างอิง <em style="font-style:italic;color:var(--brick);font-family:var(--serif)">โดยตรง</em></p>
   </div>
+  <dl class="cover-foot">
+    <div><dt>Audience</dt><dd>ทีม hackathon · ผู้เลือกหัวข้อ · นักวิจัยภาคสนาม</dd></div>
+    <div><dt>Read time</dt><dd>~12 นาที · อ่านเฉพาะหมวดสนใจ ~3 นาที</dd></div>
+    <div><dt>Edition</dt><dd>v1.0 — แหล่งอ้างอิงทั้งหมดอยู่ท้ายเล่ม</dd></div>
+  </dl>
 </section>
 
-<!-- ============= AGRITECH ============= -->
-<section id="agri" data-cat="agri">
-  <h2><span class="icon">🌾</span><div><span class="num">SECTION 01</span>AgriTech</div></h2>
-  <p class="cat-th">ยกระดับการเกษตรด้วยเทคโนโลยี</p>
-
-  <h3>ปัญหาหลัก</h3>
-  <ul>
-    <li><strong>รายได้ชาวสวนต่ำ:</strong> เฉลี่ย 260฿/วัน ต่ำกว่าค่าจ้างเฉลี่ยประเทศ 337฿ · หนี้ 450,000฿/ครัวเรือน · 57% ไม่มีทางใช้คืน</li>
-    <li><strong>หนี้นอกระบบดอกโหด:</strong> เคสจริง Doi Saket ตำรวจจับโลนชาร์ค คิดดอก 186%/ปี · ต้องมัดจำรถ/มอ-ไซค์ · 40.8% หนี้ครัวเรือนทั้งประเทศเป็นนอกระบบ</li>
-    <li><strong>Climate change กระทบยีลด์:</strong> Arabica -25% yield/+2°C · ลำไย/ลิ้นจี่ออกดอกพร้อมกัน → ผึ้งไม่พอ → ผลผลิตตก</li>
-    <li><strong>ส่วนต่างราคาถูกพ่อค้ากลาง:</strong> ดอยช้าง 100฿/กก. ผู้บริโภค 2,500฿/กก. (25 เท่า) · ชาวสวนได้ 4%</li>
-  </ul>
-
-  <h3>Impact</h3>
-  <div class="stats">
-    <div class="stat-card">
-      <div class="stat-num">70%</div>
-      <div class="stat-label">ของคน CM เสี่ยงทางการเงิน (สูงกว่าค่าเฉลี่ย 60%)</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">186%</div>
-      <div class="stat-label">ดอกเบี้ยรายปี loan shark Doi Saket</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">25×</div>
-      <div class="stat-label">ส่วนต่างราคากาแฟ ฟาร์ม → คาเฟ่</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">3,921</div>
-      <div class="stat-label">ครัวเรือน specialty coffee CR (+25%/2020)</div>
-    </div>
-  </div>
-
-  <h3>เสียงผู้ใช้จริง</h3>
-  <div class="quote-block">
-    <div class="quote-text">"Farmers borrow money in anticipation of harvest, but eventually struggle to break-even due to unanticipated price drops from oversupply"</div>
-    <div class="quote-attr">— Bangkok Post · ชาวสวนภาคเหนือ</div>
-  </div>
-  <div class="quote-block">
-    <div class="quote-text">"For a 2,000 baht loan, loan sharks would collect 200 baht a day for 20 days (a 100% interest rate)"</div>
-    <div class="quote-attr">— Doi Saket case · police arrest report</div>
-  </div>
-
-  <h3>AI โซลูชันที่ควรทำ</h3>
-  <div class="solutions">
-    <span class="chip star">DoiBean (กาแฟครบวงจร)</span>
-    <span class="chip">Loan Shark Escape</span>
-    <span class="chip">Strawberry Vision Grader</span>
-    <span class="chip">Lychee+Bee Match</span>
-  </div>
-</section>
-
-<!-- ============= ENTERPRISE ============= -->
-<section id="enterprise" data-cat="enterprise">
-  <h2><span class="icon">🏢</span><div><span class="num">SECTION 02</span>Enterprise Tech</div></h2>
-  <p class="cat-th">เพิ่มประสิทธิภาพการทำงานขององค์กร</p>
-
-  <h3>ปัญหาหลัก</h3>
-  <ul>
-    <li><strong>Commission รายอาหาร 35%:</strong> Grab/LineMan กิน margin ของร้านเล็ก · ราคาต้องบวกขึ้นทำให้ลูกค้าเลือก dine-in</li>
-    <li><strong>Foodpanda ออก พ.ค. 2025:</strong> เหลือ 2 ราย → monopoly กำลังก่อตัว · ราคาน่าจะขึ้นอีก</li>
-    <li><strong>SME ใช้ digital เพื่อ communication อย่างเดียว:</strong> ไม่ใช้เชิงกลยุทธ์ · ขาดข้อมูลลูกค้า inventory analysis</li>
-    <li><strong>Skills shortage:</strong> AI/cyber/data analytics ขาดแคลน · workforce ไม่พร้อม</li>
-    <li><strong>Data quality:</strong> 65% manufacturing บอกเป็น barrier #1 ของ AI adoption</li>
-  </ul>
-
-  <h3>Impact</h3>
-  <div class="stats">
-    <div class="stat-card">
-      <div class="stat-num">35%</div>
-      <div class="stat-label">commission Grab/LineMan ที่ร้านต้องจ่าย</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">86,000M฿</div>
-      <div class="stat-label">ตลาด food delivery ไทย (หด 1% ปี 2024)</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">3.2M</div>
-      <div class="stat-label">SME ทั่วประเทศไทย</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">50%</div>
-      <div class="stat-label">SME ไทยไม่เชื่อ AI · กลัวใช้</div>
-    </div>
-  </div>
-
-  <h3>เสียงผู้ใช้จริง</h3>
-  <div class="quote-block">
-    <div class="quote-text">"Smaller food businesses may struggle if they lose access to more affordable delivery options [after Foodpanda exit]"</div>
-    <div class="quote-attr">— Khaosod English · พ.ค. 2025</div>
-  </div>
-  <div class="quote-block">
-    <div class="quote-text">"Robinhood holds 13% market share with its zero-commission model" — alternative ที่ร้านเล็กเริ่มหันไปใช้</div>
-    <div class="quote-attr">— Iconic Thai market analysis</div>
-  </div>
-
-  <h3>AI โซลูชันที่ควรทำ</h3>
-  <div class="solutions">
-    <span class="chip star">Restaurant Margin Defender</span>
-    <span class="chip">Thai-Eng Meeting Sage</span>
-    <span class="chip">Receipt → ภาษี Auto-File</span>
-    <span class="chip">Line+FB+IG Unified Inbox</span>
-  </div>
-</section>
-
-<!-- ============= MANUFACTURING ============= -->
-<section id="manuf" data-cat="manuf">
-  <h2><span class="icon">🏭</span><div><span class="num">SECTION 03</span>Manufacturing Tech</div></h2>
-  <p class="cat-th">ปรับปรุงกระบวนการผลิตให้ฉลาดขึ้น</p>
-
-  <h3>ปัญหาหลัก</h3>
-  <ul>
-    <li><strong>Lamphun Northern Region IE:</strong> 1,788 ไร่ · เน้น food processing + electronics · transportation links inferior กว่าภาคอื่น</li>
-    <li><strong>Wastewater pollution legacy:</strong> ชุมชนรอบ Lamphun IE น้ำใต้ดินปนเปื้อนอุตสาหกรรม</li>
-    <li><strong>Workforce shortage:</strong> AI adoption ช้าเพราะคนไม่พร้อม</li>
-    <li><strong>เครื่องจักรเก่า + data ไม่ flow:</strong> ข้อมูลติด PLC/SCADA เดิมๆ · เก็บแค่ 2 อาทิตย์ · AI train ไม่ได้</li>
-    <li><strong>Lanna textile + handicraft export:</strong> defect ตรวจหลังจาก batch ส่งออกแล้ว · เสียหายมาก</li>
-  </ul>
-
-  <h3>Impact</h3>
-  <div class="stats">
-    <div class="stat-card">
-      <div class="stat-num">1,788</div>
-      <div class="stat-label">ไร่ของ Northern Region IE Lamphun</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">65%</div>
-      <div class="stat-label">โรงงานบอก data quality เป็น blocker AI</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">10-30%</div>
-      <div class="stat-label">ของต้นทุนโรงงาน = ค่าไฟ</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">3.95฿</div>
-      <div class="stat-label">ค่าไฟ/หน่วย พ.ค.-ส.ค. 2026 (+2%)</div>
-    </div>
-  </div>
-
-  <h3>เสียงผู้ใช้จริง</h3>
-  <div class="quote-block">
-    <div class="quote-text">"Communities surrounding the Northern Region Industrial Estate in Lamphun Province were affected by wastewater pollution and groundwater contamination from industrial processes"</div>
-    <div class="quote-attr">— ScienceDirect research paper</div>
-  </div>
-  <div class="quote-block">
-    <div class="quote-text">"Industrial estates in northern regions generally host food processing industries alongside some electronics manufacturers, though transportation links are inferior"</div>
-    <div class="quote-attr">— IEAT Thailand</div>
-  </div>
-
-  <h3>AI โซลูชันที่ควรทำ</h3>
-  <div class="solutions">
-    <span class="chip star">Factory Data Liberation Engine</span>
-    <span class="chip">Lanna Textile Defect Vision</span>
-    <span class="chip">Gem Cut Precision (Lamphun)</span>
-    <span class="chip">Compressed Air Leak Auditor</span>
-  </div>
-</section>
-
-<!-- ============= TOURISM ============= -->
-<section id="tourism" data-cat="tourism">
-  <h2><span class="icon">🏖</span><div><span class="num">SECTION 04</span>Tourism Tech</div></h2>
-  <p class="cat-th">สร้างประสบการณ์ใหม่ให้ธุรกิจท่องเที่ยว</p>
-
-  <h3>ปัญหาหลัก</h3>
-  <ul>
-    <li><strong>ตำรวจตั้งด่านขอ 500-1,000฿:</strong> ฝรั่งขับมอ-ไซค์ไม่มี IDP · ไม่มีใบเสร็จ</li>
-    <li><strong>Yi Peng "events" คิด $100s:</strong> ให้แค่โคม 50฿ × 2 + อาหาร 150฿</li>
-    <li><strong>Friendly stranger scam:</strong> ชวนไปร้านเสื้อ "Vieng Ping Collection" ให้ commission</li>
-    <li><strong>Pseudo-sanctuary ช้าง:</strong> greenwash · cert voluntary ไม่ enforce</li>
-    <li><strong>Cooking class fake:</strong> ฝรั่งจ่าย 1,500-3,000฿ ได้ของเทียม</li>
-    <li><strong>Chinese tourists -33%:</strong> Xing Xing kidnapping ทำลาย sentiment · TAT ตั้งเป้า +40% ปี 2026</li>
-    <li><strong>Klook/Viator markup 30-50%:</strong> ทัวร์ราคาเฟ้อ</li>
-  </ul>
-
-  <h3>Impact</h3>
-  <div class="stats">
-    <div class="stat-card">
-      <div class="stat-num">$100s</div>
-      <div class="stat-label">Yi Peng event ราคาที่ฝรั่งจ่ายเกินจริง</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">-33%</div>
-      <div class="stat-label">Chinese tourist arrivals จาก peak</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">10M</div>
-      <div class="stat-label">visitors/ปี Chiang Mai Night Bazaar</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">+40%</div>
-      <div class="stat-label">เป้า TAT จีนกลับมา 2026</div>
-    </div>
-  </div>
-
-  <h3>เสียงผู้ใช้จริง (TripAdvisor)</h3>
-  <div class="quote-block">
-    <div class="quote-text">"Police checkpoints for motorcycle riders were a real problem in Chiang Mai, with officers demanding 500-1,000 baht on-the-spot fines with no receipt"</div>
-    <div class="quote-attr">— TripAdvisor Chiang Mai forum</div>
-  </div>
-  <div class="quote-block">
-    <div class="quote-text">"Yi Peng 'events' marketed to tourists are scams where organizers charge several hundred US dollars for two 50 baht lanterns and approximately 150 baht of street food"</div>
-    <div class="quote-attr">— TripAdvisor 2025 thread</div>
-  </div>
-  <div class="quote-block">
-    <div class="quote-text">"If someone approaches you on the street to buy anything or go anywhere, beware"</div>
-    <div class="quote-attr">— TripAdvisor general advice</div>
-  </div>
-
-  <h3>AI โซลูชันที่ควรทำ</h3>
-  <div class="solutions">
-    <span class="chip star">Cooking Class Authenticator</span>
-    <span class="chip">Sanctuary Authenticity Scanner</span>
-    <span class="chip">Police Checkpoint Rights Advisor</span>
-    <span class="chip">Temple Etiquette AR</span>
-    <span class="chip">Local Tour Marketplace (Anti-Klook)</span>
-  </div>
-</section>
-
-<!-- ============= HEALTH ============= -->
-<section id="health" data-cat="health">
-  <h2><span class="icon">🏥</span><div><span class="num">SECTION 05</span>HealthTech</div></h2>
-  <p class="cat-th">พัฒนาโซลูชันด้านสุขภาพและการแพทย์</p>
-
-  <h3>ปัญหาหลัก</h3>
-  <ul>
-    <li><strong>จิตแพทย์ CM 2.5/แสน</strong> (vs กรุงเทพ 4.9) · รอนัด <strong>6 เดือน</strong></li>
-    <li><strong>5,217 ฆ่าตัวตาย/ปี</strong> = 15 คน/วัน · Chiang Rai 14.7/แสน (เกือบ 2 เท่าค่าเฉลี่ยประเทศ)</li>
-    <li><strong>CMU students:</strong> 32.2% depressed · 68.1% นอนไม่พอ · 57.9% mental health issue</li>
-    <li><strong>Maharaj Hospital queue ยาว:</strong> "long wait times and inefficient communication" ในรีวิว</li>
-    <li><strong>PM2.5 → lung cancer:</strong> สัมพันธ์ชัด · stroke · COPD · ผิวหนัง · เยื่อบุตา · เน้นภาคเหนือ</li>
-    <li><strong>Hill tribe stigma:</strong> ชาวเขาโดน HCW เลือกปฏิบัติ (วิจัย พ.ค. 2025) · ภาษาเป็นกำแพง</li>
-    <li><strong>Dengue/ไข้เลือดออก ฝนฤดู:</strong> ตอบสนองหลังคนเริ่มป่วยแล้ว</li>
-  </ul>
-
-  <h3>Impact</h3>
-  <div class="stats">
-    <div class="stat-card">
-      <div class="stat-num">6 เดือน</div>
-      <div class="stat-label">รอนัดจิตแพทย์ในระบบรัฐ</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">4.4M</div>
-      <div class="stat-label">คนหานักจิตวิทยาในไทย ปี 2024</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">32.2%</div>
-      <div class="stat-label">CMU students มีอาการ depression</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">15/วัน</div>
-      <div class="stat-label">ฆ่าตัวตาย ทั่วประเทศ</div>
-    </div>
-  </div>
-
-  <h3>เสียงผู้ใช้จริง</h3>
-  <div class="quote-block">
-    <div class="quote-text">"Wait times for psychiatric care in public hospitals currently extend to six months. With 4.4 million people seeking mental health treatment in 2024, the system is buckling under the pressure"</div>
-    <div class="quote-attr">— Nation Thailand</div>
-  </div>
-  <div class="quote-block">
-    <div class="quote-text">"Long wait times for appointments and inefficient communication" — Maharaj Hospital review</div>
-    <div class="quote-attr">— Wanderlog hospital reviews</div>
-  </div>
-
-  <h3>AI โซลูชันที่ควรทำ</h3>
-  <div class="solutions">
-    <span class="chip star">Mental Health Triage Bot N.TH</span>
-    <span class="chip">Hospital Queue Crowdsource</span>
-    <span class="chip">Hill Tribe Medical Translator (offline)</span>
-    <span class="chip">Dengue Outbreak Predictor</span>
-    <span class="chip">Personal PM2.5 Health Coach</span>
-  </div>
-</section>
-
-<!-- ============= EDU ============= -->
-<section id="edu" data-cat="edu">
-  <h2><span class="icon">📚</span><div><span class="num">SECTION 06</span>EduTech</div></h2>
-  <p class="cat-th">ยกระดับการเรียนรู้ด้วยเทคโนโลยี</p>
-
-  <h3>ปัญหาหลัก</h3>
-  <ul>
-    <li><strong>เด็ก 169,047 คนไม่อยู่ในระบบ</strong> ในจังหวัดชายแดน CM/CR/MH/Tak/Kan = 16.5% ของ dropout ทั้งประเทศ</li>
-    <li><strong>1,025,514 คน drop out ปี 2024</strong> (767,304 เด็กไทย) · เพิ่มเป็น 880,000 ปี 2025</li>
-    <li><strong>โรงเรียนบนดอย:</strong> 8 ชม. รถ/มอ-ไซค์ถึง · ฝนตกถนนพัง · 15 ครู ต่อ 200+ นักเรียน</li>
-    <li><strong>Teacher burnout 50-70%</strong> ทั่วเอเชีย · "Sickness Presenteeism" ครูป่วยยังต้องสอน</li>
-    <li><strong>TCAS 4 รอบซับซ้อน:</strong> พ่อแม่งง · consultant คิด 5,000-20,000฿</li>
-    <li><strong>Hill tribe kids:</strong> เด็กชนเผ่าตามภาษาไม่ทัน → drop out · ชาวเขา 200,000+ ใน รร.ไทย</li>
-    <li><strong>PISA ตก 60 คะแนน</strong> ใน 10 ปี · 32% เด็กถึงเกณฑ์คณิตศาสตร์ (OECD 69%)</li>
-  </ul>
-
-  <h3>Impact</h3>
-  <div class="stats">
-    <div class="stat-card">
-      <div class="stat-num">169k</div>
-      <div class="stat-label">เด็กไม่อยู่ในระบบ จว.ชายแดน N.TH</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">880k</div>
-      <div class="stat-label">เด็ก drop out ทั่วประเทศ 2025</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">8 ชม.</div>
-      <div class="stat-label">เวลาขึ้นโรงเรียนบนดอย CM</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">15:200</div>
-      <div class="stat-label">ratio ครู:นักเรียนที่โรงเรียนบนดอย</div>
-    </div>
-  </div>
-
-  <h3>เสียงผู้ใช้จริง</h3>
-  <div class="quote-block">
-    <div class="quote-text">"A school located on top of a mountain in Chiang Mai takes eight hours to reach by car or motorcycle, and when it rains roads become impossible to pass with teachers often stranded"</div>
-    <div class="quote-attr">— Broken Chalk · UCA News</div>
-  </div>
-  <div class="quote-block">
-    <div class="quote-text">"School dropout among Thai youth has become a pressing crisis in 2025, with 880,000 children..."</div>
-    <div class="quote-attr">— EEFTH (Equitable Education Fund Thailand)</div>
-  </div>
-
-  <h3>AI โซลูชันที่ควรทำ</h3>
-  <div class="solutions">
-    <span class="chip star">TCAS Roadmap for Parents</span>
-    <span class="chip">Hill Tribe Kids Thai Bridge</span>
-    <span class="chip">Critical Thinking Tutor (Socratic)</span>
-    <span class="chip">Migrant Worker Children Literacy</span>
-  </div>
-</section>
-
-<!-- ============= GOV ============= -->
-<section id="gov" data-cat="gov">
-  <h2><span class="icon">🏛</span><div><span class="num">SECTION 07</span>GovTech</div></h2>
-  <p class="cat-th">เพิ่มประสิทธิภาพภาครัฐและบริการประชาชน</p>
-
-  <h3>ปัญหาหลัก</h3>
-  <ul>
-    <li><strong>Immigration office "the Zoo":</strong> คิวจาก 6-7 โมงเช้า · ฝรั่งเรียกเอง</li>
-    <li><strong>เว็บจองคิวภาษาไทยเท่านั้น:</strong> ห้ามจองใน 100 วัน · ไร้ประโยชน์</li>
-    <li><strong>Queue jumping:</strong> รายงานว่าจีนเป็นหลัก</li>
-    <li><strong>Garbage 300-320 ตัน/วัน:</strong> เทศบาล CM ใช้งบ 200 ล้านบาท/ปี (12% ของงบ)</li>
-    <li><strong>ปชช. ไม่ทิ้งขยะตามจุด:</strong> ใส่ถังเพื่อนบ้าน · เช่ารถปิคอัพไปทิ้ง 1,000฿/เที่ยว</li>
-    <li><strong>Mae Kha Canal เน่า:</strong> ทำลายภาพลักษณ์ tourism · ปนเปื้อนน้ำใต้ดิน</li>
-  </ul>
-
-  <h3>Impact</h3>
-  <div class="stats">
-    <div class="stat-card">
-      <div class="stat-num">300-320</div>
-      <div class="stat-label">ตันขยะ/วันใน CM</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">200M฿</div>
-      <div class="stat-label">งบเก็บขยะ/ปี (12% ของงบทั้งหมด)</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">50,000+</div>
-      <div class="stat-label">expat ใน CM ที่ใช้ immigration บ่อย</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">1,000฿</div>
-      <div class="stat-label">ค่ารถปิคอัพไปทิ้งขยะ/เที่ยว</div>
-    </div>
-  </div>
-
-  <h3>เสียงผู้ใช้จริง</h3>
-  <div class="quote-block">
-    <div class="quote-text">"The reservation website is entirely in Thai and doesn't allow bookings within 100 days"</div>
-    <div class="quote-attr">— Chiang Mai expat forum</div>
-  </div>
-  <div class="quote-block">
-    <div class="quote-text">"Roads had not been cleaned, residents have to live with dust... tap water not flowing; they have to buy their own water daily"</div>
-    <div class="quote-attr">— San Pa Khoi Road resident</div>
-  </div>
-  <div class="quote-block">
-    <div class="quote-text">"Many villagers do not have pickup trucks... renting a pickup truck for a trip costing 1,000 baht"</div>
-    <div class="quote-attr">— Chiang Rai Times</div>
-  </div>
-
-  <h3>AI โซลูชันที่ควรทำ</h3>
-  <div class="solutions">
-    <span class="chip star">ราชการ Queue Predictor</span>
-    <span class="chip">Immigration Booking AI (English UI)</span>
-    <span class="chip">Garbage Coach + Pickup Match</span>
-    <span class="chip">Procurement Anomaly Hunter (อปท.)</span>
-  </div>
-</section>
-
-<!-- ============= SMART CITY ============= -->
-<section id="city" data-cat="city">
-  <h2><span class="icon">🌆</span><div><span class="num">SECTION 08</span>Smart City Tech</div></h2>
-  <p class="cat-th">พัฒนาเมืองอัจฉริยะให้น่าอยู่ยิ่งขึ้น</p>
-
-  <h3>ปัญหาหลัก</h3>
-  <ul>
-    <li><strong>เสียเวลา 89 ชม./ปี ในรถ</strong> (3.5 วันเต็ม) · ไม่มี mass transit จนปี 2031+</li>
-    <li><strong>PM2.5 → cancer/COPD/stroke:</strong> AQI 233 มี.ค. 2026 · ฤดูเผา ม.ค.-เม.ย. · 100+ hotspots</li>
-    <li><strong>Mae Kha canal เน่า:</strong> ทำลายแหล่ง tourism + บอกว่าจัดการน้ำเสียยังพัง</li>
-    <li><strong>แผ่นดินไหว 28 มี.ค. 2025:</strong> felt ใน CM · คอนโดร้าว · awareness ต่ำ</li>
-    <li><strong>น้ำท่วม Ping:</strong> สูงสุดรอบ 50 ปี 2024 · ซ้ำ 2025 · drainage ปูซีเมนต์ทับ → ระบายไม่ทัน</li>
-    <li><strong>Songthaew vs Grab:</strong> 3-4k Grab/Bolt/InDrive ใหม่ · informal transit chaos</li>
-    <li><strong>Yi Peng overcrowding:</strong> โคมตกไฟไหม้ · กลางเมืองห้าม (โทษ 5 ปี + 2 แสน)</li>
-  </ul>
-
-  <h3>Impact</h3>
-  <div class="stats">
-    <div class="stat-card">
-      <div class="stat-num">89 ชม.</div>
-      <div class="stat-label">เสียในรถ/ปี (3.5 วัน)</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">AQI 233</div>
-      <div class="stat-label">มี.ค. 2026 (ระดับ hazardous)</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">2031+</div>
-      <div class="stat-label">light rail เร็วสุดที่จะเปิด</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">50 ปี</div>
-      <div class="stat-label">ระดับน้ำท่วม Ping 2024 สูงสุดในรอบ</div>
-    </div>
-  </div>
-
-  <h3>เสียงผู้ใช้จริง</h3>
-  <div class="quote-block">
-    <div class="quote-text">"Most of that is destroyed by the horrid automobile. TRAFFIC TRAFFIC...Bancoqesque TRAFFIC. Absolutely horrible and destroying any appreciation of the wonderful temples"</div>
-    <div class="quote-attr">— TripAdvisor user · CM resident</div>
-  </div>
-  <div class="quote-block">
-    <div class="quote-text">"Air quality is the biggest health concern in Chiang Mai" — between February and April when AQI can go above 250</div>
-    <div class="quote-attr">— Across Every Border 2025</div>
-  </div>
-
-  <h3>AI โซลูชันที่ควรทำ</h3>
-  <div class="solutions">
-    <span class="chip star">Personal PM2.5 Health Coach</span>
-    <span class="chip star">Soi-level Flood AI</span>
-    <span class="chip">Smart Departure Timer</span>
-    <span class="chip">Songthaew Co-op (DaengGo)</span>
-    <span class="chip">Yi Peng Lantern Risk AI</span>
-  </div>
-</section>
-
-<!-- ============= OTHER ============= -->
-<section id="other" data-cat="other">
-  <h2><span class="icon">🎴</span><div><span class="num">SECTION 09</span>Other</div></h2>
-  <p class="cat-th">โซลูชันใหม่ที่ตอบโจทย์อุตสาหกรรมอื่นๆ</p>
-
-  <h3>ปัญหาหลัก</h3>
-  <ul>
-    <li><strong>สัตว์จรจัด 70,000 ตัว</strong> ใน CM · spay/neuter $30-100 (เจ้าของจ่ายไม่ไหว)</li>
-    <li><strong>Loneliness expat:</strong> "hard to make friends" both expats + locals · Northern Thai culture ผูกครอบครัว</li>
-    <li><strong>"Chiang Mai is not for everyone":</strong> โพสต์ดัง · ฝรั่งคาดหวังผิด</li>
-    <li><strong>ค่าครองชีพหลอก:</strong> $500/เดือนอยู่ไม่ได้ (เป็น misleading info ทั่วเน็ต)</li>
-    <li><strong>Earthquake awareness ต่ำ:</strong> หลังเหตุ มี.ค. 2025</li>
-    <li><strong>Mae Sai border drugs:</strong> ยาบ้า 10฿/เม็ด · เด็ก 14-16 ปีถูกเกณฑ์เป็นล่อ</li>
-    <li><strong>Hill tribe stateless:</strong> เพิ่งเปิดทางสัญชาติ มิ.ย. 2025 · เอกสารยุ่ง</li>
-  </ul>
-
-  <h3>Impact</h3>
-  <div class="stats">
-    <div class="stat-card">
-      <div class="stat-num">70,000</div>
-      <div class="stat-label">สัตว์จรจัดใน CM</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">236 ตัน</div>
-      <div class="stat-label">ยาบ้ายึดได้ปี 2024 (+24%)</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">14-16</div>
-      <div class="stat-label">อายุเด็กที่ถูกเกณฑ์เป็นล่อยา</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">50,000+</div>
-      <div class="stat-label">expat ใน CM ที่อยู่ลำบากเข้าสังคม</div>
-    </div>
-  </div>
-
-  <h3>เสียงผู้ใช้จริง</h3>
-  <div class="quote-block">
-    <div class="quote-text">"Constant trash talking from bitter expats and answers that are regularly off topic, incomplete, or judgmental devalue the forums"</div>
-    <div class="quote-attr">— Tieland to Thailand · 3-year resident</div>
-  </div>
-  <div class="quote-block">
-    <div class="quote-text">"Thais are harder to break the ice with than Westerners, and Northern Thailand in particular has a strong culture of forming strong friendships with family members and childhood acquaintances"</div>
-    <div class="quote-attr">— Quora · expat</div>
-  </div>
-  <div class="quote-block">
-    <div class="quote-text">"It's challenging to live comfortably on $500 USD per month in Chiang Mai, let alone like a king, and this idea continues to circle around the internet and mislead aspiring expats"</div>
-    <div class="quote-attr">— Tieland to Thailand</div>
-  </div>
-
-  <h3>AI โซลูชันที่ควรทำ</h3>
-  <div class="solutions">
-    <span class="chip star">Pet Adoption Match (CM 70k strays)</span>
-    <span class="chip">Drug Mule Detector for Parents</span>
-    <span class="chip">Stateless Document Helper</span>
-    <span class="chip">Expat Community Match</span>
-    <span class="chip">Earthquake Preparedness Coach</span>
-  </div>
-</section>
-
-<!-- ============= SUMMARY MATRIX ============= -->
-<section id="summary">
-  <h2><span class="icon">📋</span><div><span class="num">SUMMARY</span>Matrix · ปัญหาหลัก × Impact × Demo</div></h2>
-
-  <table>
-    <thead>
-      <tr><th>หมวด</th><th>ปัญหาหลัก</th><th>ขนาด</th><th>Demo angle</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>🌾 AgriTech</td><td>ส่วนต่างราคา + หนี้นอกระบบ</td><td>70% เสี่ยงการเงิน</td><td>สแกนเมล็ดสด/calc loan</td></tr>
-      <tr><td>🏢 Enterprise</td><td>Commission 35%</td><td>ทุกร้าน CM</td><td>เปิดบิล Grab จริง</td></tr>
-      <tr><td>🏭 Manufacturing</td><td>Wastewater + workforce gap</td><td>Lamphun ชุมชน</td><td>Vision QC live</td></tr>
-      <tr><td>🏖 Tourism</td><td>Police checkpoint scam + Yi Peng</td><td>$1,000s ฝรั่ง/ปี</td><td>Yi Peng pricing exposé</td></tr>
-      <tr><td>🏥 HealthTech</td><td>จิตแพทย์รอ 6 เดือน</td><td>4.4M คน/ปี</td><td>Triage emotional</td></tr>
-      <tr><td>📚 EduTech</td><td>169k เด็กไม่ในระบบ</td><td>จังหวัดชายแดน</td><td>TCAS roadmap</td></tr>
-      <tr><td>🏛 GovTech</td><td>Immigration "the Zoo"</td><td>50k expat CM</td><td>Queue tracker</td></tr>
-      <tr><td>🌆 Smart City</td><td>PM2.5 + เสีย 89 ชม./ปี</td><td>ทุกคน CM</td><td>Personal coach</td></tr>
-      <tr><td>🎴 Other</td><td>70k strays + drug mules</td><td>CM ทุกซอย</td><td>Match ผ่านรูป</td></tr>
-    </tbody>
-  </table>
-</section>
-
-<!-- ============= HOW TO USE ============= -->
-<section id="howto">
-  <h2><span class="icon">🧭</span><div><span class="num">HOW TO USE</span>วิธีใช้รายงานนี้เลือกหัวข้อ</div></h2>
-
-  <div class="howto">
-    <h3>3 คำถามที่ควรถาม</h3>
-    <ol>
-      <li><strong>ใครจ่ายเงิน?</strong> Restaurant Margin Defender = ร้านอาหารจ่าย · Mental Health Triage = รัฐ/WHO จ่าย · Pet Adoption = NGO funding · เลือกที่มี payer ชัด</li>
-      <li><strong>Demo บนเวทีได้ไหม?</strong> สแกนเมล็ดสด · เปิดบิล Grab · scan ใบมะม่วง · ถ้าทำไม่ได้ judge จะลืม</li>
-      <li><strong>ทีมเรามี edge อะไร?</strong> Hill tribe contact · ทำงานกับ มูลนิธิดอยตุง · มีคนใน รพ.รัฐ · เลือกที่ใช้ edge เราได้</li>
-    </ol>
-  </div>
-
-  <div class="howto">
-    <h3>3 หมวดที่แนะนำสุด ตาม risk × reward</h3>
-    <ol>
-      <li><strong>HealthTech (Mental Health Triage):</strong> high impact · high payer · easy demo · social good ปฏิเสธไม่ได้</li>
-      <li><strong>Enterprise (Restaurant Margin Defender):</strong> timing perfect (Foodpanda exit) · clear B2B revenue · acquirable</li>
-      <li><strong>Smart City (PM2.5 Coach):</strong> ทุก judge CM โดน · action layer ใหม่ · viral health story</li>
+<!-- ━━━ TOC ━━━ -->
+<section class="toc">
+  <div class="toc-no">·</div>
+  <div>
+    <div class="toc-eyebrow">Contents</div>
+    <h2 class="toc-title">เก้า<em>หมวด</em> · สาม theme · หนึ่งสรุป</h2>
+    <ol class="toc-list" style="padding:0">
+      <li><a href="#themes"><span class="toc-i">·</span><span class="toc-t">Three Themes — สิ่งที่ปรากฏซ้ำ</span><span class="toc-p">02</span></a></li>
+      <li><a href="#agri"><span class="toc-i">I</span><span class="toc-t">Agriculture — เกษตร</span><span class="toc-p">03</span></a></li>
+      <li><a href="#enterprise"><span class="toc-i">II</span><span class="toc-t">Enterprise — องค์กร &amp; SME</span><span class="toc-p">05</span></a></li>
+      <li><a href="#manuf"><span class="toc-i">III</span><span class="toc-t">Manufacturing — โรงงานและ Lamphun</span><span class="toc-p">07</span></a></li>
+      <li><a href="#tourism"><span class="toc-i">IV</span><span class="toc-t">Tourism — นักท่องเที่ยวและ scam</span><span class="toc-p">09</span></a></li>
+      <li><a href="#health"><span class="toc-i">V</span><span class="toc-t">HealthTech — สุขภาพและจิตเวช</span><span class="toc-p">11</span></a></li>
+      <li><a href="#edu"><span class="toc-i">VI</span><span class="toc-t">EduTech — โรงเรียนบนดอย</span><span class="toc-p">13</span></a></li>
+      <li><a href="#gov"><span class="toc-i">VII</span><span class="toc-t">GovTech — ภาครัฐและคิว</span><span class="toc-p">15</span></a></li>
+      <li><a href="#city"><span class="toc-i">VIII</span><span class="toc-t">Smart City — PM2.5 และจราจร</span><span class="toc-p">17</span></a></li>
+      <li><a href="#other"><span class="toc-i">IX</span><span class="toc-t">Other — สัตว์จร, ยาเสพติด, expat</span><span class="toc-p">19</span></a></li>
+      <li><a href="#summary"><span class="toc-i">·</span><span class="toc-t">ภาพรวม — เก้าหมวด</span><span class="toc-p">21</span></a></li>
+      <li><a href="#howto"><span class="toc-i">·</span><span class="toc-t">วิธีใช้รายงานเลือกหัวข้อ</span><span class="toc-p">22</span></a></li>
+      <li><a href="#sources"><span class="toc-i">·</span><span class="toc-t">Sources &amp; Colophon</span><span class="toc-p">23</span></a></li>
     </ol>
   </div>
 </section>
 
-<!-- ============= SOURCES ============= -->
-<footer id="sources">
-  <h3>แหล่งอ้างอิง · Real Data Sources</h3>
-  <ul>
-    <li><a href="https://www.bangkokpost.com/thailand/general/2985685/loan-sharks-arrested-in-5-thai-provinces">Loan Shark Doi Saket (Bangkok Post)</a></li>
-    <li><a href="https://www.chiangmaicitylife.com/clg/our-city/city-issues/thailands-people-drowning-in-debt/">Thailand Drowning in Debt CM</a></li>
-    <li><a href="https://www.chiangraitimes.com/business/foodpanda-to-exit-thailand/">Foodpanda Exit Thailand 2025</a></li>
-    <li><a href="https://peerapat.cv/blog/2025-08-02-thailands-food-delivery-market-2025-2026-the-new-phase-of-growth">Food Delivery Market 2025-2026</a></li>
-    <li><a href="https://www.ieat.go.th/en/investment/about-industrial-estates/industrial-estates-in-thailand/g199-Northern%20Region%20Industrial%20Estate">Northern Region IE Lamphun</a></li>
-    <li><a href="https://www.tripadvisor.com/ShowTopic-g293915-i3686-k10916125-o20-Police_coruption_scam_on_tourists_in_Chiang_Mai-Thailand.html">CM Police Scam TripAdvisor</a></li>
-    <li><a href="https://www.tripadvisor.com/ShowTopic-g1308496-i13569-k15267960-Yi_Peng_2025-Chiang_Mai_Province.html">Yi Peng Scam Pricing 2025</a></li>
-    <li><a href="https://www.nationthailand.com/health-wellness/40049787">Thailand Mental Health Crisis</a></li>
-    <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11535199/">CMU Student Mental Health 57.9%</a></li>
-    <li><a href="https://wanderlog.com/place/details/2103147/maharaj-nakorn-chiang-mai-hospital">Maharaj Hospital Reviews</a></li>
-    <li><a href="https://www.bangkokpost.com/thailand/general/2436239/lung-cancer-risk-higher-in-polluted-chiang-mai">PM2.5 Lung Cancer CM</a></li>
-    <li><a href="https://www.seameo.org/category/7/484">Northern Thailand Dropouts 169k</a></li>
-    <li><a href="https://brokenchalk.org/education-at-a-crossroads-navigating-thailands-educational-challenges/">Mountain School 8hr Access</a></li>
-    <li><a href="https://www.chiangmailocator.com/wiki-dealing-with-chiang-mai-immigration-office-p25">Immigration "The Zoo"</a></li>
-    <li><a href="https://www.chiangmaicitylife.com/clg/our-city/environment/wasting-away-chasing-chiang-mais-rubbish-trail/">CM Garbage 300 tonnes</a></li>
-    <li><a href="https://www.chiangraitimes.com/north/rubbish-removal-chiang-mai/">CM Communities Angry Garbage</a></li>
-    <li><a href="https://www.nationthailand.com/news/tourism/40056798">Mae Kha Canal Pollution</a></li>
-    <li><a href="https://www.tomtom.com/traffic-index/city/chiang-mai">CM Traffic 89 hours</a></li>
-    <li><a href="https://prachataienglish.com/node/11234">CM Public Transport Crisis</a></li>
-    <li><a href="https://chiangmai.care/stray-dogs-in-chiang-mai-thailand/">CM Stray Dogs 70k</a></li>
-    <li><a href="https://www.adventurouskate.com/chiang-mai-is-not-for-everyone/">CM Not For Everyone</a></li>
-    <li><a href="https://www.tielandtothailand.com/lessons-learned-living-chiang-mai-three-years/">Lessons 3 yr Living CM</a></li>
-    <li><a href="https://openthemagazine.com/world/chiang-mai-chokes-inside-thailands-worst-air-crisis-of-2026">CM Air Crisis 2026</a></li>
-    <li><a href="https://www.khaosodenglish.com/sustain/2025/10/10/chiang-mai-deploys-big-data-envi-link-to-combat-pm2-5-crisis/">Envi Link PM2.5 Platform</a></li>
-  </ul>
+<!-- ━━━ THEMES — pre-flight ━━━ -->
+<section class="section" id="themes">
+  <div class="section-no">·</div>
+  <div class="section-body">
+    <div class="section-eyebrow">Pre-flight &mdash; Three patterns that recur</div>
+    <h2 class="section-title">สาม <em>theme</em> ที่ปรากฏซ้ำ</h2>
+    <p class="section-lede">ก่อนจะลงรายละเอียด ปัญหาเชียงใหม่ทั้ง 9 หมวดมี pattern ร่วมสามอย่าง · ถ้าออกแบบ AI โซลูชันให้แตะ pattern เหล่านี้ จะได้ impact สูงสุด</p>
 
-  <p style="margin-top: 32px; font-size: 12px; color: var(--coffee-light);">
-    Generated as a hackathon-strategy research note · Numbers grounded in cited sources · User voices quoted directly from news articles, forums, and academic research · Created 2026-05-09 · Part of <a href="index-th.html">DoiBean</a> project research
-  </p>
+    <div class="themes">
+      <div class="theme">
+        <div class="theme-no">i.</div>
+        <div>
+          <div class="theme-tag">Theme one &mdash; Bottleneck</div>
+          <h3 class="theme-title">รัฐช้า · เอกชนผูกขาด · ประชาชนรอ</h3>
+          <p class="theme-body">คิวราชการ 4 ชม. ภาษาไทยเท่านั้น · Grab/LineMan commission 35% ของร้านอาหาร · จิตแพทย์รัฐนัด 6 เดือน · Immigration "the Zoo" คิวจาก 7 โมงเช้า · <em>ทางออก:</em> shortcut ระบบราชการกับ monopoly · queue prediction · alternative direct channels.</p>
+        </div>
+      </div>
+      <div class="theme">
+        <div class="theme-no">ii.</div>
+        <div>
+          <div class="theme-tag">Theme two &mdash; Neglect</div>
+          <h3 class="theme-title">ภาคเหนือถูก systemic neglect</h3>
+          <p class="theme-body">ครู 8 ชม. ขึ้นดอย · จิตแพทย์ครึ่งของอัตราในกรุงเทพ · ไม่มี mass transit จนถึงปี 2031 · ชาวเขายังเจอ stigma จากบุคลากรการแพทย์ · เด็ก 169,047 คนไม่อยู่ในระบบเฉพาะจังหวัดชายแดนเหนือ · <em>ทางออก:</em> democratize access — offline-first · multilingual (Karen, Hmong, Akha, คำเมือง) · voice-first · lightweight.</p>
+        </div>
+      </div>
+      <div class="theme">
+        <div class="theme-no">iii.</div>
+        <div>
+          <div class="theme-tag">Theme three &mdash; Trust</div>
+          <h3 class="theme-title">ขาดชั้น verification</h3>
+          <p class="theme-body">Sanctuary ปลอม · cooking class ปลอม · ตำรวจตั้งด่าน ขอ 500-1,000฿ ไม่มีใบเสร็จ · loan shark 186%/ปี · tenant scam · Yi Peng "events" เก็บฝรั่งหลัก $100 แต่ให้แค่โคม 50฿ × 2 + อาหาร 150฿ · <em>ทางออก:</em> verification layer · reputation score · transparency map · authentic vs fake detector.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ornament">▲ &nbsp; △ &nbsp; ▲</div>
+  </div>
+</section>
+
+<!-- ━━━ I — AGRITECH ━━━ -->
+<section class="section" id="agri">
+  <div class="section-no">I.</div>
+  <div class="section-body">
+    <div class="section-eyebrow"><span class="gly">[ AGRI ]</span>Category I &mdash; Agriculture</div>
+    <h2 class="section-title">เกษตร — ยกระดับด้วย<em>เทคโนโลยี</em></h2>
+    <p class="section-lede">รายได้ชาวสวนภาคเหนือเฉลี่ย 260 บาทต่อวัน ต่ำกว่าค่าจ้างเฉลี่ยทั้งประเทศ · 57% ของครัวเรือนเกษตรไม่มีทางใช้หนี้คืน · พ่อค้ากลางและ loan shark ดูดส่วนต่างไปก่อนชาวสวนจะมีโอกาสตั้งตัว.</p>
+
+    <div class="hero-strip">
+      <div>
+        <div class="hs-tag">★ Flagship &mdash; DoiBean</div>
+        <p class="hs-text">หมวดนี้คือบ้านของ DoiBean — แอปวงจรชาวสวนกาแฟดอยช้าง ตั้งแต่เลือกพันธุ์ถึงคัดเกรดเข้าตลาด specialty ระดับโลก. แก้ pain ของส่วนต่าง 25 เท่า, หนี้นอกระบบ, และพันธุ์ที่ไม่ทนต่อ <em>climate change</em> ในแอปเดียว.</p>
+      </div>
+      <a class="hs-cta" href="index-th.html">อ่าน DoiBean ฉบับเจาะลึก ↗</a>
+    </div>
+
+    <h3 data-fig="Fig. 01">ปัญหาหลัก</h3>
+    <ul>
+      <li><strong>รายได้ชาวสวนต่ำ</strong> — เฉลี่ย 260 บาท/วัน ต่ำกว่าค่าจ้างเฉลี่ยประเทศ (337 บาท) · หนี้ 450,000 บาท/ครัวเรือน · 57% ไม่มีทางใช้คืน</li>
+      <li><strong>หนี้นอกระบบดอกโหด</strong> — เคสจริงดอยสะเก็ด ตำรวจจับ loan shark คิดดอก 186%/ปี · ต้องมัดจำรถ/มอเตอร์ไซค์ · 40.8% ของหนี้ครัวเรือนทั้งประเทศเป็นนอกระบบ</li>
+      <li><strong>Climate change กระทบยีลด์</strong> — Arabica ลดผลผลิต 25% ต่ออุณหภูมิที่เพิ่มขึ้น 2°C · ลำไย/ลิ้นจี่ออกดอกพร้อมกันจน <em>ผึ้งไม่พอ</em> ผสมเกสร ผลผลิตตก</li>
+      <li><strong>ส่วนต่างราคาถูกพ่อค้ากลางกิน</strong> — กาแฟดอยช้าง 100฿/กก. ปลายทางผู้บริโภค 2,500฿/กก. (25 เท่า) · ชาวสวนได้ 4%</li>
+    </ul>
+
+    <h3 data-fig="Fig. 02">Impact ที่วัดได้</h3>
+    <div class="stats">
+      <div class="stat" data-fig="i.">
+        <div class="stat-value">70%</div>
+        <div class="stat-label">Financially fragile</div>
+        <div class="stat-context">ของคนเชียงใหม่อยู่ในกลุ่มเสี่ยงทางการเงิน สูงกว่าค่าเฉลี่ยประเทศที่ 60%.</div>
+      </div>
+      <div class="stat" data-fig="ii.">
+        <div class="stat-value">186%</div>
+        <div class="stat-label">Loan shark APR</div>
+        <div class="stat-context">ดอกเบี้ยรายปีจากเคสที่ตำรวจจับโลนชาร์คในดอยสะเก็ด · 2,000 บาทกู้ ใช้คืน 200 บาท/วัน × 20 วัน.</div>
+      </div>
+      <div class="stat" data-fig="iii.">
+        <div class="stat-value">25×</div>
+        <div class="stat-label">Coffee price gap</div>
+        <div class="stat-context">ส่วนต่างราคาจากฟาร์มถึงคาเฟ่. ชาวสวนเก็บแค่ 4% ของมูลค่าปลายทาง.</div>
+      </div>
+      <div class="stat" data-fig="iv.">
+        <div class="stat-value">3,921</div>
+        <div class="stat-label">Specialty coffee CR</div>
+        <div class="stat-context">ครัวเรือนชาวสวนกาแฟ specialty ในเชียงราย ปี 2025 · เพิ่ม 25% จากปี 2020.</div>
+      </div>
+    </div>
+
+    <h3 data-fig="Fig. 03">เสียงผู้ใช้จริง</h3>
+    <div class="note">
+      <div class="note-tag">Bangkok Post · ชาวสวนภาคเหนือ</div>
+      <p class="quote">"Farmers borrow money in anticipation of harvest, but eventually struggle to break-even due to unanticipated price drops from oversupply."</p>
+      <p class="gloss">ชาวสวนกู้เงินรอเก็บเกี่ยว แต่สุดท้ายไม่คุ้มทุน เพราะราคาตกจาก oversupply ที่คาดไม่ถึง.</p>
+    </div>
+    <div class="note">
+      <div class="note-tag">Doi Saket case &middot; Police arrest report</div>
+      <p class="quote">"For a 2,000 baht loan, loan sharks would collect 200 baht a day for 20 days — a 100% interest rate."</p>
+      <p class="gloss">เคสจริงที่ดอยสะเก็ด · กู้สองพันบาทแต่ต้องคืนสองร้อยบาททุกวันเป็นเวลายี่สิบวัน.</p>
+    </div>
+
+    <h3 data-fig="Fig. 04">AI solutions ที่ควรทำ</h3>
+    <ul class="solutions">
+      <li class="star"><span class="sol-name"><strong>DoiBean (กาแฟครบวงจร)</strong></span><span class="sol-tail">flagship · vision + LLM + marketplace</span></li>
+      <li><span class="sol-name">Loan Shark Escape</span><span class="sol-tail">debt restructuring co-pilot</span></li>
+      <li><span class="sol-name">Strawberry Vision Grader</span><span class="sol-tail">ดอยอ่างขาง · on-device</span></li>
+      <li><span class="sol-name">Lychee + Bee Match</span><span class="sol-tail">pollination scheduling</span></li>
+    </ul>
+
+    <p class="pull">"Farmers borrow in anticipation of harvest, but eventually struggle to break-even." ส่วนต่าง <em>25 เท่า</em> ระหว่างฟาร์มกับคาเฟ่ คือช่องว่างที่ DoiBean จะปิด.<span class="pull-attribution">— ทำไม AgriTech คือบ้านของ DoiBean</span></p>
+
+    <div class="ornament">▲ &nbsp; △ &nbsp; ▲</div>
+  </div>
+</section>
+
+<!-- ━━━ II — ENTERPRISE ━━━ -->
+<section class="section" id="enterprise">
+  <div class="section-no">II.</div>
+  <div class="section-body">
+    <div class="section-eyebrow"><span class="gly">[ ENT ]</span>Category II &mdash; Enterprise &amp; SME</div>
+    <h2 class="section-title">องค์กร — เพิ่มประสิทธิภาพ<em>การทำงาน</em></h2>
+    <p class="section-lede">Foodpanda ถอนตลาดไทย พฤษภาคม 2025 · เหลือสองรายใหญ่ผูกขาด · commission 35% ของร้านเล็ก · SME ใช้ดิจิทัลแค่เพื่อสื่อสาร ไม่ใช่กลยุทธ์ · ครึ่งหนึ่งของ SME ไทยกลัวใช้ AI.</p>
+
+    <h3 data-fig="Fig. 01">ปัญหาหลัก</h3>
+    <ul>
+      <li><strong>Commission ต่อรายการอาหาร 35%</strong> — Grab/LineMan กิน margin ของร้านเล็ก · ราคาต้องบวกจนลูกค้าเลือก dine-in แทน</li>
+      <li><strong>Foodpanda ออกจากตลาดไทย พฤษภาคม 2025</strong> — เหลือสองราย → monopoly กำลังก่อตัว · ราคาน่าจะขึ้นต่อ</li>
+      <li><strong>SME ใช้ digital เพื่อสื่อสารอย่างเดียว</strong> — ไม่ใช้เชิงกลยุทธ์ · ขาดข้อมูลลูกค้า ขาด inventory analysis</li>
+      <li><strong>Skills shortage</strong> — AI, cybersecurity, data analytics ขาดแคลน · workforce ไม่พร้อม</li>
+      <li><strong>Data quality</strong> — 65% ของผู้ผลิตบอกว่าเป็น barrier อันดับหนึ่งของการ adopt AI</li>
+    </ul>
+
+    <h3 data-fig="Fig. 02">Impact ที่วัดได้</h3>
+    <div class="stats">
+      <div class="stat" data-fig="i.">
+        <div class="stat-value">35%</div>
+        <div class="stat-label">Delivery commission</div>
+        <div class="stat-context">commission ต่อบิล Grab/LineMan ที่ร้านอาหารต้องจ่าย · margin หาย.</div>
+      </div>
+      <div class="stat" data-fig="ii.">
+        <div class="stat-value">86,000M฿</div>
+        <div class="stat-label">Food delivery TAM</div>
+        <div class="stat-context">ตลาด food delivery ไทยปี 2024 หดลง 1% — สัญญาณ saturation.</div>
+      </div>
+      <div class="stat" data-fig="iii.">
+        <div class="stat-value">3.2M</div>
+        <div class="stat-label">SME nationally</div>
+        <div class="stat-context">SME ทั่วประเทศไทย · ส่วนใหญ่ยังไม่ใช้ดิจิทัลอย่างเต็มที่.</div>
+      </div>
+      <div class="stat" data-fig="iv.">
+        <div class="stat-value">50%</div>
+        <div class="stat-label">SME fear AI</div>
+        <div class="stat-context">SME ไทยที่ตอบว่าไม่เชื่อ/กลัวใช้ AI · barrier ไม่ใช่เทคนิค แต่คือความไว้ใจ.</div>
+      </div>
+    </div>
+
+    <h3 data-fig="Fig. 03">เสียงผู้ใช้จริง</h3>
+    <div class="note">
+      <div class="note-tag">Khaosod English &middot; พฤษภาคม 2025</div>
+      <p class="quote">"Smaller food businesses may struggle if they lose access to more affordable delivery options after Foodpanda exit."</p>
+      <p class="gloss">หลังจาก Foodpanda ออก ร้านเล็กจะหาทางเลือกที่ราคาเหมาะสมยากขึ้น.</p>
+    </div>
+    <div class="note">
+      <div class="note-tag">Iconic Thai &middot; market analysis</div>
+      <p class="quote">"Robinhood holds 13% market share with its zero-commission model" — alternative ที่ร้านเล็กเริ่มหันไปใช้.</p>
+      <p class="gloss">Robinhood ครอง 13% ส่วนแบ่งตลาดด้วยโมเดล commission ศูนย์ · ทางเลือกที่ร้านเล็กกำลังย้ายไป.</p>
+    </div>
+
+    <h3 data-fig="Fig. 04">AI solutions ที่ควรทำ</h3>
+    <ul class="solutions">
+      <li class="star"><span class="sol-name"><strong>Restaurant Margin Defender</strong></span><span class="sol-tail">timing perfect · Foodpanda exit</span></li>
+      <li><span class="sol-name">Thai-Eng Meeting Sage</span><span class="sol-tail">live transcribe + summarise</span></li>
+      <li><span class="sol-name">Receipt → ภาษี Auto-File</span><span class="sol-tail">vision OCR + e-tax</span></li>
+      <li><span class="sol-name">Line + FB + IG Unified Inbox</span><span class="sol-tail">SME chat consolidation</span></li>
+    </ul>
+
+    <div class="ornament">▲ &nbsp; △ &nbsp; ▲</div>
+  </div>
+</section>
+
+<!-- ━━━ III — MANUFACTURING ━━━ -->
+<section class="section" id="manuf">
+  <div class="section-no">III.</div>
+  <div class="section-body">
+    <div class="section-eyebrow"><span class="gly">[ MFG ]</span>Category III &mdash; Manufacturing</div>
+    <h2 class="section-title">การผลิต — โรงงานที่<em>ฉลาดขึ้น</em></h2>
+    <p class="section-lede">นิคมอุตสาหกรรมภาคเหนือลำพูน 1,788 ไร่ · เน้น food processing และ electronics · ชุมชนรอบนิคมเจอน้ำใต้ดินปนเปื้อนอุตสาหกรรม · ข้อมูลโรงงานยังติด PLC/SCADA ที่เก็บได้แค่สองอาทิตย์ · AI train ไม่ได้.</p>
+
+    <h3 data-fig="Fig. 01">ปัญหาหลัก</h3>
+    <ul>
+      <li><strong>Lamphun Northern Region IE</strong> — 1,788 ไร่ · เน้น food processing + electronics · transportation links inferior กว่าภาคอื่น</li>
+      <li><strong>Wastewater pollution legacy</strong> — ชุมชนรอบนิคมลำพูน น้ำใต้ดินปนเปื้อนกระบวนการอุตสาหกรรม</li>
+      <li><strong>Workforce shortage</strong> — AI adoption ช้าเพราะคนไม่พร้อม</li>
+      <li><strong>เครื่องจักรเก่า · data ไม่ flow</strong> — ข้อมูลติด PLC/SCADA เดิมๆ · เก็บแค่ 2 อาทิตย์ · AI train ไม่ได้</li>
+      <li><strong>Lanna textile + handicraft export</strong> — defect ตรวจหลังจาก batch ส่งออกแล้ว · เสียหายมาก</li>
+    </ul>
+
+    <h3 data-fig="Fig. 02">Impact ที่วัดได้</h3>
+    <div class="stats">
+      <div class="stat" data-fig="i.">
+        <div class="stat-value">1,788</div>
+        <div class="stat-label">Rai &middot; Lamphun IE</div>
+        <div class="stat-context">พื้นที่ของ Northern Region Industrial Estate · นิคมอุตสาหกรรมหลักของภาคเหนือ.</div>
+      </div>
+      <div class="stat" data-fig="ii.">
+        <div class="stat-value">65%</div>
+        <div class="stat-label">Data quality blocker</div>
+        <div class="stat-context">โรงงานที่บอกว่า data quality เป็น blocker อันดับหนึ่งของ AI adoption.</div>
+      </div>
+      <div class="stat" data-fig="iii.">
+        <div class="stat-value">10–30%</div>
+        <div class="stat-label">Energy cost share</div>
+        <div class="stat-context">ของต้นทุนโรงงานคือค่าไฟ · จุดที่ optimisation จะเห็น ROI ชัดที่สุด.</div>
+      </div>
+      <div class="stat" data-fig="iv.">
+        <div class="stat-value">฿3.95</div>
+        <div class="stat-label">Electricity per unit</div>
+        <div class="stat-context">ค่าไฟต่อหน่วย พฤษภาคม–สิงหาคม 2026 · ขึ้น 2% จากงวดก่อน.</div>
+      </div>
+    </div>
+
+    <h3 data-fig="Fig. 03">เสียงผู้ใช้จริง</h3>
+    <div class="note">
+      <div class="note-tag">ScienceDirect &middot; research paper</div>
+      <p class="quote">"Communities surrounding the Northern Region Industrial Estate in Lamphun Province were affected by wastewater pollution and groundwater contamination from industrial processes."</p>
+      <p class="gloss">ชุมชนรอบนิคมลำพูนได้รับผลกระทบจากน้ำเสียและน้ำใต้ดินที่ถูกปนเปื้อน.</p>
+    </div>
+    <div class="note">
+      <div class="note-tag">IEAT Thailand</div>
+      <p class="quote">"Industrial estates in northern regions generally host food processing industries alongside some electronics manufacturers, though transportation links are inferior."</p>
+      <p class="gloss">นิคมในภาคเหนือเน้น food processing + electronics แต่โครงสร้างขนส่งยังด้อยกว่าภาคอื่น.</p>
+    </div>
+
+    <h3 data-fig="Fig. 04">AI solutions ที่ควรทำ</h3>
+    <ul class="solutions">
+      <li class="star"><span class="sol-name"><strong>Factory Data Liberation Engine</strong></span><span class="sol-tail">PLC/SCADA → cloud lake</span></li>
+      <li><span class="sol-name">Lanna Textile Defect Vision</span><span class="sol-tail">on-loom QC</span></li>
+      <li><span class="sol-name">Gem Cut Precision (Lamphun)</span><span class="sol-tail">facet angle scoring</span></li>
+      <li><span class="sol-name">Compressed Air Leak Auditor</span><span class="sol-tail">ultrasonic + LLM report</span></li>
+    </ul>
+
+    <div class="ornament">▲ &nbsp; △ &nbsp; ▲</div>
+  </div>
+</section>
+
+<!-- ━━━ IV — TOURISM ━━━ -->
+<section class="section" id="tourism">
+  <div class="section-no">IV.</div>
+  <div class="section-body">
+    <div class="section-eyebrow"><span class="gly">[ TUR ]</span>Category IV &mdash; Tourism</div>
+    <h2 class="section-title">ท่องเที่ยว — ประสบการณ์<em>ที่จริง</em></h2>
+    <p class="section-lede">ตำรวจตั้งด่านขอเงินสดไม่มีใบเสร็จ · Yi Peng "events" คิดฝรั่งหลัก $100 แต่ให้แค่โคม 50 บาทกับอาหารริมถนน · cooking class ปลอม · sanctuary ช้าง greenwash · Klook/Viator มาร์กอัป 30–50%. นักท่องเที่ยวจีนหายไป 33% หลังเหตุ Xing Xing.</p>
+
+    <h3 data-fig="Fig. 01">ปัญหาหลัก</h3>
+    <ul>
+      <li><strong>ตำรวจตั้งด่านขอ 500–1,000฿</strong> — ฝรั่งขับมอเตอร์ไซค์ไม่มี IDP · ไม่มีใบเสร็จ</li>
+      <li><strong>Yi Peng "events" คิด $100s</strong> — ให้แค่โคม 50฿ × 2 + อาหารริมถนน 150฿</li>
+      <li><strong>Friendly stranger scam</strong> — ชวนไปร้านเสื้อ "Vieng Ping Collection" แล้วรับ commission</li>
+      <li><strong>Pseudo-sanctuary ช้าง</strong> — greenwash · cert voluntary ไม่มีใครบังคับ</li>
+      <li><strong>Cooking class ปลอม</strong> — ฝรั่งจ่าย 1,500–3,000฿ ได้ของเทียม</li>
+      <li><strong>Chinese tourists −33%</strong> — Xing Xing kidnapping ทำลาย sentiment · TAT ตั้งเป้า +40% ปี 2026</li>
+      <li><strong>Klook/Viator markup 30–50%</strong> — ทัวร์ราคาเฟ้อ</li>
+    </ul>
+
+    <h3 data-fig="Fig. 02">Impact ที่วัดได้</h3>
+    <div class="stats">
+      <div class="stat" data-fig="i.">
+        <div class="stat-value">$100s</div>
+        <div class="stat-label">Yi Peng overcharge</div>
+        <div class="stat-context">ราคาที่ฝรั่งจ่ายสำหรับ Yi Peng "event" · จริงแล้วได้แค่โคมสองดวงและอาหารริมถนน.</div>
+      </div>
+      <div class="stat" data-fig="ii.">
+        <div class="stat-value">−33%</div>
+        <div class="stat-label">Chinese arrivals</div>
+        <div class="stat-context">นักท่องเที่ยวจีนลดลงจาก peak · จาก sentiment หลังเหตุ Xing Xing.</div>
+      </div>
+      <div class="stat" data-fig="iii.">
+        <div class="stat-value">10M</div>
+        <div class="stat-label">Night Bazaar visitors</div>
+        <div class="stat-context">นักท่องเที่ยวต่อปีของ Chiang Mai Night Bazaar · ตลาดที่ scam หนาแน่นที่สุด.</div>
+      </div>
+      <div class="stat" data-fig="iv.">
+        <div class="stat-value">+40%</div>
+        <div class="stat-label">TAT 2026 target</div>
+        <div class="stat-context">เป้าของ TAT สำหรับการกลับมาของนักท่องเที่ยวจีนปี 2026.</div>
+      </div>
+    </div>
+
+    <h3 data-fig="Fig. 03">เสียงผู้ใช้จริง &mdash; TripAdvisor</h3>
+    <div class="note">
+      <div class="note-tag">TripAdvisor &middot; Chiang Mai forum</div>
+      <p class="quote">"Police checkpoints for motorcycle riders were a real problem in Chiang Mai, with officers demanding 500–1,000 baht on-the-spot fines with no receipt."</p>
+      <p class="gloss">ด่านตรวจตำรวจสำหรับมอเตอร์ไซค์เป็นปัญหาจริงในเชียงใหม่ · เรียกค่าปรับ 500–1,000 บาทแบบไม่มีใบเสร็จ.</p>
+    </div>
+    <div class="note">
+      <div class="note-tag">TripAdvisor &middot; 2025 Yi Peng thread</div>
+      <p class="quote">"Yi Peng 'events' marketed to tourists are scams where organizers charge several hundred US dollars for two 50 baht lanterns and approximately 150 baht of street food."</p>
+      <p class="gloss">"Yi Peng events" ที่ขายฝรั่งคือ scam · ผู้จัดเก็บหลักร้อยดอลลาร์แลกกับโคมสองดวงราคา 50 บาทและอาหารริมถนน 150 บาท.</p>
+    </div>
+    <div class="note">
+      <div class="note-tag">TripAdvisor &middot; general advice</div>
+      <p class="quote">"If someone approaches you on the street to buy anything or go anywhere, beware."</p>
+      <p class="gloss">ถ้ามีคนเดินเข้ามาชวนคุณไปซื้อหรือไปไหน — ระวังไว้ก่อน.</p>
+    </div>
+
+    <h3 data-fig="Fig. 04">AI solutions ที่ควรทำ</h3>
+    <ul class="solutions">
+      <li class="star"><span class="sol-name"><strong>Cooking Class Authenticator</strong></span><span class="sol-tail">verify by chef + venue + recipe</span></li>
+      <li><span class="sol-name">Sanctuary Authenticity Scanner</span><span class="sol-tail">elephant welfare audit</span></li>
+      <li><span class="sol-name">Police Checkpoint Rights Advisor</span><span class="sol-tail">multilingual on-device</span></li>
+      <li><span class="sol-name">Temple Etiquette AR</span><span class="sol-tail">camera overlay</span></li>
+      <li><span class="sol-name">Local Tour Marketplace (Anti-Klook)</span><span class="sol-tail">no-markup direct</span></li>
+    </ul>
+
+    <div class="ornament">▲ &nbsp; △ &nbsp; ▲</div>
+  </div>
+</section>
+
+<!-- ━━━ V — HEALTHTECH ━━━ -->
+<section class="section" id="health">
+  <div class="section-no">V.</div>
+  <div class="section-body">
+    <div class="section-eyebrow"><span class="gly">[ HLT ]</span>Category V &mdash; HealthTech</div>
+    <h2 class="section-title">สุขภาพ — เข้าถึง<em>การรักษา</em></h2>
+    <p class="section-lede">เชียงใหม่มีจิตแพทย์ 2.5 คนต่อแสนประชากร เทียบกับกรุงเทพ 4.9 · คิวรอนัด 6 เดือนในระบบรัฐ · นักศึกษา CMU 32% ซึมเศร้า, 68% นอนไม่พอ · 5,217 รายฆ่าตัวตายต่อปี = 15 รายต่อวัน · ชาวเขายังเจอ stigma จากบุคลากรการแพทย์.</p>
+
+    <h3 data-fig="Fig. 01">ปัญหาหลัก</h3>
+    <ul>
+      <li><strong>จิตแพทย์เชียงใหม่ 2.5/แสน</strong> เทียบกับกรุงเทพ 4.9 · รอนัด <em>6 เดือน</em></li>
+      <li><strong>5,217 ฆ่าตัวตาย/ปี</strong> = 15 คน/วัน · เชียงราย 14.7/แสน เกือบสองเท่าค่าเฉลี่ยประเทศ</li>
+      <li><strong>CMU students</strong> — 32.2% depressed · 68.1% นอนไม่พอ · 57.9% มี mental health issue</li>
+      <li><strong>โรงพยาบาลมหาราชคิวยาว</strong> — รีวิว: "long wait times and inefficient communication"</li>
+      <li><strong>PM2.5 → lung cancer</strong> — สัมพันธ์ชัด · stroke · COPD · ผิวหนัง · เยื่อบุตา · เน้นภาคเหนือ</li>
+      <li><strong>Hill tribe stigma</strong> — ชาวเขาโดน HCW เลือกปฏิบัติ (วิจัย พ.ค. 2025) · ภาษาเป็นกำแพง</li>
+      <li><strong>Dengue/ไข้เลือดออกฤดูฝน</strong> — ตอบสนองหลังคนเริ่มป่วยแล้ว</li>
+    </ul>
+
+    <h3 data-fig="Fig. 02">Impact ที่วัดได้</h3>
+    <div class="stats">
+      <div class="stat" data-fig="i.">
+        <div class="stat-value">6 เดือน</div>
+        <div class="stat-label">Psych queue</div>
+        <div class="stat-context">รอนัดจิตแพทย์ในระบบรัฐ · ระบบกำลังพังภายใต้ความต้องการ.</div>
+      </div>
+      <div class="stat" data-fig="ii.">
+        <div class="stat-value">4.4M</div>
+        <div class="stat-label">Mental health seekers</div>
+        <div class="stat-context">คนที่หาการรักษาสุขภาพจิตในไทยปี 2024.</div>
+      </div>
+      <div class="stat" data-fig="iii.">
+        <div class="stat-value">32.2%</div>
+        <div class="stat-label">CMU depression</div>
+        <div class="stat-context">นักศึกษามหาวิทยาลัยเชียงใหม่ที่มีอาการซึมเศร้าจากการสำรวจ.</div>
+      </div>
+      <div class="stat" data-fig="iv.">
+        <div class="stat-value">15/วัน</div>
+        <div class="stat-label">Suicides nationally</div>
+        <div class="stat-context">การฆ่าตัวตายเฉลี่ยต่อวันทั่วประเทศ · 5,217 ราย/ปี.</div>
+      </div>
+    </div>
+
+    <h3 data-fig="Fig. 03">เสียงผู้ใช้จริง</h3>
+    <div class="note">
+      <div class="note-tag">Nation Thailand</div>
+      <p class="quote">"Wait times for psychiatric care in public hospitals currently extend to six months. With 4.4 million people seeking mental health treatment in 2024, the system is buckling under the pressure."</p>
+      <p class="gloss">เวลารอจิตแพทย์ในโรงพยาบาลรัฐยืดเป็นหกเดือน · มีคน 4.4 ล้านขอรับการรักษาในปี 2024 ระบบกำลังพัง.</p>
+    </div>
+    <div class="note">
+      <div class="note-tag">Wanderlog &middot; hospital reviews</div>
+      <p class="quote">"Long wait times for appointments and inefficient communication." — Maharaj Hospital review</p>
+      <p class="gloss">รอนัดนาน · สื่อสารไม่มีประสิทธิภาพ · ความเห็นจากผู้ใช้บริการรพ.มหาราช.</p>
+    </div>
+
+    <h3 data-fig="Fig. 04">AI solutions ที่ควรทำ</h3>
+    <ul class="solutions">
+      <li class="star"><span class="sol-name"><strong>Mental Health Triage Bot · ภาคเหนือ</strong></span><span class="sol-tail">offline · multi-dialect</span></li>
+      <li><span class="sol-name">Hospital Queue Crowdsource</span><span class="sol-tail">live wait estimator</span></li>
+      <li><span class="sol-name">Hill Tribe Medical Translator</span><span class="sol-tail">offline · Karen/Hmong/Akha</span></li>
+      <li><span class="sol-name">Dengue Outbreak Predictor</span><span class="sol-tail">satellite + climate signal</span></li>
+      <li><span class="sol-name">Personal PM2.5 Health Coach</span><span class="sol-tail">cohort behaviour nudge</span></li>
+    </ul>
+
+    <p class="pull">"The system is <em>buckling</em> under the pressure" — สี่ล้านสี่แสนคนรอจิตแพทย์ที่ไม่มีพอ. AI ไม่ใช่หมอ แต่เป็น triage layer ที่ทำให้คนที่หนักจริงได้คิวก่อน.<span class="pull-attribution">— ทำไม HealthTech ถูกแนะนำสุด</span></p>
+
+    <div class="ornament">▲ &nbsp; △ &nbsp; ▲</div>
+  </div>
+</section>
+
+<!-- ━━━ VI — EDUTECH ━━━ -->
+<section class="section" id="edu">
+  <div class="section-no">VI.</div>
+  <div class="section-body">
+    <div class="section-eyebrow"><span class="gly">[ EDU ]</span>Category VI &mdash; EduTech</div>
+    <h2 class="section-title">การศึกษา — โรงเรียน<em>บนดอย</em></h2>
+    <p class="section-lede">เด็ก 169,047 คนไม่อยู่ในระบบในจังหวัดชายแดนเหนือ · drop out ทั่วประเทศพุ่งเป็น 880,000 ในปี 2025 · โรงเรียนบนดอยใช้เวลา 8 ชั่วโมงเดินทาง · ครูคนเดียวสอนได้ 13 คน · TCAS 4 รอบทำพ่อแม่งง · PISA ตก 60 คะแนนใน 10 ปี.</p>
+
+    <h3 data-fig="Fig. 01">ปัญหาหลัก</h3>
+    <ul>
+      <li><strong>เด็ก 169,047 คนไม่อยู่ในระบบ</strong> — ในจังหวัดชายแดน CM/CR/MH/Tak/Kan = 16.5% ของ dropout ทั้งประเทศ</li>
+      <li><strong>1,025,514 คน drop out ปี 2024</strong> (767,304 เด็กไทย) · เพิ่มเป็น 880,000 ปี 2025</li>
+      <li><strong>โรงเรียนบนดอย</strong> — 8 ชั่วโมงรถ/มอเตอร์ไซค์ถึง · ฝนตกถนนพัง · 15 ครู ต่อ 200+ นักเรียน</li>
+      <li><strong>Teacher burnout 50–70%</strong> ทั่วเอเชีย · "Sickness Presenteeism" ครูป่วยยังต้องสอน</li>
+      <li><strong>TCAS 4 รอบซับซ้อน</strong> — พ่อแม่งง · consultant คิด 5,000–20,000฿</li>
+      <li><strong>Hill tribe kids</strong> — เด็กชนเผ่าตามภาษาไม่ทัน → drop out · ชาวเขา 200,000+ ใน รร.ไทย</li>
+      <li><strong>PISA ตก 60 คะแนน</strong> ใน 10 ปี · 32% เด็กถึงเกณฑ์คณิตศาสตร์ (OECD 69%)</li>
+    </ul>
+
+    <h3 data-fig="Fig. 02">Impact ที่วัดได้</h3>
+    <div class="stats">
+      <div class="stat" data-fig="i.">
+        <div class="stat-value">169k</div>
+        <div class="stat-label">Out of system</div>
+        <div class="stat-context">เด็กไม่อยู่ในระบบในจังหวัดชายแดนภาคเหนือ.</div>
+      </div>
+      <div class="stat" data-fig="ii.">
+        <div class="stat-value">880k</div>
+        <div class="stat-label">Dropouts 2025</div>
+        <div class="stat-context">เด็ก drop out ทั่วประเทศปี 2025 · เพิ่มจาก 767k ในปี 2024.</div>
+      </div>
+      <div class="stat" data-fig="iii.">
+        <div class="stat-value">8 ชม.</div>
+        <div class="stat-label">School commute</div>
+        <div class="stat-context">เวลาขึ้นโรงเรียนบนดอยในเชียงใหม่ · ฝนตกถนนพังครูติด.</div>
+      </div>
+      <div class="stat" data-fig="iv.">
+        <div class="stat-value">15:200</div>
+        <div class="stat-label">Teacher : student</div>
+        <div class="stat-context">อัตราส่วนครูต่อนักเรียนที่โรงเรียนบนดอย · 1 ครูดูแล 13 คน.</div>
+      </div>
+    </div>
+
+    <h3 data-fig="Fig. 03">เสียงผู้ใช้จริง</h3>
+    <div class="note">
+      <div class="note-tag">Broken Chalk &middot; UCA News</div>
+      <p class="quote">"A school located on top of a mountain in Chiang Mai takes eight hours to reach by car or motorcycle, and when it rains roads become impossible to pass with teachers often stranded."</p>
+      <p class="gloss">โรงเรียนบนยอดดอยเชียงใหม่ใช้เวลาแปดชั่วโมงเดินทาง · ฝนตกถนนผ่านไม่ได้ ครูติดอยู่บนดอย.</p>
+    </div>
+    <div class="note">
+      <div class="note-tag">EEFTH &middot; Equitable Education Fund Thailand</div>
+      <p class="quote">"School dropout among Thai youth has become a pressing crisis in 2025, with 880,000 children..."</p>
+      <p class="gloss">เด็ก drop out กลายเป็นวิกฤติเร่งด่วนในปี 2025 · 880,000 คนทั่วประเทศ.</p>
+    </div>
+
+    <h3 data-fig="Fig. 04">AI solutions ที่ควรทำ</h3>
+    <ul class="solutions">
+      <li class="star"><span class="sol-name"><strong>TCAS Roadmap for Parents</strong></span><span class="sol-tail">demystify 4 รอบ</span></li>
+      <li><span class="sol-name">Hill Tribe Kids Thai Bridge</span><span class="sol-tail">multi-dialect literacy</span></li>
+      <li><span class="sol-name">Critical Thinking Tutor (Socratic)</span><span class="sol-tail">PISA gap closer</span></li>
+      <li><span class="sol-name">Migrant Worker Children Literacy</span><span class="sol-tail">offline-first</span></li>
+    </ul>
+
+    <div class="ornament">▲ &nbsp; △ &nbsp; ▲</div>
+  </div>
+</section>
+
+<!-- ━━━ VII — GOVTECH ━━━ -->
+<section class="section" id="gov">
+  <div class="section-no">VII.</div>
+  <div class="section-body">
+    <div class="section-eyebrow"><span class="gly">[ GOV ]</span>Category VII &mdash; GovTech</div>
+    <h2 class="section-title">ภาครัฐ — ปลด<em>คอขวด</em></h2>
+    <p class="section-lede">Immigration office "the Zoo" คิวจาก 6–7 โมงเช้า · เว็บจองภาษาไทยเท่านั้น ห้ามจองใน 100 วัน · เทศบาลใช้งบเก็บขยะปีละ 200 ล้าน (12% ของงบทั้งหมด) · คลองแม่ข่าเน่าทำลายภาพลักษณ์เมือง.</p>
+
+    <h3 data-fig="Fig. 01">ปัญหาหลัก</h3>
+    <ul>
+      <li><strong>Immigration office "the Zoo"</strong> — คิวจาก 6–7 โมงเช้า · ฝรั่งเรียกเอง</li>
+      <li><strong>เว็บจองคิวภาษาไทยเท่านั้น</strong> — ห้ามจองใน 100 วัน · ไร้ประโยชน์</li>
+      <li><strong>Queue jumping</strong> — รายงานว่านักท่องเที่ยวจีนเป็นหลัก</li>
+      <li><strong>Garbage 300–320 ตัน/วัน</strong> — เทศบาล CM ใช้งบ 200 ล้านบาท/ปี (12% ของงบ)</li>
+      <li><strong>ปชช. ไม่ทิ้งขยะตามจุด</strong> — ใส่ถังเพื่อนบ้าน · เช่ารถปิคอัพไปทิ้ง 1,000฿/เที่ยว</li>
+      <li><strong>Mae Kha Canal เน่า</strong> — ทำลายภาพลักษณ์ tourism · ปนเปื้อนน้ำใต้ดิน</li>
+    </ul>
+
+    <h3 data-fig="Fig. 02">Impact ที่วัดได้</h3>
+    <div class="stats">
+      <div class="stat" data-fig="i.">
+        <div class="stat-value">300–320</div>
+        <div class="stat-label">Tonnes garbage/day</div>
+        <div class="stat-context">ขยะที่เชียงใหม่ผลิตต่อวัน · เทศบาลรับมือไม่ทัน.</div>
+      </div>
+      <div class="stat" data-fig="ii.">
+        <div class="stat-value">฿200M</div>
+        <div class="stat-label">Annual garbage budget</div>
+        <div class="stat-context">งบเก็บขยะของเทศบาลต่อปี · 12% ของงบทั้งหมด.</div>
+      </div>
+      <div class="stat" data-fig="iii.">
+        <div class="stat-value">50,000+</div>
+        <div class="stat-label">Expat in CM</div>
+        <div class="stat-context">ชาวต่างชาติในเชียงใหม่ที่ใช้ immigration บ่อย · target ของ queue product.</div>
+      </div>
+      <div class="stat" data-fig="iv.">
+        <div class="stat-value">฿1,000</div>
+        <div class="stat-label">Pickup truck rental</div>
+        <div class="stat-context">ค่ารถปิคอัพไปทิ้งขยะนอกจุด/เที่ยว · ภาระที่ตกบนชาวบ้าน.</div>
+      </div>
+    </div>
+
+    <h3 data-fig="Fig. 03">เสียงผู้ใช้จริง</h3>
+    <div class="note">
+      <div class="note-tag">Chiang Mai &middot; expat forum</div>
+      <p class="quote">"The reservation website is entirely in Thai and doesn't allow bookings within 100 days."</p>
+      <p class="gloss">เว็บจองคิวเป็นภาษาไทยเท่านั้น · และห้ามจองภายใน 100 วันล่วงหน้า — กลายเป็นไร้ประโยชน์สำหรับคนที่ต้องใช้งานจริง.</p>
+    </div>
+    <div class="note">
+      <div class="note-tag">San Pa Khoi Road resident</div>
+      <p class="quote">"Roads had not been cleaned, residents have to live with dust... tap water not flowing; they have to buy their own water daily."</p>
+      <p class="gloss">ถนนไม่กวาด ฝุ่นสะสม · น้ำประปาไม่ไหล ชาวบ้านต้องซื้อน้ำใช้รายวัน.</p>
+    </div>
+    <div class="note">
+      <div class="note-tag">Chiang Rai Times</div>
+      <p class="quote">"Many villagers do not have pickup trucks... renting a pickup truck for a trip costing 1,000 baht."</p>
+      <p class="gloss">ชาวบ้านไม่มีรถปิคอัพ · ต้องเช่าครั้งละพันบาทเพียงเพื่อเอาขยะไปทิ้ง.</p>
+    </div>
+
+    <h3 data-fig="Fig. 04">AI solutions ที่ควรทำ</h3>
+    <ul class="solutions">
+      <li class="star"><span class="sol-name"><strong>ราชการ Queue Predictor</strong></span><span class="sol-tail">live wait time per office</span></li>
+      <li><span class="sol-name">Immigration Booking AI (English UI)</span><span class="sol-tail">90-day reminder + auto-fill</span></li>
+      <li><span class="sol-name">Garbage Coach + Pickup Match</span><span class="sol-tail">peer-to-peer disposal</span></li>
+      <li><span class="sol-name">Procurement Anomaly Hunter (อปท.)</span><span class="sol-tail">civic-tech anti-corruption</span></li>
+    </ul>
+
+    <div class="ornament">▲ &nbsp; △ &nbsp; ▲</div>
+  </div>
+</section>
+
+<!-- ━━━ VIII — SMART CITY ━━━ -->
+<section class="section" id="city">
+  <div class="section-no">VIII.</div>
+  <div class="section-body">
+    <div class="section-eyebrow"><span class="gly">[ CITY ]</span>Category VIII &mdash; Smart City</div>
+    <h2 class="section-title">เมืองอัจฉริยะ — อากาศกับ<em>การจราจร</em></h2>
+    <p class="section-lede">คนเชียงใหม่เสีย 89 ชั่วโมงต่อปีในรถ (3.5 วันเต็ม) · ไม่มี mass transit จนถึงปี 2031 · AQI 233 ช่วงมีนาคม 2026 ระดับ hazardous · น้ำท่วมแม่ปิงสูงสุดในรอบ 50 ปีปี 2024 · แผ่นดินไหวมีนาคม 2025 awareness ยังต่ำ.</p>
+
+    <h3 data-fig="Fig. 01">ปัญหาหลัก</h3>
+    <ul>
+      <li><strong>เสียเวลา 89 ชม./ปี ในรถ</strong> (3.5 วันเต็ม) · ไม่มี mass transit จนปี 2031+</li>
+      <li><strong>PM2.5 → cancer/COPD/stroke</strong> — AQI 233 มี.ค. 2026 · ฤดูเผา ม.ค.–เม.ย. · 100+ hotspots</li>
+      <li><strong>Mae Kha canal เน่า</strong> — ทำลายแหล่ง tourism + บอกว่าจัดการน้ำเสียยังพัง</li>
+      <li><strong>แผ่นดินไหว 28 มี.ค. 2025</strong> — felt ในเชียงใหม่ · คอนโดร้าว · awareness ต่ำ</li>
+      <li><strong>น้ำท่วมแม่ปิง</strong> — สูงสุดรอบ 50 ปี 2024 · ซ้ำ 2025 · drainage ปูซีเมนต์ทับ ระบายไม่ทัน</li>
+      <li><strong>Songthaew vs Grab</strong> — 3-4k Grab/Bolt/InDrive ใหม่ · informal transit chaos</li>
+      <li><strong>Yi Peng overcrowding</strong> — โคมตกไฟไหม้ · กลางเมืองห้าม (โทษ 5 ปี + 2 แสน)</li>
+    </ul>
+
+    <h3 data-fig="Fig. 02">Impact ที่วัดได้</h3>
+    <div class="stats">
+      <div class="stat" data-fig="i.">
+        <div class="stat-value">89 ชม.</div>
+        <div class="stat-label">In traffic per year</div>
+        <div class="stat-context">เวลาที่คนเชียงใหม่เสียในรถต่อปี · เท่ากับ 3.5 วันเต็ม.</div>
+      </div>
+      <div class="stat" data-fig="ii.">
+        <div class="stat-value">AQI 233</div>
+        <div class="stat-label">March 2026 peak</div>
+        <div class="stat-context">ค่าฝุ่นเดือนมีนาคม 2026 · ระดับ hazardous · เกินเกณฑ์ปลอดภัย WHO หลายเท่า.</div>
+      </div>
+      <div class="stat" data-fig="iii.">
+        <div class="stat-value">2031+</div>
+        <div class="stat-label">Light rail ETA</div>
+        <div class="stat-context">เร็วที่สุดที่ light rail จะเปิด · ก่อนหน้านั้นไม่มีทางเลือก mass transit.</div>
+      </div>
+      <div class="stat" data-fig="iv.">
+        <div class="stat-value">50 ปี</div>
+        <div class="stat-label">Flood interval shattered</div>
+        <div class="stat-context">ระดับน้ำท่วมแม่ปิงปี 2024 สูงสุดในรอบ 50 ปี · และซ้ำในปี 2025.</div>
+      </div>
+    </div>
+
+    <h3 data-fig="Fig. 03">เสียงผู้ใช้จริง</h3>
+    <div class="note">
+      <div class="note-tag">TripAdvisor &middot; CM resident</div>
+      <p class="quote">"Most of that is destroyed by the horrid automobile. TRAFFIC TRAFFIC... Bancoqesque TRAFFIC. Absolutely horrible and destroying any appreciation of the wonderful temples."</p>
+      <p class="gloss">เสน่ห์ของเมืองส่วนใหญ่ถูกทำลายด้วยรถยนต์ · จราจรแบบกรุงเทพ · รถเยอะจนวัดสวยๆ ก็ดูไม่ออกแล้ว.</p>
+    </div>
+    <div class="note">
+      <div class="note-tag">Across Every Border &middot; 2025</div>
+      <p class="quote">"Air quality is the biggest health concern in Chiang Mai" — between February and April when AQI can go above 250.</p>
+      <p class="gloss">คุณภาพอากาศเป็นปัญหาสุขภาพอันดับหนึ่งของเชียงใหม่ · ระหว่างเดือนกุมภาพันธ์ถึงเมษายน AQI พุ่งเกิน 250.</p>
+    </div>
+
+    <h3 data-fig="Fig. 04">AI solutions ที่ควรทำ</h3>
+    <ul class="solutions">
+      <li class="star"><span class="sol-name"><strong>Personal PM2.5 Health Coach</strong></span><span class="sol-tail">cohort behaviour nudge</span></li>
+      <li class="star"><span class="sol-name"><strong>Soi-level Flood AI</strong></span><span class="sol-tail">street-by-street risk</span></li>
+      <li><span class="sol-name">Smart Departure Timer</span><span class="sol-tail">leave-now optimal</span></li>
+      <li><span class="sol-name">Songthaew Co-op (DaengGo)</span><span class="sol-tail">informal transit formaliser</span></li>
+      <li><span class="sol-name">Yi Peng Lantern Risk AI</span><span class="sol-tail">wind + crowd geofence</span></li>
+    </ul>
+
+    <div class="ornament">▲ &nbsp; △ &nbsp; ▲</div>
+  </div>
+</section>
+
+<!-- ━━━ IX — OTHER ━━━ -->
+<section class="section" id="other">
+  <div class="section-no">IX.</div>
+  <div class="section-body">
+    <div class="section-eyebrow"><span class="gly">[ OTHER ]</span>Category IX &mdash; Edge cases</div>
+    <h2 class="section-title">หมวดอื่น — ที่หลุด<em>กรอบ</em></h2>
+    <p class="section-lede">สัตว์จรจัด 70,000 ตัวในเชียงใหม่ · ยาบ้าชายแดนแม่สาย 10 บาท/เม็ด เด็ก 14–16 ปีถูกเกณฑ์เป็นล่อ · expat 50,000+ คนเหงาเข้าสังคมยาก · ชาวเขา stateless เพิ่งเปิดทางสัญชาติมิถุนายน 2025 เอกสารยุ่ง.</p>
+
+    <h3 data-fig="Fig. 01">ปัญหาหลัก</h3>
+    <ul>
+      <li><strong>สัตว์จรจัด 70,000 ตัว</strong> — ใน CM · spay/neuter $30–100 (เจ้าของจ่ายไม่ไหว)</li>
+      <li><strong>Loneliness expat</strong> — "hard to make friends" both expats + locals · Northern Thai culture ผูกครอบครัว</li>
+      <li><strong>"Chiang Mai is not for everyone"</strong> — โพสต์ดัง · ฝรั่งคาดหวังผิด</li>
+      <li><strong>ค่าครองชีพหลอก</strong> — $500/เดือนอยู่ไม่ได้ (เป็น misleading info ทั่วเน็ต)</li>
+      <li><strong>Earthquake awareness ต่ำ</strong> — หลังเหตุ มี.ค. 2025</li>
+      <li><strong>Mae Sai border drugs</strong> — ยาบ้า 10฿/เม็ด · เด็ก 14–16 ปีถูกเกณฑ์เป็นล่อ</li>
+      <li><strong>Hill tribe stateless</strong> — เพิ่งเปิดทางสัญชาติ มิ.ย. 2025 · เอกสารยุ่ง</li>
+    </ul>
+
+    <h3 data-fig="Fig. 02">Impact ที่วัดได้</h3>
+    <div class="stats">
+      <div class="stat" data-fig="i.">
+        <div class="stat-value">70,000</div>
+        <div class="stat-label">Strays in CM</div>
+        <div class="stat-context">สัตว์จรจัดในเชียงใหม่ · spay/neuter เจ้าของส่วนใหญ่จ่ายไม่ไหว.</div>
+      </div>
+      <div class="stat" data-fig="ii.">
+        <div class="stat-value">236 ตัน</div>
+        <div class="stat-label">Yaba seized 2024</div>
+        <div class="stat-context">ยาบ้าที่ยึดได้ปี 2024 เพิ่ม 24% · ราคาตลาดเหลือ 10 บาท/เม็ด.</div>
+      </div>
+      <div class="stat" data-fig="iii.">
+        <div class="stat-value">14–16</div>
+        <div class="stat-label">Drug mule age</div>
+        <div class="stat-context">ช่วงอายุของเด็กที่ถูกเกณฑ์เป็นล่อยาตามแนวชายแดนภาคเหนือ.</div>
+      </div>
+      <div class="stat" data-fig="iv.">
+        <div class="stat-value">50,000+</div>
+        <div class="stat-label">Expats in CM</div>
+        <div class="stat-context">ชาวต่างชาติในเชียงใหม่ · ส่วนใหญ่บ่นว่าเข้าสังคมยาก.</div>
+      </div>
+    </div>
+
+    <h3 data-fig="Fig. 03">เสียงผู้ใช้จริง</h3>
+    <div class="note">
+      <div class="note-tag">Tieland to Thailand &middot; 3-year resident</div>
+      <p class="quote">"Constant trash talking from bitter expats and answers that are regularly off topic, incomplete, or judgmental devalue the forums."</p>
+      <p class="gloss">expat ขมๆ ในฟอรั่มที่คอยด่ากันและตอบไม่ตรงคำถาม ทำให้คุณค่าของฟอรั่มหายไปหมด.</p>
+    </div>
+    <div class="note">
+      <div class="note-tag">Quora &middot; expat</div>
+      <p class="quote">"Thais are harder to break the ice with than Westerners, and Northern Thailand in particular has a strong culture of forming strong friendships with family members and childhood acquaintances."</p>
+      <p class="gloss">คนไทยเปิดใจยากกว่าฝรั่ง · ภาคเหนือยิ่งมีวัฒนธรรมเพื่อนสนิทเฉพาะในครอบครัวและเพื่อนสมัยเด็ก.</p>
+    </div>
+    <div class="note">
+      <div class="note-tag">Tieland to Thailand</div>
+      <p class="quote">"It's challenging to live comfortably on $500 USD per month in Chiang Mai, let alone like a king, and this idea continues to circle around the internet and mislead aspiring expats."</p>
+      <p class="gloss">$500 ต่อเดือนอยู่เชียงใหม่ให้สบายเป็นเรื่องยาก ไม่ต้องพูดถึงอยู่อย่างเจ้า · ข้อมูลผิดๆ นี้ยังวนๆ บนอินเทอร์เน็ตและหลอก expat รุ่นใหม่.</p>
+    </div>
+
+    <h3 data-fig="Fig. 04">AI solutions ที่ควรทำ</h3>
+    <ul class="solutions">
+      <li class="star"><span class="sol-name"><strong>Pet Adoption Match (CM 70k strays)</strong></span><span class="sol-tail">photo-based matching</span></li>
+      <li><span class="sol-name">Drug Mule Detector for Parents</span><span class="sol-tail">at-risk teen signal</span></li>
+      <li><span class="sol-name">Stateless Document Helper</span><span class="sol-tail">June 2025 reform navigator</span></li>
+      <li><span class="sol-name">Expat Community Match</span><span class="sol-tail">interest + location</span></li>
+      <li><span class="sol-name">Earthquake Preparedness Coach</span><span class="sol-tail">post-March 2025 awareness</span></li>
+    </ul>
+
+    <div class="ornament">▲ &nbsp; △ &nbsp; ▲</div>
+  </div>
+</section>
+
+<!-- ━━━ SUMMARY MATRIX ━━━ -->
+<section class="section" id="summary">
+  <div class="section-no">·</div>
+  <div class="section-body">
+    <div class="section-eyebrow">Synthesis &mdash; Cross-category matrix</div>
+    <h2 class="section-title">ภาพรวม — เก้า<em>หมวด</em></h2>
+    <p class="section-lede">ทั้ง 9 หมวดวางคู่ขนาน · ปัญหาหลัก, ขนาดของผลกระทบ, และ demo angle ที่จะใช้บนเวที hackathon.</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:18%">Category</th>
+          <th style="width:32%">Main problem</th>
+          <th style="width:22%">Scale</th>
+          <th style="width:28%">Demo angle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-highlight">
+          <td><span class="cat-icon">I &middot; AGRI</span><strong>เกษตร</strong></td>
+          <td>ส่วนต่างราคา 25× · หนี้นอกระบบ 186%/ปี</td>
+          <td class="num">70% เสี่ยงการเงิน</td>
+          <td>สแกนเมล็ดสด · loan calc — <em>DoiBean</em></td>
+        </tr>
+        <tr>
+          <td><span class="cat-icon">II &middot; ENT</span><strong>องค์กร</strong></td>
+          <td>Commission 35% · Foodpanda exit</td>
+          <td class="num">3.2M SME</td>
+          <td>เปิดบิล Grab จริงบนเวที</td>
+        </tr>
+        <tr>
+          <td><span class="cat-icon">III &middot; MFG</span><strong>การผลิต</strong></td>
+          <td>Wastewater + workforce gap + data silo</td>
+          <td class="num">Lamphun 1,788 ไร่</td>
+          <td>Vision QC live บนผ้าทอลานนา</td>
+        </tr>
+        <tr>
+          <td><span class="cat-icon">IV &middot; TUR</span><strong>ท่องเที่ยว</strong></td>
+          <td>Police checkpoint + Yi Peng overcharge</td>
+          <td class="num">$1,000s ฝรั่ง/ปี</td>
+          <td>Yi Peng pricing exposé</td>
+        </tr>
+        <tr class="row-highlight">
+          <td><span class="cat-icon">V &middot; HLT</span><strong>HealthTech</strong></td>
+          <td>จิตแพทย์รอ 6 เดือน · stigma ชาวเขา</td>
+          <td class="num">4.4M คน/ปี</td>
+          <td>Triage emotional บน stage</td>
+        </tr>
+        <tr>
+          <td><span class="cat-icon">VI &middot; EDU</span><strong>EduTech</strong></td>
+          <td>169k เด็กไม่ในระบบ · TCAS งง</td>
+          <td class="num">จังหวัดชายแดน</td>
+          <td>TCAS roadmap แบบโต้ตอบ</td>
+        </tr>
+        <tr>
+          <td><span class="cat-icon">VII &middot; GOV</span><strong>GovTech</strong></td>
+          <td>Immigration "the Zoo" · เว็บภาษาไทยเท่านั้น</td>
+          <td class="num">50k expat CM</td>
+          <td>Queue tracker live</td>
+        </tr>
+        <tr class="row-highlight">
+          <td><span class="cat-icon">VIII &middot; CITY</span><strong>Smart City</strong></td>
+          <td>PM2.5 + เสีย 89 ชม./ปีในรถ</td>
+          <td class="num">ทุกคน CM</td>
+          <td>Personal PM2.5 coach</td>
+        </tr>
+        <tr>
+          <td><span class="cat-icon">IX &middot; OTHER</span><strong>อื่นๆ</strong></td>
+          <td>70k strays · drug mule · stateless</td>
+          <td class="num">CM ทุกซอย</td>
+          <td>Match สัตว์ผ่านรูป</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note thesis">
+      <div class="note-tag">★ Cross-cutting insight</div>
+      <p>สามแถวที่ <em>highlight</em> ไว้ — AgriTech (DoiBean), HealthTech (Mental Health Triage), Smart City (PM2.5 Coach) — คือสามหมวดที่มี payer ชัด, demo บนเวทีง่าย, และ social good ที่ judge ปฏิเสธไม่ได้. <strong>ถ้าทีมต้องเลือกหนึ่งหัวข้อ ให้เลือกในสามนี้.</strong></p>
+    </div>
+
+    <div class="ornament">▲ &nbsp; △ &nbsp; ▲</div>
+  </div>
+</section>
+
+<!-- ━━━ HOW TO USE ━━━ -->
+<section class="section" id="howto">
+  <div class="section-no">·</div>
+  <div class="section-body">
+    <div class="section-eyebrow">Editor's note &mdash; Choosing a topic</div>
+    <h2 class="section-title">วิธีใช้รายงานเลือก<em>หัวข้อ</em></h2>
+    <p class="section-lede">รายงานนี้ไม่ใช่ทางเลือก plug-and-play · ใช้สามคำถามด้านล่างกรอง 9 หมวดให้เหลือหมวดเดียวที่ทีมจะลงมือสร้างได้ใน 60 วัน.</p>
+
+    <h3 data-fig="Fig. 01">สามคำถามที่ควรถามก่อนเลือกหมวด</h3>
+    <ul>
+      <li><strong>ใครจ่ายเงิน?</strong> — Restaurant Margin Defender (ร้านอาหารจ่าย) · Mental Health Triage (รัฐ/WHO) · Pet Adoption (NGO funding) · DoiBean (ชาวสวน + roaster + foundation). เลือกหมวดที่มี payer ชัด.</li>
+      <li><strong>Demo บนเวทีได้ไหม?</strong> — สแกนเมล็ดกาแฟสด · เปิดบิล Grab จริง · scan ใบมะม่วง. ถ้าทำสด ๆ บนเวทีไม่ได้ judge จะลืม.</li>
+      <li><strong>ทีมเรามี edge อะไร?</strong> — Hill tribe contact · ทำงานกับมูลนิธิดอยตุง · มีคนในโรงพยาบาลรัฐ. เลือกหมวดที่ใช้ edge ของทีมได้.</li>
+    </ul>
+
+    <h3 data-fig="Fig. 02">สามหมวดที่แนะนำสุด ตาม risk × reward</h3>
+    <ul>
+      <li><strong>HealthTech &mdash; Mental Health Triage:</strong> high impact · high payer · easy demo · social good ปฏิเสธไม่ได้</li>
+      <li><strong>Enterprise &mdash; Restaurant Margin Defender:</strong> timing perfect (Foodpanda exit) · clear B2B revenue · acquirable</li>
+      <li><strong>Smart City &mdash; PM2.5 Coach:</strong> ทุก judge ที่อยู่เชียงใหม่โดน · action layer ใหม่ · viral health story</li>
+    </ul>
+
+    <p class="pull">รายงานนี้ไม่ใช่ Buzzfeed list. เลือกหนึ่งหมวด · ลงไปลึก · ทำให้ <em>ดีที่สุด</em>. การกระจายแรงไปสามหมวดคือทางลัดสู่การพ่ายแพ้.<span class="pull-attribution">— Editor's last word</span></p>
+
+    <div class="ornament">▲ &nbsp; △ &nbsp; ▲</div>
+  </div>
+</section>
+
+<!-- ━━━ SOURCES ━━━ -->
+<section class="section" id="sources">
+  <div class="section-no">·</div>
+  <div class="section-body">
+    <div class="section-eyebrow">Citations &mdash; Real data sources</div>
+    <h2 class="section-title">Sources &amp; <em>Colophon</em></h2>
+    <p class="section-lede">ตัวเลขทุกตัวในเล่มนี้มีแหล่งอ้างอิง · เสียงผู้ใช้ทุกบล็อกถูกอ้างจากต้นฉบับ. ตรวจสอบและตามไปอ่านได้.</p>
+
+    <div class="citations">
+      <a href="https://www.bangkokpost.com/thailand/general/2985685/loan-sharks-arrested-in-5-thai-provinces">Loan Shark Doi Saket · Bangkok Post</a>
+      <a href="https://www.chiangmaicitylife.com/clg/our-city/city-issues/thailands-people-drowning-in-debt/">Thailand Drowning in Debt · CM City Life</a>
+      <a href="https://www.chiangraitimes.com/business/foodpanda-to-exit-thailand/">Foodpanda Exit Thailand 2025 · CR Times</a>
+      <a href="https://peerapat.cv/blog/2025-08-02-thailands-food-delivery-market-2025-2026-the-new-phase-of-growth">Food Delivery Market 2025–2026</a>
+      <a href="https://www.ieat.go.th/en/investment/about-industrial-estates/industrial-estates-in-thailand/g199-Northern%20Region%20Industrial%20Estate">Northern Region IE Lamphun · IEAT</a>
+      <a href="https://www.tripadvisor.com/ShowTopic-g293915-i3686-k10916125-o20-Police_coruption_scam_on_tourists_in_Chiang_Mai-Thailand.html">CM Police Scam · TripAdvisor</a>
+      <a href="https://www.tripadvisor.com/ShowTopic-g1308496-i13569-k15267960-Yi_Peng_2025-Chiang_Mai_Province.html">Yi Peng Scam Pricing · TripAdvisor 2025</a>
+      <a href="https://www.nationthailand.com/health-wellness/40049787">Thailand Mental Health Crisis · Nation</a>
+      <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11535199/">CMU Student Mental Health 57.9% · PMC</a>
+      <a href="https://wanderlog.com/place/details/2103147/maharaj-nakorn-chiang-mai-hospital">Maharaj Hospital Reviews · Wanderlog</a>
+      <a href="https://www.bangkokpost.com/thailand/general/2436239/lung-cancer-risk-higher-in-polluted-chiang-mai">PM2.5 Lung Cancer CM · Bangkok Post</a>
+      <a href="https://www.seameo.org/category/7/484">Northern Thailand Dropouts 169k · SEAMEO</a>
+      <a href="https://brokenchalk.org/education-at-a-crossroads-navigating-thailands-educational-challenges/">Mountain School 8hr Access · Broken Chalk</a>
+      <a href="https://www.chiangmailocator.com/wiki-dealing-with-chiang-mai-immigration-office-p25">Immigration "The Zoo" · CM Locator</a>
+      <a href="https://www.chiangmaicitylife.com/clg/our-city/environment/wasting-away-chasing-chiang-mais-rubbish-trail/">CM Garbage 300 tonnes · CM City Life</a>
+      <a href="https://www.chiangraitimes.com/north/rubbish-removal-chiang-mai/">CM Communities Angry Garbage · CR Times</a>
+      <a href="https://www.nationthailand.com/news/tourism/40056798">Mae Kha Canal Pollution · Nation</a>
+      <a href="https://www.tomtom.com/traffic-index/city/chiang-mai">CM Traffic 89 hours · TomTom</a>
+      <a href="https://prachataienglish.com/node/11234">CM Public Transport Crisis · Prachatai</a>
+      <a href="https://chiangmai.care/stray-dogs-in-chiang-mai-thailand/">CM Stray Dogs 70k · CM Care</a>
+      <a href="https://www.adventurouskate.com/chiang-mai-is-not-for-everyone/">CM Not For Everyone · Adventurous Kate</a>
+      <a href="https://www.tielandtothailand.com/lessons-learned-living-chiang-mai-three-years/">Lessons 3 yr Living CM · Tieland</a>
+      <a href="https://openthemagazine.com/world/chiang-mai-chokes-inside-thailands-worst-air-crisis-of-2026">CM Air Crisis 2026 · Open Magazine</a>
+      <a href="https://www.khaosodenglish.com/sustain/2025/10/10/chiang-mai-deploys-big-data-envi-link-to-combat-pm2-5-crisis/">Envi Link PM2.5 Platform · Khaosod</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="colophon">
+    Field Notes &mdash; fascicle <em>v</em> / รวบรวมจากข่าว ฟอรั่ม วิจัย · พฤษภาคม 2026.<br>
+    ตัวเลข 50+ ตัวเลข impact · เสียงผู้ใช้ 25+ บล็อก · 9 หมวด hackathon. ส่วนหนึ่งของโครงการ <a href="index-th.html">DoiBean</a>.
+  </div>
+  <div style="text-align:right">
+    <div>End &middot; Vol. 01 / V</div>
+    <div class="end" style="margin-top:8px">— fin —</div>
+  </div>
 </footer>
 
 </main>
-</div>
-
-<script>
-(function(){
-  function toggle() {
-    var o = document.getElementById('siteNavOverlay');
-    var willShow = !o.classList.contains('show');
-    o.classList.toggle('show');
-    if (willShow) {
-      var path = window.location.pathname.split('/').pop() || 'index.html';
-      var cur = path.replace('.html', '') || 'index';
-      o.querySelectorAll('.site-nav-link').forEach(function(a){
-        a.classList.toggle('current', a.dataset.page === cur);
-      });
-    }
-  }
-  window.toggleSiteNav = toggle;
-  document.addEventListener('keydown', function(e){
-    if (e.key === 'Escape') {
-      var o = document.getElementById('siteNavOverlay');
-      if (o) o.classList.remove('show');
-    }
-  });
-  // Scroll-spy for TOC — IntersectionObserver, no per-frame layout reads
-  var sections = document.querySelectorAll('main section[id], main footer[id]');
-  var tocLinks = document.querySelectorAll('nav.toc a[href^="#"]');
-  var linkMap = {};
-  tocLinks.forEach(function(l){
-    var id = l.getAttribute('href').replace('#','');
-    if (id) linkMap[id] = l;
-  });
-  function setActive(id){
-    tocLinks.forEach(function(l){ l.classList.remove('active'); });
-    if (id && linkMap[id]) linkMap[id].classList.add('active');
-  }
-  if ('IntersectionObserver' in window && sections.length) {
-    var visible = new Set();
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if (e.isIntersecting) visible.add(e.target.id);
-        else visible.delete(e.target.id);
-      });
-      var activeId = null;
-      for (var i = sections.length - 1; i >= 0; i--) {
-        if (visible.has(sections[i].id)) { activeId = sections[i].id; break; }
-      }
-      if (activeId) setActive(activeId);
-    }, { rootMargin: '-120px 0px -70% 0px', threshold: 0 });
-    sections.forEach(function(s){ io.observe(s); });
-  }
-})();
-</script>
 
 </body>
 </html>
