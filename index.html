@@ -722,9 +722,10 @@
 <span class="lbl">Cat-1 Defects</span>     <span class="pass">0  ✓</span>
 <span class="lbl">Cat-2 Defects</span>     <span class="warn">3 (2 partial sour, 1 floater)</span>
 <span class="lbl">Bean Size</span>         Screen 17 (87%), Screen 16 (13%)
-<span class="lbl">Predicted Cupping</span> floral, jasmine, citrus acidity
+<span class="lbl">Similar-Lot Profile</span> floral, jasmine, citrus  <span class="warn">(n=47 lookup)*</span>
 <span class="lbl">Suggested Roast</span>   light to medium-light
 <span class="lbl">Price Floor</span>       <span class="val">฿1,400/kg green</span></pre>
+        <p style="font-size:13px;color:var(--slate);margin-top:14px;max-width:62ch"><strong>* Honest framing:</strong> CV cannot infer flavor from a green bean photo. The "Similar-Lot Profile" line is a <em>database lookup</em> (variety + altitude + process + season → median Q-grader notes from comparable Doi Chang lots, 2023–2026). Real cupping notes come from the roaster cup after delivery and feed back into the system.</p>
       </div>
       <div class="note">
         <div class="note-tag">Legal &amp; Trust Boundary</div>
@@ -742,7 +743,7 @@
         <div class="module-fig">Module 05 &middot; Hero</div>
       </header>
       <div class="module-body" style="grid-template-columns:1fr">
-        <p>Each farmer's harvest becomes a <strong>lot card</strong> — photos, story video, AI cupping report, processing detail, organic and fair-trade certifications, available kilos. Roasters worldwide browse, request samples, negotiate, settle in escrow. Stripe Connect handles cross-border. Initial export logistics partnered with Beanspire or This Side Up.</p>
+        <p>Each farmer's harvest becomes a <strong>lot card</strong> — photos, story video, defect score + similar-lot profile lookup, processing detail, organic and fair-trade certifications, available kilos. Roasters worldwide browse, request samples, negotiate, settle in escrow. Stripe Connect handles cross-border. Initial export logistics partnered with Beanspire or This Side Up.</p>
       </div>
       <div class="note">
         <div class="note-tag">Pricing Intelligence Layer</div>
@@ -832,7 +833,7 @@
         </div>
         <div class="persona-body">
           <p>Roasts 200 kg/week. Burns six hours every Friday calling farms, chasing samples, vetting micro-lots. Saves fifteen hours and 30% on sourcing in his first month with DoiBean. The pricing intelligence layer is his unfair advantage.</p>
-          <p><strong>Why he subscribes:</strong> the AI cupping report is good enough to skip the first sample shipment 70% of the time. That alone pays for the year.</p>
+          <p><strong>Why he subscribes:</strong> the similar-lot profile lookup is good enough to skip the first sample shipment 70% of the time. That alone pays for the year.</p>
         </div>
       </div>
     </div>
@@ -855,7 +856,7 @@
     <div class="stream">
       <div class="stream-tag">Stream 02 &middot; B2B</div>
       <h3 class="stream-title">Roaster source &mdash; ฿990/month + 8% take rate</h3>
-      <p>Discoverable lot search, AI cupping reports, sample escrow, settlement. Take rate of 8% on closed transactions — the comparable in coffee infrastructure is 12–15%, so we are deliberately under-priced for first three years.</p>
+      <p>Discoverable lot search, similar-lot profile lookups, sample escrow, settlement. Take rate of 8% on closed transactions — the comparable in coffee infrastructure is 12–15%, so we are deliberately under-priced for first three years.</p>
     </div>
     <div class="stream">
       <div class="stream-tag">Stream 03 &middot; B2G &middot; Foundation</div>
@@ -975,7 +976,7 @@
       <tbody>
         <tr><td><strong>Older farmers don't use apps</strong></td><td class="num">High</td><td>Voice-first UI in tribal languages; youth ambassadors paid ฿500 per onboarded farmer; in-person training at foundation centres.</td></tr>
         <tr><td><strong>Photo variance kills accuracy</strong></td><td class="num">Med</td><td>Free white A4 kit shipped with onboarding; in-camera framing guides; reject + retake flow for poor lighting.</td></tr>
-        <tr><td><strong>Roasters distrust AI cupping</strong></td><td class="num">High</td><td>Sample escrow always available; certified Q-grader backstop; clear "pre-screening estimate" labelling.</td></tr>
+        <tr><td><strong>Roasters distrust similar-lot lookup</strong></td><td class="num">High</td><td>Frame profile clearly as database lookup, not visual prediction; sample escrow always available; certified Q-grader backstop on premium lots; cupping notes from real roaster cup feed back into the database; never overclaim.</td></tr>
         <tr><td><strong>Export bureaucracy</strong></td><td class="num">Med</td><td>Partner with established Thai exporters (Beanspire) for first 18 months; build internal capability after volume justifies it.</td></tr>
         <tr><td><strong>Climate model misforecast</strong></td><td class="num">Med</td><td>Show ranges, not point estimates. Update annually with new TMD data. Variety advice always includes hedging.</td></tr>
         <tr><td><strong>Foundation partnership falls through</strong></td><td class="num">High</td><td>Parallel relationships with Mae Fah Luang + DOA + 2 NGOs; never single-source the channel.</td></tr>

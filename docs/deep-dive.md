@@ -327,7 +327,9 @@ SCA Score Estimate 84.5 ✓ Specialty Grade
 Cat-1 Defects 0 ✓
 Cat-2 Defects 3 (2 partial sour, 1 floater)
 Bean Size Screen 17 (87%), Screen 16 (13%)
-Predicted Cupping floral, jasmine, citrus acidity
+Similar-Lot Profile floral, jasmine, citrus  (n=47 lookup)*
+
+*\* Honest framing: CV cannot infer flavor from a green bean photo. The "Similar-Lot Profile" line is a database lookup (variety + altitude + process + season → median Q-grader notes from comparable Doi Chang lots, 2023–2026). Real cupping notes come from the roaster cup after delivery and feed back into the system.*
 Suggested Roast light to medium-light
 Price Floor ฿1,400/kg green
 ```
@@ -344,7 +346,7 @@ V.
 
 Module 05 · Hero
 
-Each farmer's harvest becomes a **lot card** — photos, story video, AI cupping report, processing detail, organic and fair-trade certifications, available kilos. Roasters worldwide browse, request samples, negotiate, settle in escrow. Stripe Connect handles cross-border. Initial export logistics partnered with Beanspire or This Side Up.
+Each farmer's harvest becomes a **lot card** — photos, story video, similar-lot profile lookup, processing detail, organic and fair-trade certifications, available kilos. Roasters worldwide browse, request samples, negotiate, settle in escrow. Stripe Connect handles cross-border. Initial export logistics partnered with Beanspire or This Side Up.
 
 Pricing Intelligence Layer
 
@@ -411,7 +413,7 @@ Persona 03 · Entry: marketplace
 
 Roasts 200 kg/week. Burns six hours every Friday calling farms, chasing samples, vetting micro-lots. Saves fifteen hours and 30% on sourcing in his first month with DoiBean. The pricing intelligence layer is his unfair advantage.
 
-**Why he subscribes:** the AI cupping report is good enough to skip the first sample shipment 70% of the time. That alone pays for the year.
+**Why he subscribes:** the similar-lot profile lookup is good enough to skip the first sample shipment 70% of the time. That alone pays for the year.
 
 *Chapter X — The Money*
 
@@ -429,7 +431,7 @@ Stream 02 · B2B
 
 ### Roaster source — ฿990/month + 8% take rate
 
-Discoverable lot search, AI cupping reports, sample escrow, settlement. Take rate of 8% on closed transactions — the comparable in coffee infrastructure is 12–15%, so we are deliberately under-priced for first three years.
+Discoverable lot search, similar-lot profile lookups, sample escrow, settlement. Take rate of 8% on closed transactions — the comparable in coffee infrastructure is 12–15%, so we are deliberately under-priced for first three years.
 
 Stream 03 · B2G · Foundation
 
@@ -525,7 +527,7 @@ More farmers attract roasters; more roasters bid up prices, attracting farmers. 
 | --- | --- | --- |
 | **Older farmers don't use apps** | High | Voice-first UI in tribal languages; youth ambassadors paid ฿500 per onboarded farmer; in-person training at foundation centres. |
 | **Photo variance kills accuracy** | Med | Free white A4 kit shipped with onboarding; in-camera framing guides; reject + retake flow for poor lighting. |
-| **Roasters distrust AI cupping** | High | Sample escrow always available; certified Q-grader backstop; clear "pre-screening estimate" labelling. |
+| **Roasters distrust similar-lot lookup** | High | Frame profile clearly as database lookup, not visual prediction; sample escrow always available; certified Q-grader backstop on premium lots; cupping notes from real roaster cup feed back into the database; never overclaim. |
 | **Export bureaucracy** | Med | Partner with established Thai exporters (Beanspire) for first 18 months; build internal capability after volume justifies it. |
 | **Climate model misforecast** | Med | Show ranges, not point estimates. Update annually with new TMD data. Variety advice always includes hedging. |
 | **Foundation partnership falls through** | High | Parallel relationships with Mae Fah Luang + DOA + 2 NGOs; never single-source the channel. |

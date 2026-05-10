@@ -158,7 +158,9 @@ MobileNetV3 บนมือถือ · ทำงาน offline · 4MB · จำ
 SCA Score 84.5 ✓ Specialty
 Cat-1 0 ✓
 Cat-2 3 (sour, floater)
-Cupping floral, jasmine, citrus
+Profile lookup floral, jasmine, citrus*
+
+*\* lookup จาก similar-lot database ไม่ใช่ AI ดูภาพ — roaster cup ของจริงหลังส่งมอบ*
 Roast light to medium-light
 Price floor ฿1,400/กก.
 ```

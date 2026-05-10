@@ -52,8 +52,10 @@
 | ☑ **Predict** | ทำนายผลผลิตสายพันธุ์ภายใต้ IPCC scenarios ปี 2030/2040 ตาม GPS แปลง |
 | ☑ **Recommend** | แนะนำสายพันธุ์ทนสภาพอากาศตามระดับความสูง + ดิน + microclimate |
 | ☑ **Detect** | โรคใบสนิม (roya), ด้วงเจาะผลกาแฟ, anthracnose จากภาพถ่ายของชาวสวน |
-| ☑ **Extract** | ทำนาย cupping notes จาก visual analysis ของเมล็ดเขียว |
+| ☑ **Lookup** | profile cupping จากฐานข้อมูลล็อตคล้ายกัน (variety + altitude + process + season) — *ไม่ใช่ AI ดูภาพแล้วเดารส* |
 | ☑ **Generate** | แปล Thai → ภาษา roaster (English / Japanese / Korean) เล่าเรื่อง origin |
+
+> **หมายเหตุ honest framing:** AI ทำนาย cupping notes จากภาพเมล็ดเขียว *ไม่ได้* — flavor มาจาก genetics + terroir + processing + roast + brew (เห็นจากภาพได้ ~5%) ที่เราทำได้คือ recommender จาก lot คล้ายกันใน database (year 2-3 data flywheel) และให้ roaster cup จริงหลังซื้อ feedback กลับ system
 
 ---
 
@@ -98,7 +100,7 @@
 |--------|------------|
 | ☑ **Dashboard** | แอปมือถือชาวสวน — ประวัติสแกน, lot ปัจจุบัน, ราคา offer, สถานะการชำระ |
 | ☑ **Alert** | ช่วงเก็บเกี่ยวเปิด, โรคระบาดในลุ่มน้ำ, ได้รับ offer จาก roaster |
-| ☑ **Report** | Lot Quality Sheet (PDF, ไทย+อังกฤษ) — คะแนน SCA, defect, cupping notes, ภาพ, GPS — ให้ roaster |
+| ☑ **Report** | Lot Quality Sheet (PDF, ไทย+อังกฤษ) — คะแนน SCA, defect, ภาพ, GPS, similar-lot profile — ให้ roaster (cupping notes จริงเติมโดย Q-grader / roaster หลังซื้อ) |
 | ☑ **Action** | ชำระตรงผ่าน PromptPay / Stripe Connect เมื่อ roaster ยืนยัน + auto-generate เอกสาร export |
 
 ---
