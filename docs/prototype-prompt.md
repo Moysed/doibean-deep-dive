@@ -150,7 +150,7 @@ Use `clamp()` for fluid sizing across mobile → desktop:
 ### Voice (writing for the UI)
 - **Thai UI:** plain village-Thai, no English jargon. "เริ่มสแกน" not "Start Scan." "คะแนนเมล็ด" not "Bean Score."
 - **English UI (roaster side):** specialty-coffee vocabulary. "Cupping notes" not "Tasting notes." "Lot ID" not "Product ID."
-- Numbers ALWAYS lead. "84.5 SCA" not "Quality: 84.5"
+- Numbers ALWAYS lead — but as **ranges**, never single decimals. "82–86 SCA · ±2 confidence band" not "84.5 SCA". CV measures defects + size + color uniformity + density proxy (~20 SCA pts of signal); the remaining 80 pts come from a Q-grader cup. Show this contrast.
 - Dates in stamped form: "2026-11-14 · DOI CHANG · 1,420m" not "November 14, 2026"
 - Never say "Welcome" — say nothing or say what's happening.
 
@@ -163,7 +163,7 @@ Every lot is rendered as a small physical-feeling card. Required:
 - Number plate at top-left: `LOT 047`
 - Origin line: `DOI CHANG · CHIANG RAI · 1,420m`
 - Producer name in Figtree 500: `อุดร แซ่หม่า` or "Udorn Sae-Ma"
-- Score in giant brick numerals: `84.5`
+- Score range in giant brick numerals: `82–86` (range, never single decimal). Confidence band underneath in mono: `±2 SCA · sensory cup pending`
 - Mini bar visualization for 6 cupping criteria (text-bar character `█████░░`)
 - Stamp in corner: `VERIFIED Q · 2026-11-14` rotated -8°
 - Hairline border in stone, no drop shadow

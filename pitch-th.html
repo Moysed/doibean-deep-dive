@@ -407,7 +407,7 @@
     <div class="flow-step">
       <div class="flow-num">Step 01</div>
       <div class="flow-action">สแกน</div>
-      <div class="flow-detail">โรยเมล็ด 100 เม็ดบน A4 &middot; ถ่ายมือถือ &middot; AI ให้คะแนน <strong>SCA 84.5</strong> ใน 30 วินาที</div>
+      <div class="flow-detail">โรยเมล็ด 100 เม็ดบน A4 &middot; ถ่ายมือถือ &middot; AI วัด defect + size + uniformity ใน 30 วินาที — <strong>ช่วง 82–86 SCA · Likely Specialty</strong></div>
     </div>
     <div class="flow-step">
       <div class="flow-num">Step 02</div>
@@ -444,12 +444,14 @@
       <div class="hero-tag">★ Module 04</div>
       <h3 class="hero-title">Bean Quality <em>Scanner</em></h3>
       <p class="hero-desc">MobileNetV3 บนมือถือ &middot; ทำงาน offline &middot; 4MB &middot; จำแนก SCA defect ได้แม่น 98%</p>
-      <pre class="hero-mock"><span class="lbl">SCA Score</span>      <span class="val">84.5</span> <span class="ok">✓ Specialty</span>
-<span class="lbl">Cat-1</span>          <span class="ok">0  ✓</span>
-<span class="lbl">Cat-2</span>          <span class="warn">3 (sour, floater)</span>
+      <pre class="hero-mock"><span class="lbl">Range</span>          <span class="val">82–86 SCA</span> <span class="ok">✓ Likely Specialty</span>
+<span class="lbl">Cat-1</span>          <span class="ok">0  ✓</span>             → −0 pts
+<span class="lbl">Cat-2</span>          <span class="warn">3 (sour, floater)</span> → −6 pts
+<span class="lbl">Bean size</span>      Sc.17 (87%) ✓ uniform
+<span class="lbl">Color</span>          93% σ &lt; 0.08 ✓
+<span class="lbl">Sensory cup</span>    <span class="warn">รอ Q-grader (80/100)</span>
 <span class="lbl">Profile lookup</span> floral, jasmine, citrus*
-<span class="lbl">Roast</span>          light to medium-light
-<span class="lbl">Price floor</span>    <span class="val">฿1,400/กก.</span></pre>
+<span class="lbl">Price floor</span>    <span class="val">฿1,400/กก.</span> (lower bound)</pre>
     </div>
     <div class="hero-card dark-card">
       <div class="hero-tag">★ Module 05</div>

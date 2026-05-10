@@ -725,14 +725,18 @@
       </header>
       <div class="module-body" style="grid-template-columns:1fr">
         <p>โรยเมล็ดเขียว 50–100 เม็ดบนกระดาษ A4 ขาว (เราส่งชุดอุปกรณ์ฟรี) · ถ่ายด้วยกล้องมือถือ · <strong>MobileNetV3 ที่ fine-tune กับมาตรฐาน SCA</strong> จำแนกทุกเมล็ดที่เห็น</p>
-        <pre class="scan-output"><span class="lbl">SCA Score Estimate</span> <span class="val">84.5</span>  <span class="pass">✓ Specialty Grade</span>
-<span class="lbl">Cat-1 Defects</span>     <span class="pass">0  ✓</span>
-<span class="lbl">Cat-2 Defects</span>     <span class="warn">3 (2 partial sour, 1 floater)</span>
-<span class="lbl">Bean Size</span>         Screen 17 (87%), Screen 16 (13%)
-<span class="lbl">Similar-Lot Profile</span> floral, jasmine, citrus  <span class="warn">(n=47 lookup)*</span>
-<span class="lbl">Suggested Roast</span>   light to medium-light
-<span class="lbl">Price Floor</span>       <span class="val">฿1,400/กก. green</span></pre>
-        <p style="font-size:13px;color:var(--slate);margin-top:14px;max-width:62ch"><strong>* บอกให้ชัด:</strong> CV ไม่สามารถทำนาย flavor จากภาพเมล็ดเขียวได้ บรรทัด "Similar-Lot Profile" คือ <em>การ lookup จากฐานข้อมูล</em> (variety + altitude + process + season → median ของ Q-grader notes จากล็อตดอยช้างคล้ายกัน 2023–2026) cupping notes จริงมาจาก roaster cup หลังส่งมอบ แล้ว feedback กลับเข้าระบบ</p>
+        <pre class="scan-output"><span class="lbl">Pre-screening Range</span>  <span class="val">82–86 SCA</span>  <span class="pass">✓ Likely Specialty</span>
+<span class="lbl">  Cat-1 Defects</span>      <span class="pass">0  ✓</span>                       <span class="warn">→ −0 pts</span>
+<span class="lbl">  Cat-2 Defects</span>      <span class="warn">3 (2 partial sour, 1 floater)</span>  <span class="warn">→ −6 pts</span>
+<span class="lbl">  Bean Size</span>          Screen 17 (87%), Screen 16 (13%)  <span class="pass">✓ uniform</span>
+<span class="lbl">  Color Uniformity</span>   93% σ &lt; 0.08                       <span class="pass">✓ consistent dry</span>
+<span class="lbl">  Density Proxy</span>      7.2 / 10                          <span class="pass">✓ high-altitude</span>
+<span class="lbl">  Confidence Band</span>    ±2 SCA
+<span class="lbl">Sensory Cup</span>          <span class="warn">รอ Q-grader cup (80 จาก 100 pts)</span>
+<span class="lbl">Similar-Lot Profile</span>  floral, jasmine, citrus  <span class="warn">(n=47 lookup, roaster ยืนยันหลังซื้อ)*</span>
+<span class="lbl">Suggested Roast</span>      light to medium-light  <span class="warn">(heuristic ไม่ใช่การวัด)</span>
+<span class="lbl">Price Floor</span>          <span class="val">฿1,400/กก. green</span>  <span class="warn">(จากขอบล่างของช่วง)</span></pre>
+        <p style="font-size:13px;color:var(--slate);margin-top:14px;max-width:62ch"><strong>* CV วัดอะไรได้ vs มนุษย์ต้องทำอะไร:</strong> ช่วงคะแนนมาจากการนับ defect (Cat-1/Cat-2 ลบตามมาตรฐาน SCA), วัดขนาดเมล็ดเทียบกระดาษ A4, วัด color uniformity จาก histogram, และ density proxy จาก shape — <strong>รวมประมาณ 20 SCA points ที่วัดได้จริง</strong> ส่วนที่เหลือ ~80 points (fragrance, flavor, aftertaste, acidity, body, balance, uniformity, clean-cup, sweetness, overall) ต้องให้ Q-grader cup จริงเท่านั้น "Similar-Lot Profile" = lookup จาก database ของล็อตดอยช้างคล้ายกัน (n=47, 2023–2026) ไม่ใช่ AI ดูภาพแล้วเดารส cupping notes จริงมาจาก roaster cup หลังส่งมอบ feedback กลับ system</p>
       </div>
       <div class="note">
         <div class="note-tag">ขอบเขตทางกฎหมายและความเชื่อมั่น</div>
@@ -820,7 +824,7 @@
         </div>
         <div class="persona-body">
           <p>พูดอาข่าที่บ้าน คำเมืองที่ตลาด · มือถือใช้ร่วมกับภรรยา · ปลูก Catimor ผสม Caturra 5 ไร่ ที่ระดับ 1,300 ม. · ขายให้พ่อค้ารับซื้อที่มาเดือนละครั้ง ได้ ฿80–120/กก. green · เคยได้ยินคำว่า "specialty" แต่ไม่รู้ว่ามันหมายความว่าอย่างไรกับเขา</p>
-          <p><strong>ทำไมเขาติดตั้ง:</strong> youth ambassador ให้เห็นผลสแกนเมล็ดของเขาเอง — 84.5, specialty grade · เห็นเลขนี้แล้วลืมไม่ได้</p>
+          <p><strong>ทำไมเขาติดตั้ง:</strong> youth ambassador ให้เห็นผลสแกนเมล็ดของเขาเอง — <strong>Cat-1 = 0, Cat-2 = 3, Sc.17 uniform — Likely Specialty (ช่วง 82–86 SCA)</strong> · เห็นว่า lab number มีความหมายแล้วลืมไม่ได้</p>
         </div>
       </div>
       <div class="persona">
@@ -1003,7 +1007,7 @@
     <h3>Storyboard</h3>
     <div class="demo-row"><div class="demo-time">0:00–0:10</div><div class="demo-action"><strong>เปิดด้วยควัน</strong> · ภาพดอยช้างฤดูเผา · "ทุกเดือนมีนาคม นี่คือออฟฟิศของชาวสวน" · หยุด 2 จังหวะ</div></div>
     <div class="demo-row"><div class="demo-time">0:10–0:25</div><div class="demo-action"><strong>เลข 25 เท่าขึ้นจอ</strong> · เลขเดียว ไม่มีกราฟ · "เมล็ดเขาขายที่นี่ ฿100 · เมล็ดเดียวกันที่ Café Amazon ของพวกคุณ ฿2,500 · ส่วนต่างไปไหนหมด"</div></div>
-    <div class="demo-row"><div class="demo-time">0:25–0:50</div><div class="demo-action"><strong>สแกนสดบนเวที</strong> · เมล็ดจริง โทรศัพท์จริง ผลจริง · ยกจอขึ้น · อ่านคะแนน SCA ออกเสียง — <em>84.5, specialty grade</em> · ผู้ฟังได้ยินตัวเลข นั่นคือจังหวะที่ใช่</div></div>
+    <div class="demo-row"><div class="demo-time">0:25–0:50</div><div class="demo-action"><strong>สแกนสดบนเวที</strong> · เมล็ดจริง โทรศัพท์จริง ผลจริง · ยกจอขึ้น · อ่านผลออกเสียง — <em>Cat-1 = 0, Cat-2 = 3, ช่วง 82–86 SCA, Likely Specialty</em> · แล้วบอกความจริงที่เหลือ: "อีก 80% ของคะแนน Q-grader cup จริง confirms" · ความซื่อสัตย์นั่นคือจังหวะที่ใช่</div></div>
     <div class="demo-row"><div class="demo-time">0:50–1:10</div><div class="demo-action"><strong>ที่ปรึกษาสายพันธุ์</strong> · แสดงสภาพอากาศคาดการณ์ปี 2040 · "ถึงตอนลูกสาวเขารับช่วง แปลงนี้จะปลูก Caturra ไม่ได้แล้ว · เราบอกเขาวันนี้ว่าควรปลูกอะไร"</div></div>
     <div class="demo-row"><div class="demo-time">1:10–1:25</div><div class="demo-action"><strong>Marketplace</strong> · กดผลสแกนเข้าเป็นการ์ด lot · roaster ในเบอร์ลินกำลัง browse · <em>"3 วันจากเชอร์รี่ถึงคำถาม"</em></div></div>
     <div class="demo-row"><div class="demo-time">1:25–1:30</div><div class="demo-action"><strong>ประโยคปิด</strong> · "สิ่งเดียวที่ขวางระหว่างชาวสวนดอยช้างกับ roaster เบอร์ลิน คือแอปขนาด 4 เมกะไบต์" · ค้าง · จบ</div></div>

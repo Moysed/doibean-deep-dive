@@ -60,7 +60,8 @@ Load Figtree from Google Fonts. JetBrains Mono too. No other fonts.
 - Roman numerals (I, II, III) Figtree 300 italic at large sizes
 - Emphasis on Latin: italic 500 in brick
 - For Thai script: weight 500 + brick color (NEVER `font-style: italic` on Thai — synthetic skew looks bad)
-- Numbers always lead. "84.5 SCA" not "Quality: 84.5"
+- Numbers always lead. "82–86 SCA" not "Quality: 82–86"
+- **Honest ranges, not false precision** — every score is a range with a confidence band, never a single decimal. Show the breakdown of what was measured (defects, size, color uniformity, density proxy) vs what's pending (sensory cup by Q-grader, 80 of 100 SCA pts).
 
 ### Screens to build (4 — keep tight)
 
@@ -76,8 +77,8 @@ Add a top tab nav with these 4 screens. Each should be polished, not a wireframe
 #### Screen 2 — Camera Scan & Score Reveal
 - Two-state screen with toggle button at top to flip between "Capture" and "Result"
 - **Capture state**: Faux camera viewfinder (gradient bg simulating camera) with overlay frame `ใช้กระดาษ A4 ขาว · กระจายเมล็ด 50 เม็ด`. Detected-bean count counter "47 / 50" in large mono. Big circular capture button (80px gold ring, brick center).
-- **Result state**: Q-grader cupping form. 6 criteria rows (fragrance, flavor, aftertaste, acidity, body, balance) each with a text-block bar like `████████░░` in brick + score number. Defect declaration row: `Cat-1: 0 · Cat-2: 3`. Final score in HUGE brick numerals (72px+): **84.5**. Stamp in corner rotated -8°: `SPECIALTY · ≥80 SCA` in brick border.
-- The result animates in: criteria bars fill left-to-right with 80ms stagger, number counter ticks 0→84.5 over 800ms.
+- **Result state**: Pre-screening report card. Top section is **what we measured from the photo**: defect declaration row `Cat-1: 0 · Cat-2: 3 (−6 pts)`, bean size row `Sc.17 87% · Sc.16 13%`, color uniformity row `93% σ < 0.08`, density proxy `7.2/10`. Range estimate in HUGE brick numerals (72px+): **82–86 SCA** with smaller `±2 confidence band` below. Stamp in corner rotated -8°: `LIKELY SPECIALTY · ≥80 SCA` in brick border. Below that is the **PENDING** section in stone-soft type: 6 sensory criteria (fragrance, flavor, aftertaste, acidity, body, balance) shown as EMPTY text-block placeholders `· · · · · · · · · ·` with the label `Q-GRADER CUP REQUIRED · 80 of 100 pts`. This is the honest contrast — the form shows what AI did and what humans must still do.
+- The result animates in: measured rows fill left-to-right with 80ms stagger; range counter ticks 80→82–86 over 800ms; the PENDING block stays empty (this is the honest visual moment, not a flaw).
 
 #### Screen 3 — Marketplace / Lot Browse (roaster view)
 - Switch to English for this screen (this is Pim the roaster's view)
@@ -86,7 +87,7 @@ Add a top tab nav with these 4 screens. Each should be polished, not a wireframe
   - Number plate: `LOT 047`
   - Origin line in mono: `DOI CHANG · CHIANG RAI · 1,420m`
   - Producer name in Figtree 500: `Udorn Sae-Ma`
-  - Score in giant brick numerals: `84.5`
+  - Score in giant brick numerals: `82–86` (range, never single decimal). Below in mono: `±2 SCA · sensory pending`
   - Mini bar viz for 3 cupping criteria using text blocks
   - Stamp rotated -8° in corner: `VERIFIED Q · 2026-11-14`
   - Hairline stone border, NO drop shadow, NO rounded corners over 4px
@@ -151,7 +152,7 @@ Use realistic Thai coffee specifics, not placeholders:
 - Varieties: Catimor, Typica, Caturra, SL28
 - Processes: Washed, Honey, Natural, Anaerobic
 - Similar-lot profile notes (database lookup, not AI-from-photo): floral, jasmine, citrus acidity, dark chocolate, panela, bergamot. Always label this with `(n=47 similar lots)` or `Roaster cup pending` to be honest about what's predicted vs measured.
-- Scores: 84.5, 86.0, 88.5, 82.0, 85.5
+- Score ranges (NEVER single decimals): 82–86, 84–88, 86–90, 80–84, 83–87. Always show with confidence band.
 - Roasters: Counter Culture, Roar Coffee Tokyo, Bonanza Berlin, Roots Bangkok
 
 ### Final output

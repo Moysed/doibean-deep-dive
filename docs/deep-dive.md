@@ -397,7 +397,7 @@ Persona 01 · Entry: scanner
 
 Speaks Akha at home, Northern Thai at market. Smartphone is shared with his wife. Five rai of mixed Catimor and Caturra at 1,300 m. Earns ฿80–120/kg green selling to a co-op buyer who arrives once a month. Has heard the word "specialty" but doesn't know what it means for him.
 
-**Why he installs:** a youth ambassador shows him the scanner result on his own beans — 84.5, specialty grade. He can't unsee that number.
+**Why he installs:** a youth ambassador shows him the scanner result on his own beans — **0 Cat-1 defects, only 3 Cat-2, Screen 17 uniform — Likely Specialty (82–86 SCA range).** He can't unsee what the lab number means.
 
 Persona 02 · Entry: variety advisor
 
@@ -550,7 +550,7 @@ A storyboard. Numbers are wallpaper; a live scan is a punch in the chest.
 
 0:25–0:50
 
-**Live scan on stage.** Real beans, real phone, real result. Hold the screen up. Read the SCA score aloud — *84.5, specialty grade*. Audience hears the number; that is the moment.
+**Live scan on stage.** Real beans, real phone, real result. Hold the screen up. Read the result aloud — *0 Cat-1 defects, 3 Cat-2, range 82–86 SCA, Likely Specialty Grade.* Then say what 80% of the score still needs: "Q-grader cup confirms the rest." That honesty is the moment.
 
 0:50–1:10
 

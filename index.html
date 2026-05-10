@@ -718,14 +718,18 @@
       </header>
       <div class="module-body" style="grid-template-columns:1fr">
         <p>Spread fifty to a hundred green beans on white A4 paper (free kit shipped to farmer). Phone camera captures. <strong>MobileNetV3 fine-tuned on SCA defect taxonomy</strong> classifies every visible bean.</p>
-        <pre class="scan-output"><span class="lbl">SCA Score Estimate</span> <span class="val">84.5</span>  <span class="pass">✓ Specialty Grade</span>
-<span class="lbl">Cat-1 Defects</span>     <span class="pass">0  ✓</span>
-<span class="lbl">Cat-2 Defects</span>     <span class="warn">3 (2 partial sour, 1 floater)</span>
-<span class="lbl">Bean Size</span>         Screen 17 (87%), Screen 16 (13%)
-<span class="lbl">Similar-Lot Profile</span> floral, jasmine, citrus  <span class="warn">(n=47 lookup)*</span>
-<span class="lbl">Suggested Roast</span>   light to medium-light
-<span class="lbl">Price Floor</span>       <span class="val">฿1,400/kg green</span></pre>
-        <p style="font-size:13px;color:var(--slate);margin-top:14px;max-width:62ch"><strong>* Honest framing:</strong> CV cannot infer flavor from a green bean photo. The "Similar-Lot Profile" line is a <em>database lookup</em> (variety + altitude + process + season → median Q-grader notes from comparable Doi Chang lots, 2023–2026). Real cupping notes come from the roaster cup after delivery and feed back into the system.</p>
+        <pre class="scan-output"><span class="lbl">Pre-screening Range</span>  <span class="val">82–86 SCA</span>  <span class="pass">✓ Likely Specialty</span>
+<span class="lbl">  Cat-1 Defects</span>      <span class="pass">0  ✓</span>                       <span class="warn">→ −0 pts</span>
+<span class="lbl">  Cat-2 Defects</span>      <span class="warn">3 (2 partial sour, 1 floater)</span>  <span class="warn">→ −6 pts</span>
+<span class="lbl">  Bean Size</span>          Screen 17 (87%), Screen 16 (13%)  <span class="pass">✓ uniform</span>
+<span class="lbl">  Color Uniformity</span>   93% σ &lt; 0.08                       <span class="pass">✓ consistent dry</span>
+<span class="lbl">  Density Proxy</span>      7.2 / 10                          <span class="pass">✓ high-altitude</span>
+<span class="lbl">  Confidence Band</span>    ±2 SCA
+<span class="lbl">Sensory Cup</span>          <span class="warn">PENDING — Q-grader scores 80 of 100 pts</span>
+<span class="lbl">Similar-Lot Profile</span>  floral, jasmine, citrus  <span class="warn">(n=47 lookup, roaster confirms)*</span>
+<span class="lbl">Suggested Roast</span>      light to medium-light  <span class="warn">(heuristic, not measurement)</span>
+<span class="lbl">Price Floor</span>          <span class="val">฿1,400/kg green</span>  <span class="warn">(lower bound of range)</span></pre>
+        <p style="font-size:13px;color:var(--slate);margin-top:14px;max-width:62ch"><strong>* What CV measures vs what humans must do:</strong> The score range comes from defect counts (Cat-1/Cat-2 deductions are SCA standard), bean size against the A4 paper as scale, color uniformity from histogram analysis, and a density proxy from bean shape. <strong>This represents ~20 SCA points of measurable signal.</strong> The remaining ~80 points (fragrance, flavor, aftertaste, acidity, body, balance, uniformity, clean-cup, sweetness, overall) require a certified Q-grader cup. The "Similar-Lot Profile" line is a database lookup over comparable Doi Chang lots (n=47, 2023–2026), not visual flavor prediction. Real cupping notes come from the roaster cup after delivery and feed back into the system.</p>
       </div>
       <div class="note">
         <div class="note-tag">Legal &amp; Trust Boundary</div>
@@ -813,7 +817,7 @@
         </div>
         <div class="persona-body">
           <p>Speaks Akha at home, Northern Thai at market. Smartphone is shared with his wife. Five rai of mixed Catimor and Caturra at 1,300 m. Earns ฿80–120/kg green selling to a co-op buyer who arrives once a month. Has heard the word "specialty" but doesn't know what it means for him.</p>
-          <p><strong>Why he installs:</strong> a youth ambassador shows him the scanner result on his own beans — 84.5, specialty grade. He can't unsee that number.</p>
+          <p><strong>Why he installs:</strong> a youth ambassador shows him the scanner result on his own beans — <strong>0 Cat-1 defects, only 3 Cat-2, Screen 17 uniform — Likely Specialty (82–86 SCA range).</strong> He can't unsee what the lab number means.</p>
         </div>
       </div>
       <div class="persona">
@@ -996,7 +1000,7 @@
     <h3>Storyboard</h3>
     <div class="demo-row"><div class="demo-time">0:00–0:10</div><div class="demo-action"><strong>Open on smoke.</strong> A photo of Doi Chang at dawn, burning season. "Every March, this is our farmer's office." Pause two beats.</div></div>
     <div class="demo-row"><div class="demo-time">0:10–0:25</div><div class="demo-action"><strong>The 25× on screen.</strong> Single number, no chart. "His beans sell here for ฿100. The same beans cost ฿2,500 in your Café Amazon. Where does the difference go?"</div></div>
-    <div class="demo-row"><div class="demo-time">0:25–0:50</div><div class="demo-action"><strong>Live scan on stage.</strong> Real beans, real phone, real result. Hold the screen up. Read the SCA score aloud — <em>84.5, specialty grade</em>. Audience hears the number; that is the moment.</div></div>
+    <div class="demo-row"><div class="demo-time">0:25–0:50</div><div class="demo-action"><strong>Live scan on stage.</strong> Real beans, real phone, real result. Hold the screen up. Read the result aloud — <em>0 Cat-1 defects, 3 Cat-2, range 82–86 SCA, Likely Specialty Grade.</em> Then say what 80% of the score still needs: "Q-grader cup confirms the rest." That honesty is the moment.</div></div>
     <div class="demo-row"><div class="demo-time">0:50–1:10</div><div class="demo-action"><strong>Variety advisor.</strong> Show the projected 2040 climate. "By the time his daughter takes over, this plot won't grow Caturra anymore. We tell him what to plant today."</div></div>
     <div class="demo-row"><div class="demo-time">1:10–1:25</div><div class="demo-action"><strong>Marketplace.</strong> Tap the scan into a lot card. A roaster in Berlin browsing. <em>"Three days from cherry to inquiry."</em></div></div>
     <div class="demo-row"><div class="demo-time">1:25–1:30</div><div class="demo-action"><strong>Closing line.</strong> "The only thing between a Doi Chang farmer and a Berlin roaster is a four-megabyte app." Hold. End.</div></div>
